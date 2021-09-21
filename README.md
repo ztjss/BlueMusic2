@@ -1,29 +1,23 @@
-# musicplayer1
+# musicplayer
 
-## Project setup
+## 介绍 
+使用Vue全家桶+element-ui+axios+网易云音乐接口做的一个PC端音乐播放器项目。
+目前实现了多个页面的基本样式，包括歌单，排行榜，歌手，最新音乐，视频MV，用户主页等。
+功能方面包括歌曲播放，歌词展示，播放列表，播放记录，搜索。
+还有些登录后才能使用的，如收藏歌手，歌单，视频，点赞视频，喜欢歌曲，发送评论，关注用户等。
+## 问题
+```
+对我来说是第一次写这么复杂的一个项目，还存在多未解决的问题和未知的bug。
+期间也是遇到不会的就去查，终于是基本成型了。
+暂时也没有做适配优化等，后续还有很大的优化空间。
+```
+
+## 安装
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+## 运行
 ```
 npm run serve
 ```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
