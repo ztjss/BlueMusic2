@@ -1,5 +1,5 @@
 # musicplayer
-##B站视频
+## B站视频
 https://www.bilibili.com/video/BV11g411c7dT?share_source=copy_web
 ## 介绍 
 使用Vue全家桶+element-ui+axios+网易云音乐接口做的一个PC端音乐播放器项目。
