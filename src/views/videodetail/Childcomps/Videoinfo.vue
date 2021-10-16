@@ -1,0 +1,153 @@
+<template>
+  <div class="video-info">
+    <!-- 作者 -->
+    <div class="auther">
+      <div class="block">
+        <el-avatar
+          :size="50"
+          :src="videoinfo.cover || videoinfo.avatarUrl"
+        ></el-avatar>
+      </div>
+      <span v-if="type == 'mv'" @click="toSingerDetail">{{ videoinfo.artistName }}</span>
+      <span v-if="videoinfo.creator" @click="toUserDetail">{{ videoinfo.creator.nickname}}</span>
+    </div>
+    <!-- 标题 -->
+    <div class="title">
+      <h2>{{ videoinfo.name || videoinfo.title }}</h2>
+    </div>
+    <div class="desc" v-if="videoinfo.description">
+      <p>{{ videoinfo.description }}</p>
+    </div>
+    <!-- 时间 -->
+    <div class="time">
+      <span>发布：{{ videoinfo.publishTime | showDate }}</span>
+      <span
+        >播放：{{ videoinfo.playCount || videoinfo.playTime | formatNum }}</span
+      >
+    </div>
+    <!-- 相关操作 -->
+    <div class="opreation">
+      <el-button   class="iconfont icon-dianzan"
+      :type="islike?'primary':''"
+        @click="likeVideo"
+      >{{islike?"已赞":"点赞"}}</el-button>
+      <el-button  
+      :icon="isSub?'el-icon-folder-checked':'el-icon-folder-add'"
+      :type="isSub?'primary':''"
+        @click="subMv"
+        >{{isSub?"已收藏":"收藏"}}</el-button>
+      <el-button  icon="el-icon-share">分享</el-button>
+    </div>
+  </div>
+</template>
+
+<script>
+import { formatDate } from "common/formatDate";
+export default {
+  name: "Videoinfo",
+  props: {
+    videoinfo: {
+      type: Object,
+      default() {
+        return {};
+      },
+    },
+    type: {
+      type: String,
+    },
+    isSub:{
+      type:Boolean,
+      default(){
+        return false
+      }
+    },
+    islike:{
+      type:Boolean,
+      default(){
+        return false
+      }
+    }
+  },
+  filters: {
+    showDate(value) {
+      const date = new Date(value);
+      return formatDate(date, "yyyy-MM-dd");
+    },
+  },
+
+  methods:{
+    // 收藏视频事件
+    subMv(){
+       // 先判断登录状态
+      if (!this.$store.state.isLogin) {
+        this.$message({
+          type: "warning",
+          message: "登录后才能收藏",
+          showClose: true,
+          center: true,
+        });
+        return;
+      }
+      this.$emit('subMvBy');
+    },
+    // 点赞视频
+    likeVideo(){
+      // 先判断登录状态
+      if (!this.$store.state.isLogin) {
+        this.$message({
+          type: "warning",
+          message: "登录后才能点赞",
+          showClose: true,
+          center: true,
+        });
+        return;
+      }
+      this.$emit('likeVideoBy');
+    },
+
+    toUserDetail(){
+      this.$router.push("/userdetail/" + this.videoinfo.creator.userId);
+    },
+    toSingerDetail(){
+      this.$router.push("/singerdetail/" + this.videoinfo.artistId);
+    },
+
+  }
+};
+</script>
+
+<style lang="less" scoped>
+.video-info {
+  .auther {
+    display: flex;
+    align-items: center;
+    padding-top: 15px;
+    color: #409EFF;
+    span {
+      padding-left: 10px;
+      cursor: pointer;
+    }
+  }
+  .title {
+    padding-top: 25px;
+  }
+  .desc {
+    padding-top: 10px;
+    color: #909399;
+  }
+  .time {
+    padding-top: 10px;
+    color: #909399;
+    span {
+      padding-right: 15px;
+    }
+  }
+  .opreation {
+    padding-top: 15px;
+  }
+}
+.sub {
+  background: #409eff;
+  color: #fff;
+}
+</style>
