@@ -69,3 +69,52 @@ export function logout(){
 }
 
 
+//注册账号
+//获取验证码
+export function getAuthcode(phone){
+    return request({
+        url:'/captcha/sent',
+        params:{
+            phone,
+        }
+    })
+}
+//验证验证码
+export function checkAuthcode(phone){
+    return request({
+        url:'/captcha/verify',
+        params:{
+            phone,
+        }
+    })
+}
+//注册(修改密码)
+export function register(phone,captcha,password,nickname){
+    return request({
+        url:'/register/cellphone',
+        params:{
+            phone,
+            captcha,
+            password,
+            nickname
+        }
+    })
+}
+// 检测手机号码是否已注册
+export function checkPhoneNum(phone){
+    return request({
+        url:'/cellphone/existence/check',
+        params:{
+            phone,
+        }
+    })
+}
+// 初始化昵称
+export function initNickName(nickname){
+    return request({
+        url:'/activate/init/profile',
+        params:{
+            nickname,
+        }
+    })
+}

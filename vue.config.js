@@ -10,6 +10,5 @@ module.exports = {
         views: "@/views",
       },
     },
-    
   },
 };
