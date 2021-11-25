@@ -4,8 +4,10 @@
     <div class="close" @click="closeLogin">
       <span class="iconfont icon-guanbi1"></span>
     </div>
+
     <!-- 手机号登录 -->
     <div class="phone-login" v-if="loginWay == 0">
+      <h2>手机号登录</h2>
       <!-- logo -->
       <div class="imgs">
         <img src="~assets/imgs/music-icon.png" alt="" />
@@ -27,13 +29,19 @@
               placeholder="请输入密码"
             ></el-input>
           </el-form-item>
-          <el-form-item class="plogin-btn">
-            <el-button type="primary" @click="phoneLogin">登录</el-button>
-            <el-button>注册</el-button>
-          </el-form-item>
         </el-form>
       </div>
-      <div class="other-way" @click="changeLoginWay(1)" style="margin-top:40px">
+      <div class="btn">
+        <el-button type="primary" @click="phoneLogin">登录</el-button>
+      </div>
+      <div class="btn">
+        <el-button @click="changeLoginWay(2)">注册</el-button>
+      </div>
+      <div
+        class="other-way"
+        @click="changeLoginWay(1)"
+        style="margin-top: 30px"
+      >
         <span
           ><i class="iconfont icon-erweima1"></i> <i class="text">扫码登录</i>
         </span>
@@ -41,26 +49,83 @@
     </div>
 
     <!-- 扫码登录 -->
-    <div class="qr-login" v-else>
+    <div class="qr-login" v-else-if="loginWay == 1">
       <div class="qr">
-        <h1>扫码登录</h1>
+        <h2>扫码登录</h2>
         <img :src="qrurl" alt="" />
         <p class="failqr" v-if="failqr">
           二维码已失效，<span @click="qrLogin">点击刷新</span>
         </p>
         <p class="text">
-          使用<span style="color:#5292fe;">网易云音乐APP</span>扫码登录
+          使用<span style="color: #5292fe">网易云音乐APP</span>扫码登录
         </p>
         <!-- 其他登录方式 -->
         <div
           class="other-way"
           @click="changeLoginWay(0)"
-          style="margin-top: 90px;"
+          style="margin-top: 30px"
         >
           <span>
             <i class="iconfont icon-tel"></i>
             <i class="text"> 手机号登录</i></span
           >
+        </div>
+        <p
+          class="other-way"
+          style="padding-top: 50px"
+          @click="changeLoginWay(2)"
+        >
+          <span>还没有账号，去注册</span>
+        </p>
+      </div>
+    </div>
+
+    <!-- 注册新用户 -->
+    <div class="register" v-else>
+      <h2>注册新用户</h2>
+      <div class="reg-form">
+        <el-form label-position="right" label-width="70px">
+          <el-form-item label="手机号">
+            <el-input
+              type="telphone"
+              v-model="ResPhoneNum"
+              placeholder="请输入手机号"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="密码">
+            <el-input
+              type="password"
+              v-model="ResPassword"
+              placeholder="请输入密码"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="确认密码">
+            <el-input
+              type="password"
+              v-model="valPassword"
+              placeholder="请再次输入密码"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="昵称">
+            <el-input
+              type="text"
+              v-model="nickname"
+              placeholder="请输入昵称"
+            ></el-input>
+          </el-form-item>
+          <el-form-item label="验证码" class="captcha-input">
+            <el-input v-model="captcha" placeholder="请输入验证码"></el-input>
+            <div class="captcha-btn" @click="getCaptcha" v-if="!isGetCaptcha">获取验证码</div>
+            <div class="captcha" v-else>{{tip}}</div>
+          </el-form-item>
+        </el-form>
+      </div>
+      <div class="reg-btns">
+        <div class="reg-btn">
+          <el-button type="primary" @click="register">注册</el-button>
+        </div>
+        <div class="reg-btn">
+          <el-button @click="changeLoginWay(0)">返回登录</el-button>
         </div>
       </div>
     </div>
@@ -73,35 +138,45 @@ import {
   getLoginQr,
   checkLoginQr,
   getUserAccount,
+  getAuthcode,
+  checkAuthcode,
+  register,
+  checkPhoneNum,
 } from "network/login/login";
 import { getUserSonglist, getUserDetail } from "network/userdetail/userdetail";
-import {getLikSongList} from "network/playmusic/playmusic.js";
+import { getLikSongList } from "network/playmusic/playmusic.js";
 export default {
   name: "LoginPop",
   data() {
     return {
       PhoneNum: "",
       Password: "",
-      loginWay: 1,
+      loginWay: 0,
       qrurl: "",
       timer: "",
       failqr: false,
+      ResPhoneNum: "", //注册手机号
+      ResPassword: "", //注册密码
+      valPassword: "", //验证密码
+      captcha: "", //验证码
+      nickname: "", //昵称
+      isGetCaptcha: false, //是否获取验证码
+      tip: "",
     };
   },
-  created() {
-    this.qrLogin();
-  },
+  created() {},
   methods: {
     // 关闭登录框
     closeLogin() {
       this.$emit("closeLogin");
       clearInterval(this.timer);
     },
+
     // 切换登录方式
     changeLoginWay(way) {
       this.loginWay = way;
       // 如果是手机号登录就清除二维码登录的定时器
-      if (way === 0) {
+      if (way !== 1) {
         clearInterval(this.timer);
       }
       // 二维码登录
@@ -205,7 +280,6 @@ export default {
       this.$store.dispatch("saveUserInfo", res.data.profile);
       // 获取用户歌单数据
       this.getUserSonglistBy(res.data.profile.userId);
-      
     },
     // 获取用户歌单和喜欢的音乐数据
     getUserSonglistBy(uid) {
@@ -219,7 +293,76 @@ export default {
         this.$store.dispatch("saveLikeSongIds", res.data.ids);
       });
     },
-    
+
+    // 点击获取验证码
+    getCaptcha() {
+      // 检测手机号码是否输入
+      if (this.ResPhoneNum === "") {
+        this.$message({
+          showClose: true,
+          message: "请先输入手机号",
+          type: "warning",
+          center: true,
+        });
+      } else {
+        // 检测手机号是否注册
+        checkPhoneNum(this.ResPhoneNum).then((res) => {
+          if (res.data.exist === 1) {
+            this.$message({
+              showClose: true,
+              message: "该手机号已注册",
+              type: "warning",
+              center: true,
+            });
+          } else if (res.data.exist === -1) {
+            // 获取验证码
+            getAuthcode(this.ResPhoneNum).then((res) => {
+              // 获取成功
+              if (res.data.code === 200) {
+                this.$message({
+                  showClose: true,
+                  message: "验证码已发送",
+                  type: "success",
+                  center: true,
+                });
+                this.isGetCaptcha = true;
+                let count = 60;
+                this.tip = `请${count}秒后再获取`;
+                let timerC=setInterval(() => {
+                  count--;
+                  this.tip = `请${count}秒后再获取`;
+                  if (count === 0) {
+                    this.isGetCaptcha = false;
+                    clearInterval(timerC)
+                  }
+                }, 1000);
+              } else {
+                // 获取失败
+                this.$message({
+                  showClose: true,
+                  message: "手机号不符合规范",
+                  type: "warning",
+                  center: true,
+                });
+              }
+            });
+          }
+        });
+      }
+      // 获取成功
+    },
+
+    //点击注册按钮事件
+    register() {
+      // 检查验证码
+      checkAuthcode(this.ResPhoneNum).then(res=>{
+        console.log(res);
+        // 注册
+        register(this.ResPhoneNum,this.captcha,this.ResPassword,this.nickname).then(res=>{
+          console.log(res);
+        })
+      })
+    },
   },
 };
 </script>
@@ -247,22 +390,33 @@ export default {
     }
   }
 }
-.phone-login {
-  .imgs {
-    width: 200px;
-    height: 200px;
-    margin: 0 auto;
-    img {
-      width: 100%;
-    }
-    padding-bottom: 20px;
+.imgs {
+  width: 150px;
+  height: 150px;
+  margin: 0 auto;
+  img {
+    width: 100%;
   }
-  .form {
-    padding-right: 30px;
+  padding-bottom: 20px;
+}
+.form {
+  padding-right: 30px;
+}
+.phone-login {
+  .el-form-item {
+    margin-bottom: 12px;
+  }
+  .btn {
+    width: 250px;
+    margin: 0 auto 12px;
+    transform: translateX(20px);
   }
 }
 .qr-login {
   .qr {
+    h2 {
+      margin-top: 20px;
+    }
     width: 100%;
     margin-bottom: 50px;
     img {
@@ -283,5 +437,45 @@ export default {
     color: #5292fe;
     cursor: pointer;
   }
+}
+.register {
+  h2 {
+    margin-top: 20px;
+  }
+  .reg-form {
+    margin-top: 20px;
+    padding-right: 30px;
+    .captcha-input {
+      position: relative;
+      .captcha-btn {
+        position: absolute;
+        right: 5px;
+        top: 0;
+        cursor: pointer;
+        font-size: 12px;
+        color: #5292fe;
+      }
+      .captcha{
+        position: absolute;
+        right: 5px;
+        top: 0;
+        font-size: 12px;
+        color: #999;
+      }
+    }
+  }
+  .reg-btns {
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto 12px;
+    transform: translateX(18px);
+    .reg-btn {
+      width: 48%;
+    }
+  }
+}
+.el-button {
+  width: 100%;
 }
 </style>

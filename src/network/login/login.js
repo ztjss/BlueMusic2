@@ -79,7 +79,7 @@ export function getAuthcode(phone){
         }
     })
 }
-//验证验证码
+//检查验证码
 export function checkAuthcode(phone){
     return request({
         url:'/captcha/verify',
