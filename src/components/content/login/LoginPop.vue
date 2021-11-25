@@ -84,45 +84,58 @@
     <div class="register" v-else>
       <h2>注册新用户</h2>
       <div class="reg-form">
-        <el-form label-position="right" label-width="70px">
-          <el-form-item label="手机号">
+        <el-form
+          label-position="right"
+          label-width="70px"
+          :model="ruleForm"
+          :rules="rules"
+          ref="ruleForm"
+        >
+          <el-form-item label="手机号" prop="phone">
             <el-input
               type="telphone"
-              v-model="ResPhoneNum"
+              v-model="ruleForm.phone"
               placeholder="请输入手机号"
             ></el-input>
           </el-form-item>
-          <el-form-item label="密码">
+          <el-form-item label="密码" prop="pass">
             <el-input
               type="password"
-              v-model="ResPassword"
-              placeholder="请输入密码"
+              v-model="ruleForm.pass"
+              placeholder="密码为8~20位，必须包含字母数字"
             ></el-input>
           </el-form-item>
-          <el-form-item label="确认密码">
+          <el-form-item label="确认密码" prop="checkPass">
             <el-input
               type="password"
-              v-model="valPassword"
-              placeholder="请再次输入密码"
+              v-model="ruleForm.checkPass"
+              placeholder="请确认密码"
             ></el-input>
           </el-form-item>
-          <el-form-item label="昵称">
+          <el-form-item label="昵称" prop="nickname">
             <el-input
               type="text"
-              v-model="nickname"
+              v-model="ruleForm.nickname"
               placeholder="请输入昵称"
             ></el-input>
           </el-form-item>
-          <el-form-item label="验证码" class="captcha-input">
-            <el-input v-model="captcha" placeholder="请输入验证码"></el-input>
-            <div class="captcha-btn" @click="getCaptcha" v-if="!isGetCaptcha">获取验证码</div>
-            <div class="captcha" v-else>{{tip}}</div>
+          <el-form-item label="验证码" prop="captcha" class="captcha-input">
+            <el-input
+              v-model="ruleForm.captcha"
+              placeholder="请输入验证码"
+            ></el-input>
+            <div class="captcha-btn" @click="getCaptcha" v-if="!isGetCaptcha">
+              获取验证码
+            </div>
+            <div class="captcha" v-else>{{ tip }}</div>
           </el-form-item>
         </el-form>
       </div>
       <div class="reg-btns">
         <div class="reg-btn">
-          <el-button type="primary" @click="register">注册</el-button>
+          <el-button type="primary" @click="register('ruleForm')"
+            >注册</el-button
+          >
         </div>
         <div class="reg-btn">
           <el-button @click="changeLoginWay(0)">返回登录</el-button>
@@ -148,20 +161,72 @@ import { getLikSongList } from "network/playmusic/playmusic.js";
 export default {
   name: "LoginPop",
   data() {
+    //注册表单验证规则
+    var validatePhone = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入手机号"));
+      } else {
+        if (value.trim().length !== 11) {
+          callback(new Error("手机号格式不正确"));
+        }
+        callback();
+      }
+    };
+    var validatePass = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入密码"));
+      } else {
+        if (this.ruleForm.checkPass !== "") {
+          this.$refs.ruleForm.validateField("checkPass");
+        }
+        callback();
+      }
+    };
+    var validatePass2 = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请再次输入密码"));
+      } else if (value !== this.ruleForm.pass) {
+        callback(new Error("两次输入密码不一致!"));
+      } else {
+        callback();
+      }
+    };
+    var validateName = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入昵称"));
+      }
+      callback();
+    };
+    var validateCaptcha = (rule, value, callback) => {
+      if (value === "") {
+        callback(new Error("请输入验证码"));
+      }
+      callback();
+    };
     return {
-      PhoneNum: "",
-      Password: "",
-      loginWay: 0,
-      qrurl: "",
-      timer: "",
-      failqr: false,
-      ResPhoneNum: "", //注册手机号
-      ResPassword: "", //注册密码
-      valPassword: "", //验证密码
-      captcha: "", //验证码
-      nickname: "", //昵称
+      PhoneNum: "", //登录手机号
+      Password: "", //登录密码
+      loginWay: 0, //登录方式
+      qrurl: "", //二维码路径
+      timer: "", //轮询二维码的定时器
+      failqr: false, //控制二维码失效显示文本
       isGetCaptcha: false, //是否获取验证码
-      tip: "",
+      tip: "", //获取验证码后的文字提示
+
+      ruleForm: {
+        phone: "", //注册手机号
+        pass: "", //注册密码
+        checkPass: "", //验证密码
+        nickname: "", //昵称
+        captcha: "", //验证码
+      },
+      rules: {
+        phone: [{ validator: validatePhone, trigger: "blur" }],
+        pass: [{ validator: validatePass, trigger: "blur" }],
+        checkPass: [{ validator: validatePass2, trigger: "blur" }],
+        nickname: [{ validator: validateName, trigger: "blur" }],
+        captcha: [{ validator: validateCaptcha, trigger: "blur" }],
+      },
     };
   },
   created() {},
@@ -178,6 +243,7 @@ export default {
       // 如果是手机号登录就清除二维码登录的定时器
       if (way !== 1) {
         clearInterval(this.timer);
+        this.$refs.ruleForm.resetFields(); //重置注册表单
       }
       // 二维码登录
       if (way === 1) {
@@ -281,6 +347,7 @@ export default {
       // 获取用户歌单数据
       this.getUserSonglistBy(res.data.profile.userId);
     },
+
     // 获取用户歌单和喜欢的音乐数据
     getUserSonglistBy(uid) {
       let timestamp = Date.parse(new Date());
@@ -297,7 +364,7 @@ export default {
     // 点击获取验证码
     getCaptcha() {
       // 检测手机号码是否输入
-      if (this.ResPhoneNum === "") {
+      if (this.ruleForm.phone === "") {
         this.$message({
           showClose: true,
           message: "请先输入手机号",
@@ -306,7 +373,7 @@ export default {
         });
       } else {
         // 检测手机号是否注册
-        checkPhoneNum(this.ResPhoneNum).then((res) => {
+        checkPhoneNum(this.ruleForm.phone).then((res) => {
           if (res.data.exist === 1) {
             this.$message({
               showClose: true,
@@ -316,7 +383,7 @@ export default {
             });
           } else if (res.data.exist === -1) {
             // 获取验证码
-            getAuthcode(this.ResPhoneNum).then((res) => {
+            getAuthcode(this.ruleForm.phone).then((res) => {
               // 获取成功
               if (res.data.code === 200) {
                 this.$message({
@@ -328,12 +395,12 @@ export default {
                 this.isGetCaptcha = true;
                 let count = 60;
                 this.tip = `请${count}秒后再获取`;
-                let timerC=setInterval(() => {
+                let timerC = setInterval(() => {
                   count--;
                   this.tip = `请${count}秒后再获取`;
                   if (count === 0) {
                     this.isGetCaptcha = false;
-                    clearInterval(timerC)
+                    clearInterval(timerC);
                   }
                 }, 1000);
               } else {
@@ -349,19 +416,34 @@ export default {
           }
         });
       }
-      // 获取成功
     },
 
     //点击注册按钮事件
-    register() {
-      // 检查验证码
-      checkAuthcode(this.ResPhoneNum).then(res=>{
-        console.log(res);
-        // 注册
-        register(this.ResPhoneNum,this.captcha,this.ResPassword,this.nickname).then(res=>{
-          console.log(res);
-        })
-      })
+    register(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          // 检查验证码
+          checkAuthcode(this.ruleForm.phone).then((res) => {
+            console.log(res);
+            // 注册
+            register(
+              this.ruleForm.phone,
+              this.captcha,
+              this.ruleForm.pass,
+              this.ruleForm.nickname
+            ).then((res) => {
+              console.log(res);
+            });
+          });
+        } else {
+          this.$message({
+            showClose: true,
+            message: "请填写完整表单",
+            type: "warning",
+            center: true,
+          });
+        }
+      });
     },
   },
 };
@@ -374,10 +456,10 @@ export default {
   left: 50%;
   transform: translateX(-50%);
   z-index: 99;
-  box-shadow: 0px 0px 5px 5px #eef;
+  box-shadow: 0px 0px 5px 5px #eee;
   background: #dcdcdc;
   border-radius: 10px;
-  width: 350px;
+  width: 370px;
   height: 480px;
   background: #fff;
   text-align: center;
@@ -407,7 +489,7 @@ export default {
     margin-bottom: 12px;
   }
   .btn {
-    width: 250px;
+    width: 270px;
     margin: 0 auto 12px;
     transform: translateX(20px);
   }
@@ -440,11 +522,11 @@ export default {
 }
 .register {
   h2 {
-    margin-top: 20px;
+    margin-top: 10px;
   }
   .reg-form {
     margin-top: 20px;
-    padding-right: 30px;
+    padding-right: 20px;
     .captcha-input {
       position: relative;
       .captcha-btn {
@@ -455,7 +537,7 @@ export default {
         font-size: 12px;
         color: #5292fe;
       }
-      .captcha{
+      .captcha {
         position: absolute;
         right: 5px;
         top: 0;
@@ -473,6 +555,9 @@ export default {
     .reg-btn {
       width: 48%;
     }
+  }
+  /deep/ .el-form-item__label {
+    padding-right: 5px;
   }
 }
 .el-button {
