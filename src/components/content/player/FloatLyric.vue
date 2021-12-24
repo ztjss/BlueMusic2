@@ -6,9 +6,7 @@
 				<span class="iconfont icon-guanbi1" @click="closeFloatLyric"></span>
 			</div>
 			<!-- 没有歌词时 -->
-			<div style="font-size:18px;line-height: 60px;color: #409eff;" v-if="currentLyric.length == 0">
-				暂无歌词
-			</div>
+			<div style="font-size: 18px; line-height: 60px; color: #409eff" v-if="currentLyric.length == 0">暂无歌词</div>
 			<!-- 有歌词时 -->
 			<div id="scrollLyric" ref="scrollLyric" v-else>
 				<ul>
@@ -30,7 +28,6 @@ export default {
 		return {
 			currentRow: "", //当前播放的歌词行数
 			isShowBg: true,
-			timer: null,
 		};
 	},
 	computed: {
@@ -56,7 +53,7 @@ export default {
 				lyric.style.top = e.pageY - y + "px";
 			}
 			// 鼠标松开，就停止拖拽，让鼠标移动事件解除
-			document.addEventListener("mouseup", function() {
+			document.addEventListener("mouseup", function () {
 				document.removeEventListener("mousemove", move);
 			});
 		},

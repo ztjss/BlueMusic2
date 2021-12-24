@@ -16,10 +16,8 @@
 					</div>
 					<!-- 唱片旋转 -->
 					<div class="record record-rotate" :class="{ startRotate: isPlaying }">
-						<!-- <div class="circle"> -->
 						<img class="cp2" src="~assets/imgs/cp2.png" alt="" />
 						<img class="cover" :src="nowSongDetail.al.picUrl" alt="" />
-						<!-- </div> -->
 					</div>
 					<img :src="nowSongDetail.al.picUrl" alt="" class="song-bgImg" />
 				</div>
@@ -34,10 +32,10 @@
 							歌手：<span @click="toSinger">{{ nowSongDetail.ar[0].name }}</span>
 						</p>
 					</div>
-					<div class="bd" id="scrollLyric" ref="scrollLyric">
+					<div class="bd">
 						<!-- 有歌词时 -->
-						<!-- <div class="plac" style="height:135px"></div> -->
-						<ul>
+						<!-- <div class="plac" style="height: 135px"></div> -->
+						<ul id="scrollLyric" ref="scrollLyric">
 							<li v-for="(item, index) in formatlyric" :key="index" :class="{ currentLyric: currentRow == index }" @click="lyricClick(item, index)">
 								{{ item.text.trim() }}
 							</li>
@@ -74,13 +72,13 @@ export default {
 	name: "PlayingSongDetail",
 	components: { CommentPage },
 	computed: {
-		...mapGetters(["isPlaying", "nowSongDetail", "currentSecond", "isShowSongDetail"]),
+		...mapGetters(["isPlaying", "nowSongDetail", "currentSecond", "isShowSongDetail", "currentRow"]),
 	},
 	data() {
 		return {
 			lyric: "",
 			formatlyric: [], //格式化后的歌词
-			currentRow: "", //当前播放的歌词行数
+			// currentRow: "", //当前播放的歌词行数
 		};
 	},
 	created() {
@@ -99,7 +97,6 @@ export default {
 				if (res.data.nolyric) return; //如果没有歌词就return
 				this.lyric = res.data.lrc.lyric;
 				this.formatLyric(this.lyric);
-				console.log(this.lyric);
 				this.$store.dispatch("saveCurrentLyric", this.formatlyric);
 			});
 		},
@@ -116,7 +113,7 @@ export default {
 				// 通过pop()方法得到每行歌词文本
 				let lryic_row_text = lyric_row_arr.pop();
 				// 处理每行歌词时间
-				lyric_row_arr.forEach(item => {
+				lyric_row_arr.forEach((item, index) => {
 					let LyricRowObj = {};
 					let time_arr = item.substr(1, item.length - 1).split(":"); //去掉"[",并且分离出 分钟和秒
 					// 将每行歌词时间转换为秒
@@ -179,20 +176,23 @@ export default {
 		},
 	},
 	watch: {
-		// 监听当前时间的变化 通过修改translateY值实现滚动
+		// 监听当前时间的变化，实现滚动
 		currentSecond() {
 			// 遍历格式化后的歌词数组
 			this.formatlyric.forEach((item, index) => {
 				// 如果歌曲当前秒数和歌词数组中的秒数相等
-				if (Math.floor(this.currentSecond) ==item.time) {
-					//  设置的每行歌词高度为45px，所以每次移动索引号乘以45px
+				//这里写==可以在使用原生scroll实现歌词滚动的时候不抖动，如果写>=会抖动
+				if (Math.ceil(this.currentSecond) == item.time) {
+					//  设置的每行歌词高度为45px，所以每次移动索引号乘以45
+					//.1 使用位移来实现歌词滚动
 					// this.$refs.scrollLyric.style.transform = `translateY(${-45 * index}px)`;
-					// let top =item.offsetTop- this.$refs.scrollLyric.offsetTop-"135px";
+					//.2 使用原生scroll实现歌词滚动
 					this.$refs.scrollLyric.scrollTo({
-						top:45*index,
+						top: 45 * index,
 						behavior: "smooth",
 					});
-					this.currentRow = index; //用于判断当前歌词高亮显示
+					this.$store.commit("saveCurrentRow", index); //用于判断当前歌词高亮显示(使用vuex是因为在footer中使用到了currentRow)
+					// this.currentRow = index; //用于判断当前歌词高亮显示
 				}
 			});
 		},
@@ -314,13 +314,14 @@ export default {
 					margin-top: 20px;
 					height: 315px;
 					text-align: center;
-					overflow-y: auto;
-					transition: all .5s;
+					overflow-y: hidden;
 					// 有歌词
 					ul {
-						// transform: translateY(0);
+						height: 100%;
 						padding-top: 135px;
-						// transition: all .5s;
+						overflow: auto;
+						// transform: translateY(0);
+						// transition: all 0.5s;
 						li {
 							height: 45px;
 							line-height: 45px;

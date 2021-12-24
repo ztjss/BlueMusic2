@@ -21,7 +21,7 @@
 						<img :src="nowSongDetail.al.picUrl" alt="" />
 					</div>
 					<div class="songname">
-						<p style="padding-bottom:5px">{{ nowSongDetail.name }}</p>
+						<p style="padding-bottom: 5px">{{ nowSongDetail.name }}</p>
 						<p class="by">{{ nowSongDetail.ar[0].name }}</p>
 					</div>
 					<!-- 喜欢该歌曲 -->
@@ -32,11 +32,9 @@
 				<!-- 没有音乐时 -->
 				<div class="cover-content" v-if="Object.keys(nowSongDetail).length == 0" @click="showSongDetail">
 					<div class="cover">
-						<img src="../assets/imgs/music-icon.png" style="width:130%" />
+						<img src="../assets/imgs/music-icon.png" style="width: 130%" />
 					</div>
-					<div class="songname">
-						暂无音乐
-					</div>
+					<div class="songname">暂无音乐</div>
 				</div>
 			</div>
 			<!-- 中间播放控制 -->
@@ -127,12 +125,12 @@ export default {
 	name: "Footer",
 	components: { PlayingList },
 	computed: {
-		...mapGetters(["isLogin", "userInfo", "songUrl", "isPlaying", "playingList", "nowSongDetail", "playModel", "likeSongIds", "currentSecond"]),
+		...mapGetters(["isLogin", "userInfo", "songUrl", "isPlaying", "playingList", "nowSongDetail", "playModel", "likeSongIds", "currentSecond", "currentLyric", "currentRow"]),
 	},
 	data() {
 		return {
 			isShowDrawer: false, //是否显示播放列表
-			totalSecond: "", // 歌曲总秒数
+			// totalSecond: "", // 歌曲总秒数
 			totalTime: "", //歌曲总时长(分钟)
 			currentTime: "", //歌曲当前处于的时间(分钟)
 			songProgress: 0, //歌曲时间进度条
@@ -188,24 +186,37 @@ export default {
     */
 		// 音频数据加载完后的事件
 		onLoadedmetadata(res) {
-			// console.log(res);
 			this.totalSecond = res.target.duration; //获取总秒数
-			this.totalTime = formatDuration(res.target.duration); //格式化为分钟
+			this.totalTime = formatDuration(this.totalSecond); //格式化为分钟
 		},
 		// 监听时间的改变
 		onTimeupdate(res) {
-			let currentSecond = res.target.currentTime; //歌曲当前秒数
+			// let currentSecond = res.target.currentTime; //歌曲当前秒数
 			// 提交歌曲播放的实时秒数 用于歌词的实时滚动
-			this.$store.dispatch("saveCurrentSeconds", currentSecond);
+			this.$store.dispatch("saveCurrentSeconds", res.target.currentTime);
 			// 格式化为分钟
 			this.currentTime = formatDuration(res.target.currentTime);
 			// 歌曲当前时间改变后，时间进度条也要改变
-			this.songProgress = Math.floor((currentSecond / this.totalSecond) * 100);
+			this.songProgress = Math.ceil((res.target.currentTime / this.totalSecond) * 100);
 		},
 		// 拖动时间进度条，改变当前时间，
 		// len是进度条改变时的回调函数的参数0-100之间，需要换算成实际时间拖动进度条，
 		changeSongProgress(len) {
-			this.$refs.audioplay.currentTime = Math.floor((len / 100) * this.totalSecond);
+			// 直接赋值当前播放秒数，在播放详情页监听时间变化的回调，不能使歌词立即滚动到对应位置
+			// 需要在这里直接手动让歌词滚动到对应位置
+			let currentSecond = Math.ceil((len / 100) * this.totalSecond); //当前播放秒数
+			this.currentLyric.forEach((item, index) => {
+				//这里写>=可以立即滚动到对应位置
+				if (currentSecond >= item.time) {
+					this.$store.commit("saveCurrentRow", index); //用于判断当前歌词高亮显示
+					let scrollLyric = document.querySelector("#scrollLyric");
+					scrollLyric.scrollTo({
+						top: 45 * index,
+						behavior: "smooth",
+					});
+				}
+			});
+			this.$refs.audioplay.currentTime = currentSecond; // 赋值给音频标签当前播放秒数
 		},
 		// 进度条拖动时，显示当前值,格式化formatTooltip
 		formatTooltip(val) {
