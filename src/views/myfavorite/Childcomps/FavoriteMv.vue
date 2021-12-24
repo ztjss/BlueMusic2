@@ -28,12 +28,9 @@ export default {
   },
   methods: {
     getSubMvBy() {
-      // 定义一个时间戳 每次获得最新的数据
-      let timestamp = Date.parse(new Date());
-      getSubMv(timestamp).then((res) => {
+      getSubMv().then((res) => {
         this.favoriteMv = res.data.data;
         this.mvcount = res.data.count;
-        // console.log(this.favoriteMv);
         this.$store.dispatch("saveFavoriteMv", res.data.data);
       });
     },

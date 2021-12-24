@@ -19,11 +19,10 @@
     <!-- 歌曲列表 -->
     <div class="bd">
       <el-table
-        stripe
         :show-header="false"
         style="width: 100%;"
         :data="musiclist"
-        @row-dblclick="playNowSong"
+        @row-dblclick="playMusic"
         :row-class-name="tableRowClassName"
         empty-text="数据加载中~"
       >
@@ -39,7 +38,7 @@
         </el-table-column>
         <el-table-column prop="album.picUrl" label="封面" width="80">
           <template v-slot="scope">
-            <div class="cover" @click="playNowSong(scope.row)">
+            <div class="cover" @click="playMusic(scope.row)">
               <img v-lazy="scope.row.album.picUrl" />
               <div class="mask"><span class="iconfont icon-play1"></span></div>
             </div>
@@ -185,7 +184,7 @@ export default {
       return nowSongInfo;
     },
     //播放音乐
-    playNowSong(song) {
+    playMusic(song) {
       checkMusic(song.id).then((res) => {
         // 提交歌曲url
         getSongUrl(song.id).then((res) => {
@@ -208,9 +207,9 @@ export default {
     // 实现当前播放歌曲行高亮
     tableRowClassName({ row, rowIndex }) {
       row.index = rowIndex;
-      if (row.id == this.nowSongDetail.id) {
-        return "rowCurrent";
-      }
+      if (rowIndex % 2 !==  0) {
+				return "rowEven";
+			}
     },
     // 点击歌手 去往歌手页面
     toSinger(id) {

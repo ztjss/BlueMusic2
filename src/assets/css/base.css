@@ -164,10 +164,9 @@ h4 {
 
 
 /* el表格绑定样式 */
-/* .el-table .rowCurrent {
-  color: #5292fe;
-  font-weight: 700;
-} */
+.el-table .rowEven {
+  background: #f9f9f9;
+}
 
 /* 去除el-tabs的底部边框 */
 .el-tabs__nav-wrap::after {

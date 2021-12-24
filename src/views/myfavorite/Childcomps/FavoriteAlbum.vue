@@ -26,12 +26,9 @@ export default {
   },
   methods: {
     getSubAlbumBy() {
-      // 定义一个时间戳 每次获得最新的数据
-      let timestamp = Date.parse(new Date());
-      getSubAlbum(timestamp).then((res) => {
+      getSubAlbum().then((res) => {
           this.favoriteAlbum=res.data.data;
           this.albumcount=res.data.count;
-        //   console.log(this.favoritealbum);
         this.$store.dispatch('saveFavoriteAlbum', res.data.data);
       });
     },
@@ -44,13 +41,6 @@ export default {
           this.albumcount=this.subAlbumlist.length;
       }
   },
-  // watch: {
-  //   subAlbumlist(current) {
-  //     this.favoriteAlbum= current;
-  //     this.albumcount=current.length;
-  //   },
-  // },
-
 };
 </script>
 

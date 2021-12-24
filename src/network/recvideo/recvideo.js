@@ -103,11 +103,11 @@ export function getVideoUrl(id){
     })
 }
 // 获取用户点赞的视频
-export function getLikeVideo(timestamp){
+export function getLikeVideo(){
     return request({
         url:"/playlist/mylike",
         params:{
-            timestamp,
+            timestamp:Date.parse(new Date()),
             limit:1000
             
         } 

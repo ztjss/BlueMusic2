@@ -43,10 +43,8 @@ export default {
     getSearchVideoBy(page=1) {
       let offset = (page - 1) * 40;
       getSearchVideo(this.keywords, offset).then((res) => {
-          // console.log(res);
         this.videoRes = res.data.result.videos;
         this.videoResCount = res.data.result.videoCount;
-        // console.log(this.videoRes);
       });
     },
     changvideoPage(page) {

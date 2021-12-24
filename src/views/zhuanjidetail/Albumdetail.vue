@@ -27,7 +27,8 @@
         <!-- 专辑详情 -->
         <el-tab-pane label="专辑详情">
           <div class="album-desc">
-            <p>{{ albuminfo.description }}</p>
+            <p v-if="albuminfo.description">{{ albuminfo.description }}</p>
+            <el-empty v-else description="暂无介绍" :image-size="200"></el-empty>
           </div>
         </el-tab-pane>
       </el-tabs>
@@ -71,7 +72,6 @@ export default {
     this.getAlbumDynamicBy();
     // 获取专辑歌曲
     this.getAlbumSongBy();;
-    
     //获取用户收藏的专辑列表
     if (this.subAlbumlist.length == 0) {
       this.getUserSubAlbum();
@@ -94,7 +94,6 @@ export default {
     // 获取专辑歌曲
     getAlbumSongBy() {
       getAlbumSong(this.id).then((res) => {
-        //   console.log(res.data);
         this.albuminfo = res.data.album;
         this.albumsong = res.data.songs;
       });
@@ -127,11 +126,9 @@ export default {
     /* 收藏专辑事件 */
     // 获取用户收藏的专辑列表
     getUserSubAlbum() {
-      // 定义一个时间戳 每次获得最新的数据
-      let timestamp = Date.parse(new Date());
-      getSubAlbum(timestamp).then((res) => {
+      getSubAlbum().then((res) => {
         this.$store.dispatch("saveFavoriteAlbum", res.data.data);
-        this.isSubAlbum()
+        this.isSubAlbum();
       });
     },
     // 判断是否收藏了当前专辑
@@ -144,7 +141,6 @@ export default {
       } else {
         this.isSub = true;
       }
-      // console.log(this.isSub);
     },
     // 点击收藏按钮的回调
     subAlbumBy() {
@@ -156,8 +152,21 @@ export default {
         if (res.data.code == 200) {
           // 重新获取用户收藏的专辑
           this.getUserSubAlbum();
+          if (t == 1) {
+                this.$message({
+                  type: "success",
+                  message: "收藏成功",
+                  center: true,
+                });
+              } else {
+                this.$message({
+                  type: "success",
+                  message: "取消收藏成功",
+                  center: true,
+                });
+              }
         }
-      });
+      }).catch((err) => this.$message.warning("操作失败,请重试"));
     },
   },
 };

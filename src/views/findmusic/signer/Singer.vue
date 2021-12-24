@@ -136,7 +136,6 @@ export default {
       this.getSingerBy(this.area, this.type, this.initial, page);
       let view = document.querySelector(".view");
       view.scrollTo({
-        // behavior: "smooth",
         top: 200
       });
     },

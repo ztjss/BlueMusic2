@@ -90,14 +90,12 @@ export default {
     // 随机获取一个顶部精品歌单
     getTopHighQualityRandom() {
       getTopHighqualityTag().then((res) => {
-        // console.log(res.data.tags);
         // 获取精品歌单所有标签
         this.tags = res.data.tags;
         // 获取一个随机精品歌单标签
         let randomTag = this.tags[getRandom(0, this.tags.length)].name;
         // 根据随机精品歌单标签,随机获取顶部精品歌单
         getTopHighquality(randomTag, 1).then((res) => {
-          // console.log(res.data.playlists);
           this.topsonglist = res.data.playlists;
         });
       });
@@ -106,7 +104,6 @@ export default {
     getSongListBy(tagName, limit = 48, page) {
       let offset = (page - 1) * limit;
       getSongList(tagName, limit, offset).then((res) => {
-        // console.log(res);
         this.songlist = res.data.playlists;
         this.songlistCount = res.data.total;
       });

@@ -25,12 +25,9 @@ export default {
   },
   methods: {
     getSubSingerBy() {
-      // 定义一个时间戳 每次获得最新的数据
-      let timestamp = Date.parse(new Date());
-      getSubSinger(timestamp).then((res) => {
+      getSubSinger().then((res) => {
         this.favoriteSinger = res.data.data;
         this.singercount = res.data.count;
-        //   console.log(this.favoriteSinger);
         this.$store.dispatch("saveFavoriteSinger", res.data.data);
       });
     },

@@ -2,7 +2,7 @@
   <div class="follows w">
     <el-divider content-position="left"><h2>{{$route.params.uname}}关注的人</h2></el-divider>
     <div style="width:100%;text-align: center;" v-if="follows.length === 0">
-      还没有关注其他人
+     <el-empty description="还没有关注其他人" :image-size="200"></el-empty>
     </div>
     <UserList :userlist="follows" />
     <!-- 分页器 -->

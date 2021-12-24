@@ -1,10 +1,12 @@
 <template>
   <div class="fans-list w">
-    <el-divider content-position="left"><h2>{{$route.params.uname}}的粉丝</h2></el-divider>
-    <div style="width:100%;text-align: center;" v-if="fanslist.length == 0">
-      还没有粉丝
+    <el-divider content-position="left"
+      ><h2>{{ $route.params.uname }}的粉丝</h2></el-divider
+    >
+    <div style="width: 100%; text-align: center" v-if="fanslist.length == 0">
+      <el-empty description="还没有粉丝" :image-size="200"></el-empty>
     </div>
-    <UserList :userlist="fanslist"/>
+    <UserList :userlist="fanslist" />
     <!-- 分页器 -->
     <div class="page" v-if="fanslist.length !== 0 && fansCount > 48">
       <el-pagination
@@ -40,7 +42,6 @@ export default {
     getUserFollowedsBy(page = 1) {
       let offset = (page - 1) * 50;
       getUserFolloweds(this.uid, offset).then((res) => {
-        // console.log(res);
         this.fanslist = res.data.followeds;
         this.fansCount = res.data.size;
       });

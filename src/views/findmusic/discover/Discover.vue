@@ -49,17 +49,14 @@ export default {
     })
     // 获取推荐歌单数据
     getPersonalized(18).then((res) => {
-      // console.log(res);
       this.personalized = res.data.result;
     })
      // 获取每日推荐新音乐
     getNewsong(15).then((res) => {
       this.newsong = res.data.result;
-      // console.log(this.newsong);
     }).catch(err=>err)
     // 获取独家放送入口数据
     getPrivatecontent().then((res) => {
-      // console.log(res);
       this.privatecontent = res.data.result;
     })
     // 获取推荐MV

@@ -55,7 +55,6 @@ export default {
         /* 根据歌曲id获取每首歌的信息*/
         getEverySongDetail(song.id).then((res) => {
           this.song = res.data.songs[0];
-          // console.log(this.song);
           // 提交vuex保存当前歌曲详情
           this.$store.dispatch("saveSongDetail", this.song);
           // 提交vuex添加到播放列表

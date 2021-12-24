@@ -153,6 +153,7 @@ export default {
     // 获取登录用户的关注列表
     if (this.userFollowsList.length === 0) {
       this.getLoginUserFollows();
+      return;
     }
     // 判断是否关注了当前用户
     this.isSubUser();
@@ -163,8 +164,7 @@ export default {
     */
     // 获取用户信息
     getUserDetailBy() {
-      let timestamp = Date.parse(new Date());
-      getUserDetail(this.uid, timestamp).then((res) => {
+      getUserDetail(this.uid).then((res) => {
         res.data.profile.level = res.data.level;
         // 如果是歌手 添加歌手身份
         if (res.data.identify) {
@@ -175,9 +175,7 @@ export default {
     },
     // 获取用户歌单
     getUserSonglistBy() {
-      let timestamp = Date.parse(new Date());
-      getUserSonglist(this.uid, timestamp).then((res) => {
-        //   console.log(res.data.playlist);
+      getUserSonglist(this.uid).then((res) => {
         this.userSongList = res.data.playlist;
         // 找到用户收藏的第一个歌单的索引号
         let collectIndex = this.userSongList.findIndex(
@@ -221,8 +219,7 @@ export default {
     getLoginUserFollows(page = 1) {
       let limit = 1000;
       let offset = (page - 1) * limit;
-      let timestamp = Date.parse(new Date());
-      getUserFollows(this.userInfo.userId, offset, limit, timestamp).then(
+      getUserFollows(this.userInfo.userId, offset, limit).then(
         (res) => {
           // 提交vuex保存登录用户的关注列表
           this.$store.dispatch("saveUserFollowsList", res.data.follow);
@@ -248,8 +245,21 @@ export default {
         if (res.data.code == 200) {
           // 从新获取登录用户关注列表
           this.getLoginUserFollows();
+          if (t == 1) {
+                this.$message({
+                  type: "success",
+                  message: "关注成功",
+                  center: true,
+                });
+              } else {
+                this.$message({
+                  type: "success",
+                  message: "已取消关注",
+                  center: true,
+                });
+              }
         }
-      });
+      }).catch((err) => this.$message.warning("操作失败,请重试"));
     },
   },
   watch: {
@@ -266,7 +276,6 @@ export default {
 <style lang="less" scoped>
 .top-userinfo {
   display: flex;
-  //   border:1px solid red;
   align-items: center;
   .left-avatar {
     width: 25vh;
@@ -316,7 +325,6 @@ export default {
       align-items: center;
       border-top: 1px solid #dddddd;
       margin-top: 10px;
-      // border: solid 1px red;
       .data-info {
         width: 100%;
         .data-num {

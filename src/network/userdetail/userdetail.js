@@ -1,35 +1,35 @@
 import {request} from "../request";
 // 获取用户详情
-export function getUserDetail(uid,timestamp){
+export function getUserDetail(uid){
     return request({
         url:'/user/detail',
         params:{
             uid,
-            timestamp
+            timestamp:Date.parse(new Date()),
         }
     })
 }
 // 获取用户歌单
-export function getUserSonglist(uid,timestamp){
+export function getUserSonglist(uid){
     return request({
         url:'/user/playlist',
         params:{
             uid,
-            timestamp,
+            timestamp:Date.parse(new Date()),
             limit:1000,
         }
     })
 }
 
 // 获取用户关注列表
-export function getUserFollows(uid,offset,limit,timestamp){
+export function getUserFollows(uid,offset,limit){
     return request({
         url:'/user/follows',
         params:{
             uid,
             offset,
             limit,
-            timestamp,
+            timestamp:Date.parse(new Date()),
             
         }
     })

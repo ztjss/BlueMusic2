@@ -179,9 +179,7 @@ export default {
     /* 收藏视频或MV事件 */
     // 获取收藏的视频
     getSubMvBy() {
-      // 定义一个时间戳 每次获得最新的数据
-      let timestamp = Date.parse(new Date());
-      getSubMv(timestamp).then((res) => {
+      getSubMv().then((res) => {
         this.$store.dispatch("saveFavoriteMv", res.data.data);
         this.isSubMv();
       });
@@ -196,8 +194,8 @@ export default {
       } else {
         this.isSub = true;
       }
-      // console.log(this.isSub);
     },
+
     // 点击收藏按钮的回调
     subMvBy() {
       let t = !this.isSub ? 1 : 2; // 1 为收藏,其他为取消收藏
@@ -247,14 +245,11 @@ export default {
       if (this.type == "mv") {
         let type = 1; // 1: mv 5: 视频
         likeVideo(t, type, this.id).then((res) => {
-          // console.log(res);
-          // this.islike=!this.islike
           this.getLikeVideoBy();
         });
       } else {
         let type = 5; // 1: mv 5: 视频
         likeVideo(t, type, this.id).then((res) => {
-          // this.islike=!this.islike
           this.getLikeVideoBy();
         });
       }
