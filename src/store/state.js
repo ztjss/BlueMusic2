@@ -31,10 +31,11 @@ const state = {
 	isShowSongDetail: false,
 	// 当前歌曲播放的实时秒数
 	currentSecond: 0,
+	//当前歌曲播放的歌词行
+	currentRow: 0,
 	/* 浮动歌词显示 */
 	// 当前播放歌曲歌词
 	currentLyric: [],
-  currentRow:0,
 	// 是否显示悬浮歌词
 	showFloatLyric: false,
 };

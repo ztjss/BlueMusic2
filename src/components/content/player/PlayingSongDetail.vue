@@ -1,7 +1,7 @@
 <template>
-	<div class="playing-song-detail">
+	<div class="playing-song-detail" ref="playingSongDetail">
 		<!-- 返回顶部按钮 -->
-		<el-backtop target=".playing-song-detail" :right="20" :bottom="75" class="backtop"></el-backtop>
+		<el-backtop target=".playing-song-detail" :right="20" :bottom="75" class="backtop" id="playBackTop"></el-backtop>
 		<!-- 关闭按钮 -->
 		<span class="iconfont icon-down-arrow" @click="closeSongDetail"></span>
 		<!-- 主要内容 -->
@@ -36,8 +36,16 @@
 						<!-- 有歌词时 -->
 						<!-- <div class="plac" style="height: 135px"></div> -->
 						<ul id="scrollLyric" ref="scrollLyric">
-							<li v-for="(item, index) in formatlyric" :key="index" :class="{ currentLyric: currentRow == index }" @click="lyricClick(item, index)">
-								{{ item.text.trim() }}
+							<li
+								v-for="(item, index) in formatlyric"
+								:key="index"
+								:class="{ currentLyric: currentRow == index }"
+								@click="lyricClick(item, index)"
+								@mouseover="showTime(index)"
+								@mouseleave="isActive = false"
+							>
+								<span>{{ item.text.trim() }}</span>
+								<span class="time" v-show="isActive && currentIndex == index">{{ item.time | formatDuration }}</span>
 							</li>
 						</ul>
 						<!-- 没有歌词时 -->
@@ -78,7 +86,8 @@ export default {
 		return {
 			lyric: "",
 			formatlyric: [], //格式化后的歌词
-			// currentRow: "", //当前播放的歌词行数
+			currentIndex: null, //当前鼠标经过的歌词索引
+			isActive: false,
 		};
 	},
 	created() {
@@ -100,6 +109,7 @@ export default {
 				this.$store.dispatch("saveCurrentLyric", this.formatlyric);
 			});
 		},
+		
 		// 格式化歌词
 		formatLyric(lyric_str) {
 			// 将歌词字符串 根据换行符 转换为 数组
@@ -133,30 +143,34 @@ export default {
 			});
 		},
 		// 点击歌词播放
-		lyricClick(lyric, index) {
+		lyricClick(lyric) {
 			let audio = document.querySelector("#audio");
 			audio.currentTime = lyric.time;
+			this.isActive = false;
+		},
+		// 歌词上是否显示时间
+		showTime(index) {
+			this.currentIndex = index;
+			this.isActive = true;
 		},
 		// 手动滚动歌词后
 		//如果三秒钟内不再滚动，则自动返回顶部
-		scrollTop(e) {
-			let startTop = e.target.scrollTop;
-			setTimeout(() => {
-				let endTop = e.target.scrollTop;
-				if (endTop == startTop) {
-					e.target.scrollTo({
-						top: 0,
-						behavior: "smooth",
-					});
-				}
-			}, 3000);
-		},
+		// scrollTop(e) {
+		// 	let startTop = e.target.scrollTop;
+		// 	setTimeout(() => {
+		// 		let endTop = e.target.scrollTop;
+		// 		if (endTop == startTop) {
+		// 			e.target.scrollTo({
+		// 				top: 0,
+		// 				behavior: "smooth",
+		// 			});
+		// 		}
+		// 	}, 3000);
+		// },
 		/* 评论分页事件 */
 		changePage() {
 			// 返回指定位置
-			let playing = document.querySelector(".playing-song-detail");
-			playing.scrollTo({
-				behavior: "smooth",
+			this.$refs.playingSongDetail.scrollTo({
 				top: this.$refs.comment.offsetTop,
 			});
 		},
@@ -187,10 +201,14 @@ export default {
 					//.1 使用位移来实现歌词滚动
 					// this.$refs.scrollLyric.style.transform = `translateY(${-45 * index}px)`;
 					//.2 使用原生scroll实现歌词滚动
-					this.$refs.scrollLyric.scrollTo({
-						top: 45 * index,
-						behavior: "smooth",
-					});
+					// 当鼠标经过时停止滚动
+					if (!this.isActive) {
+						this.$refs.scrollLyric.scrollTo({
+							top: 45 * index,
+							behavior: "smooth",
+						});
+					}
+
 					this.$store.commit("saveCurrentRow", index); //用于判断当前歌词高亮显示(使用vuex是因为在footer中使用到了currentRow)
 					// this.currentRow = index; //用于判断当前歌词高亮显示
 				}
@@ -320,17 +338,23 @@ export default {
 						height: 100%;
 						padding-top: 135px;
 						overflow: auto;
+
 						// transform: translateY(0);
 						// transition: all 0.5s;
 						li {
+							position: relative;
 							height: 45px;
 							line-height: 45px;
 							white-space: nowrap;
 							overflow: hidden;
 							text-overflow: ellipsis;
-							cursor: pointer;
 							&:hover {
+								cursor: pointer;
 								font-weight: 700;
+							}
+							.time {
+								position: absolute;
+								right: 30px;
 							}
 						}
 						.currentLyric {

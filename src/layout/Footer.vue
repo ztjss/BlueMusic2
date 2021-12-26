@@ -158,15 +158,15 @@ export default {
 		},
 
 		/*
-    音频标签事件监听
-    播放或者暂停 就到vuex改变当前播放状态
-     */
+		音频标签事件监听
+		播放或者暂停 就到vuex改变当前播放状态
+		*/
 		changeState(isPlay) {
 			this.$store.dispatch("changePlayState", isPlay);
 		},
 		/*
-    播放 暂停 按钮点击事件
-     */
+		播放 暂停 按钮点击事件
+		*/
 		// 播放音乐
 		playMusic() {
 			if (this.playingList.length == 0) {
@@ -182,8 +182,8 @@ export default {
 			this.$refs.audioplay.pause();
 		},
 		/*
-    音频标签事件监听
-    */
+		音频标签事件监听
+		*/
 		// 音频数据加载完后的事件
 		onLoadedmetadata(res) {
 			this.totalSecond = res.target.duration; //获取总秒数
@@ -300,8 +300,8 @@ export default {
 		},
 
 		/*
-    播放模式
-    */
+		播放模式
+		*/
 		// 切换播放模式事件
 		changePlayModel(model) {
 			// 先关闭循环播放

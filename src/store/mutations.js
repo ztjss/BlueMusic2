@@ -111,19 +111,26 @@ const mutations = {
 	//是否显示当前播放歌曲详情页
 	showSongDetail(state) {
 		state.isShowSongDetail = !state.isShowSongDetail;
+		// let playing = document.querySelector(".playing-song-detail");
+		// playing.scrollTo({
+		// 	top: 0,
+		// 	behavior: "smooth",
+		// });
+		let backtop = document.querySelector("#playBackTop");
+		backtop.click();
 	},
 	// 保存当前歌曲播放的实时秒数
 	saveCurrentSeconds(state, payload) {
 		state.currentSecond = payload;
+	},
+	saveCurrentRow(state, payload) {
+		state.currentRow = payload;
 	},
 	/* 浮动歌词 */
 	//当前播放歌曲歌词 用于浮动歌词显示
 	saveCurrentLyric(state, payload) {
 		state.currentLyric = payload;
 	},
-  saveCurrentRow(state,payload){
-    state.currentRow=payload;
-  },
 	// 是否显示浮动歌词
 	showFloatLyric(state) {
 		state.showFloatLyric = !state.showFloatLyric;
