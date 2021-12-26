@@ -111,13 +111,9 @@ const mutations = {
 	//是否显示当前播放歌曲详情页
 	showSongDetail(state) {
 		state.isShowSongDetail = !state.isShowSongDetail;
-		// let playing = document.querySelector(".playing-song-detail");
-		// playing.scrollTo({
-		// 	top: 0,
-		// 	behavior: "smooth",
-		// });
-		let backtop = document.querySelector("#playBackTop");
-		backtop.click();
+		// let backtop = document.querySelector("#playBackTop");
+		// backtop.click();
+		
 	},
 	// 保存当前歌曲播放的实时秒数
 	saveCurrentSeconds(state, payload) {

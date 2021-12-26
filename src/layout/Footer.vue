@@ -130,7 +130,7 @@ export default {
 	data() {
 		return {
 			isShowDrawer: false, //是否显示播放列表
-			// totalSecond: "", // 歌曲总秒数
+			totalSecond: "", // 歌曲总秒数
 			totalTime: "", //歌曲总时长(分钟)
 			currentTime: "", //歌曲当前处于的时间(分钟)
 			songProgress: 0, //歌曲时间进度条
@@ -205,6 +205,7 @@ export default {
 			// 直接赋值当前播放秒数，在播放详情页监听时间变化的回调，不能使歌词立即滚动到对应位置
 			// 需要在这里直接手动让歌词滚动到对应位置
 			let currentSecond = Math.ceil((len / 100) * this.totalSecond); //当前播放秒数
+			this.$refs.audioplay.currentTime = currentSecond; // 赋值给音频标签当前播放秒数
 			this.currentLyric.forEach((item, index) => {
 				//这里写>=可以立即滚动到对应位置
 				if (currentSecond >= item.time) {
@@ -216,7 +217,6 @@ export default {
 					});
 				}
 			});
-			this.$refs.audioplay.currentTime = currentSecond; // 赋值给音频标签当前播放秒数
 		},
 		// 进度条拖动时，显示当前值,格式化formatTooltip
 		formatTooltip(val) {

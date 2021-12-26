@@ -49,7 +49,7 @@
 							</li>
 						</ul>
 						<!-- 没有歌词时 -->
-						<div class="noLyric" v-if="formatlyric.length === 0">
+						<div class="noLyric" v-if="formatlyric.length == 0">
 							<h2>暂无歌词，请您欣赏</h2>
 						</div>
 					</div>
@@ -93,6 +93,7 @@ export default {
 	created() {
 		if (Object.keys(this.nowSongDetail).length != 0) {
 			this.getNowLyricBy(this.nowSongDetail.id);
+			this.currentSecond();
 		}
 	},
 	methods: {
@@ -109,7 +110,7 @@ export default {
 				this.$store.dispatch("saveCurrentLyric", this.formatlyric);
 			});
 		},
-		
+
 		// 格式化歌词
 		formatLyric(lyric_str) {
 			// 将歌词字符串 根据换行符 转换为 数组
@@ -203,6 +204,7 @@ export default {
 					//.2 使用原生scroll实现歌词滚动
 					// 当鼠标经过时停止滚动
 					if (!this.isActive) {
+						console.log("123");
 						this.$refs.scrollLyric.scrollTo({
 							top: 45 * index,
 							behavior: "smooth",
@@ -336,7 +338,7 @@ export default {
 					// 有歌词
 					ul {
 						height: 100%;
-						padding-top: 135px;
+						padding: 135px 0;
 						overflow: auto;
 
 						// transform: translateY(0);
