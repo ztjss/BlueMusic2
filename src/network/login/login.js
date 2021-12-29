@@ -12,42 +12,42 @@ export function login(phone,password){
 
 // 二维码登录
 // 获取二维码key
-export function getQrKey(timestamp){
+export function getQrKey(){
     return request({
         url:'/login/qr/key',
         params:{
-            timestamp
+            timestamp:Date.parse(new Date())
         }
     })
 }
 // 生成二维码
-export function getLoginQr(key,timestamp){
+export function getLoginQr(key){
     return request({
         url:'/login/qr/create',
         params:{
             key,
-            timestamp,
+            timestamp:Date.parse(new Date()),
             qrimg:true
         }
     })
 }
 // 检查二维码状态
-export function checkLoginQr(key,timestamp){
+export function checkLoginQr(key){
     return request({
         url:'/login/qr/check',
         params:{
             key,
-            timestamp
+            timestamp:Date.parse(new Date())
         }
     })
 }
 
 // 获取用户账号信息
-export function getUserAccount(timestamp){
+export function getUserAccount(){
     return request({
         url:'/user/account',
         params:{
-            timestamp
+            timestamp:Date.parse(new Date())
         }
     })
 }

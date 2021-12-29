@@ -32,10 +32,10 @@
 							歌手：<span @click="toSinger">{{ nowSongDetail.ar[0].name }}</span>
 						</p>
 					</div>
-					<div class="bd">
+					<div class="bd" id="scrollLyric" ref="scrollLyric">
 						<!-- 有歌词时 -->
 						<!-- <div class="plac" style="height: 135px"></div> -->
-						<ul id="scrollLyric" ref="scrollLyric">
+						<ul>
 							<li
 								v-for="(item, index) in formatlyric"
 								:key="index"
@@ -44,6 +44,9 @@
 								@mouseover="showTime(index)"
 								@mouseleave="isActive = false"
 							>
+								<span class="playIcon" v-show="isActive && currentIndex == index">
+									<i class="iconfont icon-play"></i>
+								</span>
 								<span>{{ item.text.trim() }}</span>
 								<span class="time" v-show="isActive && currentIndex == index">{{ item.time | formatDuration }}</span>
 							</li>
@@ -87,13 +90,12 @@ export default {
 			lyric: "",
 			formatlyric: [], //格式化后的歌词
 			currentIndex: null, //当前鼠标经过的歌词索引
-			isActive: false,
+			isActive: false, //鼠标是否经过歌词
 		};
 	},
 	created() {
 		if (Object.keys(this.nowSongDetail).length != 0) {
 			this.getNowLyricBy(this.nowSongDetail.id);
-			this.currentSecond();
 		}
 	},
 	methods: {
@@ -202,17 +204,14 @@ export default {
 					//.1 使用位移来实现歌词滚动
 					// this.$refs.scrollLyric.style.transform = `translateY(${-45 * index}px)`;
 					//.2 使用原生scroll实现歌词滚动
+					this.$store.commit("saveCurrentRow", index); //用于判断当前歌词高亮显示(使用vuex是因为在footer中使用到了currentRow)
 					// 当鼠标经过时停止滚动
 					if (!this.isActive) {
-						console.log("123");
 						this.$refs.scrollLyric.scrollTo({
 							top: 45 * index,
 							behavior: "smooth",
 						});
 					}
-
-					this.$store.commit("saveCurrentRow", index); //用于判断当前歌词高亮显示(使用vuex是因为在footer中使用到了currentRow)
-					// this.currentRow = index; //用于判断当前歌词高亮显示
 				}
 			});
 		},
@@ -223,6 +222,16 @@ export default {
 				this.formatlyric = [];
 				// this.$refs.scrollLyric.style.transform = "translateY(0px)";
 				this.getNowLyricBy(this.nowSongDetail.id);
+				this.$store.commit("saveCurrentRow", null);
+			}
+		},
+		// 当打开歌曲详情页时歌词立即滚动到当前播放行
+		isShowSongDetail() {
+			if (this.isShowSongDetail) {
+				this.$refs.scrollLyric.scrollTo({
+					top: 45 * this.currentRow,
+					// behavior: "smooth",
+				});
 			}
 		},
 	},
@@ -240,7 +249,6 @@ export default {
 	background: #fff;
 	z-index: 99;
 	overflow-y: scroll;
-
 	// 返回顶部按钮
 	.backtop {
 		width: 50px;
@@ -334,13 +342,11 @@ export default {
 					margin-top: 20px;
 					height: 315px;
 					text-align: center;
-					overflow-y: hidden;
+					overflow-y: auto;
 					// 有歌词
 					ul {
-						height: 100%;
 						padding: 135px 0;
 						overflow: auto;
-
 						// transform: translateY(0);
 						// transition: all 0.5s;
 						li {
@@ -357,6 +363,10 @@ export default {
 							.time {
 								position: absolute;
 								right: 30px;
+							}
+							.playIcon {
+								position: absolute;
+								left: 30px;
 							}
 						}
 						.currentLyric {
