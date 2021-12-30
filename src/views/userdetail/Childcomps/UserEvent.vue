@@ -1,28 +1,18 @@
 <template>
-    <div>
-        
-    </div>
+	<div></div>
 </template>
 
 <script>
 export default {
-    name: 'Userevent',
+	name: "Userevent",
 
-    data() {
-        return {
-            
-        };
-    },
-    created(){
+	data() {
+		return {};
+	},
+	created() {},
 
-    },
-
-    methods: {
-        
-    },
+	methods: {},
 };
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

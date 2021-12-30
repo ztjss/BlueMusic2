@@ -61,7 +61,7 @@ export default {
 			this.getUserRecordBy(this.uid, type);
 			this.currentIndex = type;
 		},
-    playAll() {
+		playAll() {
 			this.$store.dispatch("addAllSong", this.recordData);
 			//默认播放第一首歌
 			getSongUrl(this.recordData[0].id).then(res => {

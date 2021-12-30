@@ -15,7 +15,7 @@
 					<p>粉丝</p>
 				</div>
 			</div>
-			<div style="text-align: center;">
+			<div style="text-align: center">
 				<el-button round size="small">签到</el-button>
 			</div>
 			<ul class="userinfo-list">

@@ -28,14 +28,8 @@
 						<el-button @click="changeLoginWay(2)">注册</el-button>
 					</el-form-item>
 				</el-form>
-				<!-- <div class="btn">
-					<el-button type="primary" @click="phoneLogin">登录</el-button>
-				</div>
-				<div class="btn">
-					<el-button @click="changeLoginWay(2)">注册</el-button>
-				</div> -->
 			</div>
-			<div class="other-way" @click="changeLoginWay(1)" style="margin-top:50px;padding-left:25px">
+			<div class="other-way" @click="changeLoginWay(1)" style="margin-top: 50px; padding-left: 25px">
 				<span><i class="iconfont icon-erweima1"></i> <i class="text">扫码登录</i> </span>
 			</div>
 		</div>

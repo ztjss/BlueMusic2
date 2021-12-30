@@ -1,5 +1,5 @@
 <template>
-	<div class="subscribers ">
+	<div class="subscribers">
 		<UserList :userlist="subscribers" v-if="subscribers.length !== 0" />
 		<!-- 分页器 -->
 		<div class="page" v-if="subscribers.length !== 0 && totalcount > 48">
