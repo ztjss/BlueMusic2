@@ -11,7 +11,7 @@
 			<div id="scrollLyric" ref="scrollLyric" v-else>
 				<ul>
 					<li v-for="(item, index) in currentLyric" :key="index" :class="{ currentActive: currentRow == index }">
-						{{ item.text }}
+						{{ item.text.trim() }}
 					</li>
 				</ul>
 			</div>

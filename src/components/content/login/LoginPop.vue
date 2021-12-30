@@ -6,7 +6,7 @@
 		</div>
 
 		<!-- 手机号登录 -->
-		<div class="phone-login" v-if="loginWay == 0">
+		<div class="phone-login" v-if="loginWay === 0">
 			<h2>手机号登录</h2>
 			<!-- logo -->
 			<div class="imgs">
@@ -21,21 +21,27 @@
 					<el-form-item label="密码">
 						<el-input type="password" v-model="Password" placeholder="请输入密码"></el-input>
 					</el-form-item>
+					<el-form-item>
+						<el-button type="primary" @click="phoneLogin">登录</el-button>
+					</el-form-item>
+					<el-form-item>
+						<el-button @click="changeLoginWay(2)">注册</el-button>
+					</el-form-item>
 				</el-form>
+				<!-- <div class="btn">
+					<el-button type="primary" @click="phoneLogin">登录</el-button>
+				</div>
+				<div class="btn">
+					<el-button @click="changeLoginWay(2)">注册</el-button>
+				</div> -->
 			</div>
-			<div class="btn">
-				<el-button type="primary" @click="phoneLogin">登录</el-button>
-			</div>
-			<div class="btn">
-				<el-button @click="changeLoginWay(2)">注册</el-button>
-			</div>
-			<div class="other-way" @click="changeLoginWay(1)" style="margin-top: 30px">
+			<div class="other-way" @click="changeLoginWay(1)" style="margin-top:50px;padding-left:25px">
 				<span><i class="iconfont icon-erweima1"></i> <i class="text">扫码登录</i> </span>
 			</div>
 		</div>
 
 		<!-- 扫码登录 -->
-		<div class="qr-login" v-else-if="loginWay == 1">
+		<div class="qr-login" v-if="loginWay === 1">
 			<div class="qr">
 				<h2>扫码登录</h2>
 				<img :src="qrurl" alt="" />
@@ -48,17 +54,17 @@
 						<i class="text"> 手机号登录</i></span
 					>
 				</div>
-				<p class="other-way" style="padding-top: 50px" @click="changeLoginWay(2)">
+				<div class="other-way" style="padding-top: 50px" @click="changeLoginWay(2)">
 					<span>还没有账号，去注册</span>
-				</p>
+				</div>
 			</div>
 		</div>
 
 		<!-- 注册新用户 -->
-		<div class="register" v-else>
+		<div class="register" v-show="loginWay === 2">
 			<h2>注册新用户</h2>
 			<div class="reg-form">
-				<el-form label-position="right" label-width="70px" :model="ruleForm" :rules="rules" ref="ruleForm">
+				<el-form label-position="right" label-width="80px" :model="ruleForm" :rules="rules" ref="ruleForm">
 					<el-form-item label="手机号" prop="phone">
 						<el-input type="telphone" v-model="ruleForm.phone" placeholder="请输入手机号"></el-input>
 					</el-form-item>
@@ -93,6 +99,7 @@
 import { login, getQrKey, getLoginQr, checkLoginQr, getUserAccount, getAuthcode, checkAuthcode, register, checkPhoneNum } from "network/login/login";
 import { getUserSonglist, getUserDetail } from "network/userdetail/userdetail";
 import { getLikSongList } from "network/playmusic/playmusic.js";
+import { isPhone } from "common/utils.js";
 export default {
 	name: "LoginPop",
 	data() {
@@ -101,7 +108,7 @@ export default {
 			if (value === "") {
 				callback(new Error("请输入手机号"));
 			} else {
-				if (value.trim().length !== 11) {
+				if (!isPhone(value)) {
 					callback(new Error("手机号格式不正确"));
 				}
 				callback();
@@ -147,7 +154,6 @@ export default {
 			failqr: false, //控制二维码失效显示文本
 			isGetCaptcha: false, //是否获取验证码
 			tip: "", //获取验证码后的文字提示
-
 			ruleForm: {
 				phone: "", //注册手机号
 				pass: "", //注册密码
@@ -156,11 +162,11 @@ export default {
 				captcha: "", //验证码
 			},
 			rules: {
-				phone: [{ validator: validatePhone, trigger: "blur" }],
-				pass: [{ validator: validatePass, trigger: "blur" }],
-				checkPass: [{ validator: validatePass2, trigger: "blur" }],
-				nickname: [{ validator: validateName, trigger: "blur" }],
-				captcha: [{ validator: validateCaptcha, trigger: "blur" }],
+				phone: [{ validator: validatePhone, trigger: "blur", required: true }],
+				pass: [{ validator: validatePass, trigger: "blur", required: true }],
+				checkPass: [{ validator: validatePass2, trigger: "blur", required: true }],
+				nickname: [{ validator: validateName, trigger: "blur", required: true }],
+				captcha: [{ validator: validateCaptcha, trigger: "blur", required: true }],
 			},
 		};
 	},
@@ -171,14 +177,15 @@ export default {
 			this.$emit("closeLogin");
 			clearInterval(this.timer);
 		},
-
 		// 切换登录方式
 		changeLoginWay(way) {
 			this.loginWay = way;
 			// 如果是手机号登录就清除二维码登录的定时器
 			if (way !== 1) {
 				clearInterval(this.timer);
-				this.$refs.ruleForm.resetFields(); //重置注册表单
+				if (way === 0) {
+					this.$refs.ruleForm.resetFields(); //重置注册表单
+				}
 			}
 			// 二维码登录
 			if (way === 1) {
@@ -208,7 +215,6 @@ export default {
 					clearInterval(this.timer);
 					// 用于显示二维码失效后的文本提示，
 					this.failqr = true;
-					this.scanSucces = false;
 				}
 				if (statusRes.data.code === 803) {
 					clearInterval(this.timer);
@@ -245,13 +251,7 @@ export default {
 				return;
 			} else {
 				login(this.PhoneNum, this.Password).then(res => {
-					if (res.data.code != 200) {
-						this.$message({
-							message: "手机号或密码错误",
-							type: "warning",
-							center: true,
-						});
-					} else {
+					if (res.data.code === 200) {
 						this.$message({
 							showClose: true,
 							message: "登录成功",
@@ -260,6 +260,18 @@ export default {
 						});
 						// 登录成功后的一些操作
 						this.loginSuccess(res);
+					} else if (res.data.code === 502) {
+						this.$message({
+							message: "密码错误",
+							type: "warning",
+							center: true,
+						});
+					} else {
+						this.$message({
+							message: "手机号或密码错误",
+							type: "warning",
+							center: true,
+						});
 					}
 				});
 			}
@@ -315,33 +327,50 @@ export default {
 					} else if (res.data.exist === -1) {
 						// 获取验证码
 						getAuthcode(this.ruleForm.phone).then(res => {
-							// 获取成功
-							if (res.data.code === 200) {
-								this.$message({
-									showClose: true,
-									message: "验证码已发送",
-									type: "success",
-									center: true,
-								});
-								this.isGetCaptcha = true;
-								let count = 60;
-								this.tip = `请${count}秒后再获取`;
-								let timerC = setInterval(() => {
-									count--;
+							switch (res.data.code) {
+								case 200:
+									this.$message({
+										showClose: true,
+										message: "验证码已发送",
+										type: "success",
+										center: true,
+									});
+									this.isGetCaptcha = true;
+									let count = 60;
 									this.tip = `请${count}秒后再获取`;
-									if (count === 0) {
-										this.isGetCaptcha = false;
-										clearInterval(timerC);
-									}
-								}, 1000);
-							} else {
-								// 获取失败
-								this.$message({
-									showClose: true,
-									message: "手机号不符合规范",
-									type: "warning",
-									center: true,
-								});
+									let timerC = setInterval(() => {
+										count--;
+										this.tip = `请${count}秒后再获取`;
+										if (count === 0) {
+											this.isGetCaptcha = false;
+											clearInterval(timerC);
+										}
+									}, 1000);
+									break;
+								case 400:
+									this.$message({
+										showClose: true,
+										message: "发送验证码超过限制:每个手机号一天只能发5条验证码",
+										type: "warning",
+										center: true,
+									});
+									break;
+								case 405:
+									this.$message({
+										showClose: true,
+										message: "发送验证码间隔过短",
+										type: "warning",
+										center: true,
+									});
+									break;
+								default:
+									this.$message({
+										showClose: true,
+										message: "手机号不符合规范",
+										type: "warning",
+										center: true,
+									});
+									break;
 							}
 						});
 					}
@@ -354,12 +383,38 @@ export default {
 			this.$refs[formName].validate(valid => {
 				if (valid) {
 					// 检查验证码
-					checkAuthcode(this.ruleForm.phone).then(res => {
-						console.log(res);
+					checkAuthcode(this.ruleForm.phone, this.ruleForm.captcha).then(res => {
 						// 注册
-						register(this.ruleForm.phone, this.captcha, this.ruleForm.pass, this.ruleForm.nickname).then(res => {
-							console.log(res);
-						});
+						if (res.data.code == 200) {
+							register(this.ruleForm.phone, this.ruleForm.captcha, this.ruleForm.pass, this.ruleForm.nickname).then(res => {
+								// 昵称被占用
+								if (res.data.code == 505) {
+									this.$message({
+										showClose: true,
+										message: "该昵称已被占用",
+										type: "warning",
+										center: true,
+									});
+								} else {
+									this.$message({
+										showClose: true,
+										message: "注册成功",
+										type: "success",
+										center: true,
+									});
+									setTimeout(() => {
+										this.changeLoginWay(0);
+									}, 500);
+								}
+							});
+						} else {
+							this.$message({
+								showClose: true,
+								message: "验证码错误",
+								type: "warning",
+								center: true,
+							});
+						}
 					});
 				} else {
 					this.$message({
@@ -378,15 +433,15 @@ export default {
 <style lang="less" scoped>
 .login-pop {
 	position: absolute;
-	top: 70px;
+	top: 120px;
 	left: 50%;
 	transform: translateX(-50%);
 	z-index: 99;
 	box-shadow: 0px 0px 5px 5px #eee;
 	background: #dcdcdc;
 	border-radius: 10px;
-	width: 370px;
-	height: 480px;
+	width: 400px;
+	height: 520px;
 	background: #fff;
 	text-align: center;
 	.close {
@@ -415,9 +470,9 @@ export default {
 		margin-bottom: 12px;
 	}
 	.btn {
-		width: 270px;
+		width: 300px;
 		margin: 0 auto 12px;
-		transform: translateX(20px);
+		transform: translateX(30px);
 	}
 }
 .qr-login {

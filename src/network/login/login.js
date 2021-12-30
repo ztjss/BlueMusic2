@@ -80,11 +80,12 @@ export function getAuthcode(phone){
     })
 }
 //检查验证码
-export function checkAuthcode(phone){
+export function checkAuthcode(phone,captcha){
     return request({
         url:'/captcha/verify',
         params:{
             phone,
+            captcha
         }
     })
 }

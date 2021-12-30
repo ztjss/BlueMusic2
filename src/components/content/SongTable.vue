@@ -1,14 +1,6 @@
 <template>
 	<div class="song-table">
-		<el-table
-			style="width: 100%;"
-			:data="songs"
-			empty-text="数据加载中~"
-			@row-dblclick="playMusic"
-			:row-class-name="tableRowClassName"
-			@cell-mouse-enter="showOP"
-			@cell-mouse-leave="closeOP"
-		>
+		<el-table style="width: 100%;" :data="songs" empty-text="数据加载中~" @row-dblclick="playMusic" :row-class-name="tableRowClassName" @cell-mouse-enter="showOP" @cell-mouse-leave="closeOP">
 			<!-- 索引或者小喇叭 -->
 			<el-table-column width="80">
 				<template v-slot="scope">
@@ -246,10 +238,9 @@ export default {
 		// 实现当前播放歌曲行显示小喇叭
 		tableRowClassName({ row, rowIndex }) {
 			row.index = rowIndex;
-			if (rowIndex % 2 !==  0) {
+			if (rowIndex % 2 !== 0) {
 				return "rowEven";
 			}
-
 		},
 	},
 };

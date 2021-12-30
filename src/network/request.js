@@ -12,7 +12,6 @@ export function request(config) {
 	// 请求拦截
 	instance.interceptors.request.use(
 		config => {
-			console.log(config);
 			if (config.url != "/login/qr/check") {
 				startLoading();
 			}
