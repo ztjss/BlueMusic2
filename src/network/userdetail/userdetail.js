@@ -45,7 +45,7 @@ export function getUserFolloweds(uid,offset,limit=48){
         }
     })
 }
-// 获取用户播放记录信息
+// 获取用户听歌记录
 export function getUserRecord(uid,type){
     return request({
         url:'/user/record',
@@ -55,6 +55,7 @@ export function getUserRecord(uid,type){
         }
     })
 }
+
 // 获取用户动态
 export function getUserEvent(uid){
     return request({

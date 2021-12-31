@@ -137,7 +137,9 @@ export default {
 		//获取用户喜欢的音乐id列表
 		getUserLikSongs() {
 			getLikSongList(this.userInfo.userId).then(res => {
-				this.$store.dispatch("saveLikeSongIds", res.data.ids);
+				if (Array.isArray(res.data.ids) && res.data.ids.length != 0) {
+					this.$store.dispatch("saveLikeSongIds", res.data.ids);
+				}
 			});
 		},
 		//点击喜欢按钮事件

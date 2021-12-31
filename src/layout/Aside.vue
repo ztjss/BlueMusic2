@@ -7,14 +7,14 @@
 				<span>{{ item.name }}</span>
 			</el-menu-item>
 			<!-- 登录后的 -->
-			<div class="mycreat" v-if="userSongList != 0">
+			<div class="mycreat" v-if="userSongList.length >= 1">
 				<p class="by">我创建的歌单</p>
 				<el-menu-item v-for="item in createdSongList" :key="item.id" :index="'/songlistdetail/' + item.id">
 					<span class="iconfont icon-xihuan"></span>
 					<span>{{ item.name }}</span>
 				</el-menu-item>
 			</div>
-			<div class="collect" v-if="userSongList != 0">
+			<div class="collect" v-if="userSongList.length > 1">
 				<p class="by">我收藏的歌单</p>
 				<div class="person">
 					<el-menu-item v-for="item in collectSongList" :key="item.id" :index="'/songlistdetail/' + item.id">
@@ -48,10 +48,18 @@ export default {
 			// 找到用户收藏的第一个歌单的索引号
 			this.collectIndex = this.userSongList.findIndex(item => item.creator.userId != this.userInfo.userId);
 			// 截取用户创建的歌单
-			return this.userSongList.slice(0, this.collectIndex);
+			if (this.collectIndex !== -1) {
+				return this.userSongList.slice(0, this.collectIndex);
+			}else{
+				return this.userSongList;
+			}
 		},
 		collectSongList() {
-			return this.userSongList.slice(this.collectIndex);
+			if (this.collectIndex !== -1) {
+				return this.userSongList.slice(this.collectIndex);
+			}else{
+				return [];
+			}
 		},
 	},
 	created() {

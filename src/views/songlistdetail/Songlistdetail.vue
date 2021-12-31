@@ -3,7 +3,7 @@
 		<!-- 顶部歌单描述 -->
 		<Topdesc :playlist="playlist" :is-sub="isSub" @playAllSong="playAllSong" @subSongListBy="subSongListBy" />
 		<!-- 底部歌曲 -->
-		<div class="bot-song-list" v-if="songs.length.length !== 0">
+		<div class="bot-song-list">
 			<el-tabs>
 				<!-- 歌曲列表 -->
 				<el-tab-pane label="歌曲列表">
@@ -89,7 +89,9 @@ export default {
 				let queryids = this.songids.substr(0, this.songids.length - 1);
 				/* 根据歌曲id获取每首歌的信息*/
 				getEverySongDetail(queryids).then(res => {
-					this.songs = res.data.songs;
+					if (res.data.code==200) {
+						this.songs = res.data.songs;
+					}
 				});
 			});
 		},

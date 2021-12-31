@@ -83,6 +83,7 @@ export default {
 				params: { uid: this.userInfo.userId, uname: this.userInfo.nickname },
 			});
 		},
+
 		// 退出登录
 		logout() {
 			this.$confirm("您确定退出登录吗?", "提示", {

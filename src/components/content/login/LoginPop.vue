@@ -289,12 +289,13 @@ export default {
 		// 获取用户歌单和喜欢的音乐数据
 		getUserSonglistBy(uid) {
 			getUserSonglist(uid).then(res => {
-				// console.log(res);
 				localStorage.setItem("userSongList", JSON.stringify(res.data.playlist));
 				this.$store.dispatch("saveUserSongList", res.data.playlist);
 			});
 			getLikSongList(uid).then(res => {
-				this.$store.dispatch("saveLikeSongIds", res.data.ids);
+				if (res.data.ids.length != 0) {
+					this.$store.dispatch("saveLikeSongIds", res.data.ids);
+				}
 			});
 		},
 
@@ -381,15 +382,8 @@ export default {
 						// 注册
 						if (res.data.code == 200) {
 							register(this.ruleForm.phone, this.ruleForm.captcha, this.ruleForm.pass, this.ruleForm.nickname).then(res => {
-								// 昵称被占用
-								if (res.data.code == 505) {
-									this.$message({
-										showClose: true,
-										message: "该昵称已被占用",
-										type: "warning",
-										center: true,
-									});
-								} else {
+								console.log(res);
+								if (res.data.code == 200) {
 									this.$message({
 										showClose: true,
 										message: "注册成功",
@@ -399,6 +393,13 @@ export default {
 									setTimeout(() => {
 										this.changeLoginWay(0);
 									}, 500);
+								} else {
+									this.$message({
+										showClose: true,
+										message: "改昵称已被占用",
+										type: "warning",
+										center: true,
+									});
 								}
 							});
 						} else {

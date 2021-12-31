@@ -11,8 +11,8 @@
 			<VideoList :videolist="mvList" />
 		</div>
 		<!-- 分页器 -->
-		<div class="page" v-if="mvList.length != 0">
-			<el-pagination background @current-change="handleCurrentChange" :current-page="currentPage" :page-size="40" layout="total,prev, pager, next" :total="mvCount"> </el-pagination>
+		<div class="page" v-if="mvList.length != 0 && hasMore">
+			<span @click="handleCurrentChange" class="more">点击加载更多</span>
 		</div>
 	</div>
 </template>
@@ -41,8 +41,7 @@ export default {
 				list: ["上升最快", "最热", "最新"],
 			},
 			mvList: [], //MV列表
-			mvCount: 5000,
-			currentPage: 1,
+			hasMore: false,
 			area: "全部",
 			type: "全部",
 			order: "上升最快",
@@ -59,38 +58,36 @@ export default {
 		getAllMvBy(area, type, order, page) {
 			let offset = (page - 1) * this.limit;
 			getAllMv(area, type, order, offset, this.limit).then(res => {
-				// console.log(res.data);
-				this.mvCount = res.data.count;
-				this.mvList = res.data.data;
+				if (res.data.hasMore) {
+					this.mvList.push(...res.data.data);
+					this.hasMore = res.data.hasMore;
+				}
 			});
 		},
 		/* 标签点击事件 */
 		areaClick(item) {
-			this.currentPage = 1;
+			this.page = 1;
+			this.mvList = [];
 			this.area = item;
 			this.getAllMvBy(item, this.type, this.order, this.page);
 		},
 		typeClick(item) {
-			this.currentPage = 1;
+			this.page = 1;
+			this.mvList = [];
 			this.type = item;
 			this.getAllMvBy(this.area, item, this.order, this.page);
 		},
 		orderClick(item) {
-			this.currentPage = 1;
+			this.page = 1;
+			this.mvList = [];
 			this.order = item;
 			this.getAllMvBy(this.area, this.type, item, this.page);
 		},
 
 		/* 分页事件 */
-		handleCurrentChange(page) {
-			// 当前页码改变时触发（参数是当前页码）
-			this.currentPage = page;
-			this.getAllMvBy(this.area, this.type, this.order, page);
-			// 滚动返回指定位置
-			let view = document.querySelector(".view");
-			view.scrollTo({
-				top: this.$refs.tagsnav.offsetTop,
-			});
+		handleCurrentChange() {
+			this.page += 1;
+			this.getAllMvBy(this.area, this.type, this.order, this.page);
 		},
 	},
 };
@@ -102,5 +99,9 @@ export default {
 }
 .mv-list {
 	padding-top: 30px;
+}
+.more {
+	color: #5292fe;
+	cursor: pointer;
 }
 </style>
