@@ -192,6 +192,9 @@ export default {
 		toRecord() {
 			this.$router.push("/userdetail/record/" + this.uid);
 		},
+		// toEventList() {
+		// 	this.$router.push("/userdetail/userevent/" + this.uid);
+		// },
 		/* 关注用户事件*/
 		// 获取登录用户的关注列表
 		getLoginUserFollows(page = 1) {

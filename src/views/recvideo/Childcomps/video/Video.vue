@@ -4,11 +4,14 @@
 			<!-- 标签导航 -->
 			<TagsNav :all-tag="allTag" :hot-tag="hotTag" @tagClick="tagClick" />
 			<!-- 视频列表 -->
-			<div v-infinite-scroll="load" infinite-scroll-distance="0" style="overflow: auto" class="video-list">
-				<VideoList :videolist="videoList" v-if="hasmore" />
-				<div class="novideo" v-else>
-					<el-empty description="暂无视频，请然后重试" :image-size="200"></el-empty>
+			<div class="video-list" v-if="hasmore">
+				<VideoList :videolist="videoList" />
+				<div class="page" v-if="videoList.length != 0 && hasmore">
+					<span @click="handleCurrentChange" class="more">点击加载更多</span>
 				</div>
+			</div>
+			<div class="novideo" v-else>
+				<el-empty description="暂无视频" :image-size="200"></el-empty>
 			</div>
 		</div>
 		<div class="nologin" v-if="!$store.state.isLogin">
@@ -30,10 +33,10 @@ export default {
 		return {
 			allTag: [],
 			hotTag: [],
-			videoList: [],
+			videoList: [{}],
 			tagId: "", //标签id
-			offset: 0,
-			hasmore: true, //是否还有更多数据
+			page: 1,
+			hasmore: false, //是否还有更多数据
 		};
 	},
 	created() {
@@ -58,7 +61,6 @@ export default {
 		// 获取全部视频标签
 		geAllVideoTagsBy() {
 			geAllVideoTags().then(res => {
-				// console.log(res);
 				this.allTag = res.data.data;
 			});
 		},
@@ -73,26 +75,25 @@ export default {
 		},
 		//  获取分类视频列表
 		getGroupVideoListBy(id) {
-			console.log(this.offset);
-			getGroupVideoList(id, this.offset).then(res => {
+			let offset = this.page - 1;
+			getGroupVideoList(id, offset).then(res => {
+				console.log(this.page);
 				this.hasmore = res.data.hasmore; //是否还有更多
 				this.videoList.push(...res.data.datas);
-				this.offset += 1;
+				this.page += 1;
 			});
 		},
 
 		/*
     事件监听
     */
-		// 触底加载更多
-		load() {
-			if (this.hasmore) {
-				this.getGroupVideoListBy(this.tagId);
-			}
+		// 点击加载更多
+		handleCurrentChange() {
+			this.getGroupVideoListBy(this.tagId);
 		},
 		// 标签点击事件
 		tagClick(tagName, id) {
-			this.offset = 0;
+			this.page = 1;
 			this.videoList = []; //清空视频列表
 			this.tagId = id; //保存标签id
 			this.getGroupVideoListBy(id);
@@ -103,12 +104,10 @@ export default {
 
 <style lang="less" scoped>
 .video-list {
-	margin-top: 10px;
-	height: calc(100vh - 200px);
+	margin-top: 30px;
 }
-::-webkit-scrollbar {
-	width: 0px;
-	height: 12px;
-	background-color: #fff;
+.more {
+	color: #5292fe;
+	cursor: pointer;
 }
 </style>
