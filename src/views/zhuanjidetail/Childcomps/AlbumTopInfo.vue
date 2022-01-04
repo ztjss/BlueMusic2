@@ -2,7 +2,7 @@
 	<div class="top-desc" v-if="Object.keys(albuminfo).length !== 0">
 		<!-- 左侧图片 -->
 		<div class="left-img">
-			<img v-lazy="albuminfo.picUrl" alt="" />
+			<img v-lazy="cover" alt="" />
 		</div>
 		<!-- 右侧描述 -->
 		<div class="right-desc">
@@ -50,6 +50,11 @@ export default {
 			default() {
 				return false;
 			},
+		},
+	},
+	computed: {
+		cover() {
+			return this.albuminfo.picUrl + "?param=200y200";
 		},
 	},
 	filters: {

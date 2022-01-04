@@ -18,7 +18,7 @@
 				<!-- 有音乐时 -->
 				<div class="cover-content" v-if="Object.keys(nowSongDetail).length !== 0">
 					<div class="cover" @click="showSongDetail">
-						<img :src="nowSongDetail.al.picUrl" alt="" />
+						<img :src="cover" alt="" />
 					</div>
 					<div class="songname">
 						<p style="padding-bottom: 5px">{{ nowSongDetail.name }}</p>
@@ -132,6 +132,9 @@ export default {
 	components: { PlayingList },
 	computed: {
 		...mapGetters(["isLogin", "userInfo", "songUrl", "isPlaying", "playingList", "nowSongDetail", "playModel", "likeSongIds", "currentSecond", "currentLyric", "currentRow"]),
+		cover(){
+			return this.nowSongDetail.al.picUrl+"?param=200y200"
+		}
 	},
 	data() {
 		return {

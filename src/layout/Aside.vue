@@ -50,22 +50,25 @@ export default {
 			// 截取用户创建的歌单
 			if (this.collectIndex !== -1) {
 				return this.userSongList.slice(0, this.collectIndex);
-			}else{
+			} else {
 				return this.userSongList;
 			}
 		},
 		collectSongList() {
 			if (this.collectIndex !== -1) {
 				return this.userSongList.slice(this.collectIndex);
-			}else{
+			} else {
 				return [];
 			}
 		},
 	},
-	created() {
-		setTimeout(() => {
+	methods: {
+		getPath() {
 			this.defaultActive = "/" + this.$route.path.split("/")[1];
-		}, 300);
+		},
+	},
+	watch: {
+		$route: "getPath",
 	},
 };
 </script>
