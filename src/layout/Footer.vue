@@ -71,15 +71,21 @@
 				</div>
 				<!-- 切换播放模式 -->
 				<div class="playmodel">
-					<span v-if="playModel == 1" @click="changePlayModel(2)">
-						<i class="iconfont icon-orderplay"></i>
-					</span>
-					<span v-if="playModel == 2" @click="changePlayModel(3)">
-						<i class="iconfont icon-random"></i>
-					</span>
-					<span v-if="playModel == 3" @click="changePlayModel(1)">
-						<i class="iconfont icon-danqu"></i>
-					</span>
+					<el-tooltip effect="dark" content="顺序播放" placement="top" v-if="playModel == 1">
+						<span v-if="playModel == 1" @click="changePlayModel(2)">
+							<i class="iconfont icon-orderplay"></i>
+						</span>
+					</el-tooltip>
+					<el-tooltip effect="dark" content="随机播放" placement="top" v-if="playModel == 2">
+						<span v-if="playModel == 2" @click="changePlayModel(3)">
+							<i class="iconfont icon-random"></i>
+						</span>
+					</el-tooltip>
+					<el-tooltip effect="dark" content="单曲循环" placement="top" v-if="playModel == 3">
+						<span v-if="playModel == 3" @click="changePlayModel(1)">
+							<i class="iconfont icon-danqu"></i>
+						</span>
+					</el-tooltip>
 					<span>
 						<i class="iconfont icon-cibiaoquanyi" @click="showFloatLyric"></i>
 					</span>
