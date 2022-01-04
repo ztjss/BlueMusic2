@@ -1,7 +1,7 @@
 <template>
 	<div class="singer-list-item" @click="singerClick(singeritem.id)" @mouseenter="showM" @mouseleave="closeM">
 		<div class="item-img" v-lazy-container="{ selector: 'img' }">
-			<img :data-src="singeritem.img1v1Url" :data-loading="require('assets/imgs/singerload.png')" />
+			<img :data-src="cover" :data-loading="require('assets/imgs/singerload.png')" />
 			<transition name="el-zoom-in-top">
 				<div class="mask1" v-show="isShowIcon">
 					<span class="iconfont icon-yinyue"></span>
@@ -44,6 +44,11 @@ export default {
 			isShowDetail: false,
 		};
 	},
+	computed: {
+		cover() {
+			return this.singeritem.img1v1Url + "?param=200y200";
+		},
+	},
 	methods: {
 		showM() {
 			this.isShowIcon = false;
@@ -76,7 +81,6 @@ export default {
 		}
 		img[lazy="error"] {
 			width: 100%;
-			height: 180px;
 		}
 		.mask1 {
 			position: absolute;

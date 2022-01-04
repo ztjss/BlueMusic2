@@ -2,7 +2,7 @@
 	<div class="singer-info">
 		<!-- 左侧封面 -->
 		<div class="left-cover" v-lazy-container="{ selector: 'img' }">
-			<img :data-src="singerInfo.cover" :data-loading="require('assets/imgs/singerload.png')" />
+			<img :data-src="cover" :data-loading="require('assets/imgs/singerload.png')" />
 		</div>
 		<!-- 右侧信息 -->
 		<div class="right-info">
@@ -53,6 +53,11 @@ export default {
 			},
 		},
 	},
+	computed: {
+		cover() {
+			return this.singerInfo.cover + "?param=200y200";
+		},
+	},
 	methods: {
 		// 关注歌手
 		subSinger() {
@@ -88,11 +93,9 @@ export default {
 		}
 		img[lazy="error"] {
 			width: 100%;
-			height: 190px;
 		}
 		img[lazy="loading"] {
 			width: 100%;
-			height: 190px;
 		}
 	}
 	.right-info {

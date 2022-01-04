@@ -2,7 +2,7 @@
 	<div class="top-desc" v-if="Object.keys(playlist).length !== 0">
 		<!-- 左侧图片 -->
 		<div class="left-img">
-			<img :src="playlist.coverImgUrl" alt="" />
+			<img :src="cover" alt="" />
 		</div>
 		<!-- 右侧描述 -->
 		<div class="right-desc">
@@ -74,6 +74,11 @@ export default {
 	},
 	data() {
 		return {};
+	},
+	computed: {
+		cover() {
+			return this.playlist.coverImgUrl + "?param=200y200";
+		},
 	},
 	filters: {
 		showDate(value) {

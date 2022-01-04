@@ -17,7 +17,7 @@
 					<!-- 唱片旋转 -->
 					<div class="record record-rotate" :class="{ startRotate: isPlaying }">
 						<img class="cp2" src="~assets/imgs/cp2.png" alt="" />
-						<img class="cover" :src="nowSongDetail.al.picUrl" alt="" />
+						<img class="cover" :src="cover" alt="" />
 					</div>
 					<img :src="nowSongDetail.al.picUrl" alt="" class="song-bgImg" />
 				</div>
@@ -84,6 +84,9 @@ export default {
 	components: { CommentPage },
 	computed: {
 		...mapGetters(["isPlaying", "nowSongDetail", "currentSecond", "isShowSongDetail", "currentRow"]),
+		cover(){
+			return this.nowSongDetail.al.picUrl+"?param=200y200"
+		}
 	},
 	data() {
 		return {

@@ -10,7 +10,7 @@
 			</transition>
 			<!-- 图片本身 使用懒加载 -->
 			<div class="album-img" v-lazy-container="{ selector: 'img' }">
-				<img :data-src="albumlistitem.picUrl" :data-loading="require('assets/imgs/loading.png')" />
+				<img :data-src="cover" :data-loading="require('assets/imgs/loading.png')" />
 			</div>
 			<!-- 唱片图 -->
 			<img src="~assets/imgs/cp2.png" alt="" class="record" />
@@ -47,6 +47,11 @@ export default {
 		return {
 			isShowPlay: false, //用于播放图标遮罩层的显示与隐藏
 		};
+	},
+	computed: {
+		cover() {
+			return this.albumlistitem.picUrl + "?param=200y200";
+		},
 	},
 	filters: {
 		showDate(value) {
