@@ -1,7 +1,7 @@
 <template>
 	<div class="search-input">
 		<!-- 输入框 -->
-		<el-input placeholder="请输入内容" size="small" v-model="searchWord" @focus="getSearchHotList"  v-popover:popover slot="reference" @keyup.enter.native="search">
+		<el-input placeholder="请输入内容" size="small" v-model.trim="searchWord" @focus="getSearchHotList" v-popover:popover slot="reference" @keyup.enter.native="search">
 			<span slot="suffix" class="el-icon-search" @click="search"></span>
 		</el-input>
 		<!-- 热搜弹出框 -->
@@ -44,14 +44,12 @@ export default {
 			searchList: [],
 		};
 	},
-	created() {
-		
-	},
+	created() {},
 	methods: {
-		getSearchHotList(){
+		getSearchHotList() {
 			getSearchHotWord().then(res => {
-			this.searchList = res.data.data;
-		});
+				this.searchList = res.data.data;
+			});
 		},
 		// 搜索事件
 		search() {
@@ -63,6 +61,7 @@ export default {
 					center: true,
 				});
 			} else {
+				console.log("搜索");
 				this.$router.push("/searchdetail/" + this.searchWord).catch(err => err);
 				this.$refs.popover.doClose(); //关闭弹框
 			}

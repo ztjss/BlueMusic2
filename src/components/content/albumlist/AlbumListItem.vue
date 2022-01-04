@@ -13,13 +13,13 @@
 				<img :data-src="cover" :data-loading="require('assets/imgs/loading.png')" />
 			</div>
 			<!-- 唱片图 -->
-			<img src="~assets/imgs/cp2.png" alt="" class="record" />
-			<div class="box"></div>
+			<img src="~assets/imgs/cp2.png" alt="" class="record" v-if="albumlistitem.picUrl" />
+			<div class="box" v-if="albumlistitem.picUrl"></div>
 		</div>
 		<!-- 歌单下的文字描述 -->
 		<div class="item-text">
 			<p class="albumName">
-				<span>{{ albumlistitem.name }}</span> <span class="by" style="padding-left: 10px;">{{ albumlistitem.artists[0].name }}</span>
+				<span>{{ albumlistitem.name }}</span> <span class="by" style="padding-left: 10px">{{ albumlistitem.artists[0].name }}</span>
 			</p>
 			<p v-if="albumlistitem.publishTime" class="by publishtime">
 				{{ albumlistitem.publishTime | showDate }}

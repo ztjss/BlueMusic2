@@ -64,7 +64,12 @@ export default {
 	},
 	methods: {
 		getPath() {
-			this.defaultActive = "/" + this.$route.path.split("/")[1];
+			let pathArr = "/" + this.$route.path.split("/")[1];
+			if (pathArr == "/songlistdetail") {
+				this.defaultActive = pathArr + "/" + this.$route.params.id;
+			} else {
+				this.defaultActive = pathArr;
+			}
 		},
 	},
 	watch: {

@@ -44,7 +44,6 @@ export default {
 		getNewAlbumBy(area = "ALL", page = 1) {
 			let offset = (page - 1) * 50;
 			getNewAlbum(offset, area).then(res => {
-				// console.log(res);
 				this.newalbum = res.data.albums;
 				this.albumCount = res.data.total;
 			});

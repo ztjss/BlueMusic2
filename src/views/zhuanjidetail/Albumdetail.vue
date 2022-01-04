@@ -17,7 +17,7 @@
 				<!-- 专辑详情 -->
 				<el-tab-pane label="专辑详情">
 					<div class="album-desc">
-						<p v-if="albuminfo.description">{{ albuminfo.description }}</p>
+						<p v-if="albuminfo.description" v-html="albuminfo.description"></p>
 						<el-empty v-else description="暂无介绍" :image-size="200"></el-empty>
 					</div>
 				</el-tab-pane>

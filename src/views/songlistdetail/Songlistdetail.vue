@@ -89,7 +89,7 @@ export default {
 				let queryids = this.songids.substr(0, this.songids.length - 1);
 				/* 根据歌曲id获取每首歌的信息*/
 				getEverySongDetail(queryids).then(res => {
-					if (res.data.code==200) {
+					if (res.data.code == 200) {
 						this.songs = res.data.songs;
 					}
 				});

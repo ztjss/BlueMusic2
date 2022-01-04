@@ -28,7 +28,7 @@
 				<!-- 歌手详情 -->
 				<el-tab-pane label="歌手详情">
 					<div class="singer-desc" v-if="singerInfo.briefDesc">
-						<p>{{ singerInfo.briefDesc }}</p>
+						<p v-html="singerInfo.briefDesc"></p>
 					</div>
 					<div class="no" v-else>
 						<el-empty description="暂无详情介绍" :image-size="200"></el-empty>
