@@ -42,7 +42,6 @@ export default {
 	},
 	methods: {
 		albumClick(event) {
-			// console.log(event.id);
 			this.$router.push("/albumdetail/" + event.id);
 		},
 	},

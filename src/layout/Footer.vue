@@ -233,8 +233,8 @@ export default {
 		},
 
 		/*
-    声音按钮事件
-     */
+		声音按钮事件
+		*/
 		// 静音
 		muteVolume() {
 			this.nowVolume = this.voiceProgress; //先保存当前音量，用于取消静音时恢复
@@ -253,8 +253,8 @@ export default {
 		},
 
 		/*
-    切换歌曲事件
-     */
+		切换歌曲事件
+		*/
 		// 获取歌曲url
 
 		getSongUrlBy(song) {
@@ -360,8 +360,8 @@ export default {
 		},
 
 		/*
-    喜欢当前播放歌曲
-     */
+		喜欢当前播放歌曲
+		*/
 
 		// 获取喜欢的歌曲id列表
 		getLikSongListBy() {

@@ -2,7 +2,7 @@
 	<div class="comment">
 		<!-- 输入框 -->
 		<div class="textinput">
-			<el-input ref="commentContent" type="textarea" rows="3" maxlength="100" show-word-limit v-model="content" :placeholder="placeholder" @blur="textareaBlur"> </el-input>
+			<el-input ref="commentContent" type="textarea" rows="3" maxlength="100" show-word-limit v-model.trim="content" :placeholder="placeholder" @blur="textareaBlur"> </el-input>
 			<el-button round type="primary" size="small" icon="el-icon-position" class="el-btn" @click="submitComment">发送评论</el-button>
 		</div>
 		<!-- 评论列表 -->
@@ -78,6 +78,9 @@ export default {
 		// 资源id变化后从新获取评论
 		commentresId() {
 			this.getNewCommentBy();
+			this.sortType = 3;
+			this.currentIndex = 0;
+			this.content=""
 		},
 	},
 	methods: {
@@ -188,7 +191,7 @@ export default {
 		// 2.1获取要回复的评论的id
 		// 2.2滚动到输入框
 		// 2.3将要回复的评论的用户名赋值给输入框占位文本
-		// 2,4获取文本框焦点
+		// 2.4获取文本框焦点
 		getReplyComment(replyInfo) {
 			this.replyId = replyInfo.commentId;
 			this.replyUname = replyInfo.uname;
@@ -259,7 +262,6 @@ export default {
 					showClose: true,
 					center: true,
 				});
-				// this.submitType = 1;
 				return;
 			} else {
 				// 判断是发送评论还是回复评论

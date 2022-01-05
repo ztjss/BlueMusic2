@@ -120,6 +120,8 @@ export default {
 				.then(res => {
 					if (res.data.code === 200) {
 						this.isLike = !this.isLike;
+					} else {
+						this.$message.error("点赞失败,请稍后重试!");
 					}
 				})
 				.catch(err => {

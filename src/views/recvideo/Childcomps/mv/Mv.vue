@@ -10,7 +10,7 @@
 		<div class="mv-list">
 			<VideoList :videolist="mvList" />
 		</div>
-		<!-- 分页器 -->
+		<!-- 分页-->
 		<div class="page" v-if="mvList.length != 0 && hasMore">
 			<span @click="handleCurrentChange" class="more">点击加载更多</span>
 		</div>

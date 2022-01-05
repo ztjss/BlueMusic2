@@ -1,5 +1,5 @@
 <template>
-	<div class="my-favorite">
+	<div class="my-favorite w">
 		<div class="logined" v-if="$store.state.isLogin">
 			<!-- 顶部tab栏 -->
 			<div class="top-nav">
@@ -37,6 +37,7 @@ export default {
 				showClose: true,
 				center: true,
 			});
+			return;
 		}
 	},
 };

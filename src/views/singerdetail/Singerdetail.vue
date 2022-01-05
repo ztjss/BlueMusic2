@@ -115,7 +115,6 @@ export default {
 		// 获取歌手热门歌曲50首
 		getSingerHotSongBy() {
 			getSingerHotSong(this.id).then(res => {
-				//   console.log(res);
 				this.hotsong = res.data.hotSongs;
 			});
 		},
@@ -123,7 +122,6 @@ export default {
 		getSingerAlbumBy(page = 1) {
 			let offset = (page - 1) * 30;
 			getSingerAlbum(this.id, offset).then(res => {
-				// console.log(res);
 				this.albumlist = res.data.hotAlbums;
 			});
 		},
@@ -159,7 +157,7 @@ export default {
 				this.getSingerSimilarBy();
 			}
 		},
-		// 专辑分页事件
+		// 专辑分页
 		handleCurrentChange(page) {
 			// 当前页码改变时触发（参数是当前页码）
 			this.getSingerAlbumBy(page);

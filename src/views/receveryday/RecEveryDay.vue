@@ -63,6 +63,7 @@ export default {
 				showClose: true,
 				center: true,
 			});
+			return;
 		}
 		// 获取每日推荐歌曲
 		getRecSongs().then(res => {

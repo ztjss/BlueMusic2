@@ -11,7 +11,7 @@ import VueLazyload from 'vue-lazyload'
 Vue.use(VueLazyload, {
   loading:require('assets/imgs//loadImg.gif'),
   error:require('assets/imgs/error.png'),
-  attempt:6,
+	attempt: 6,
   observer:true
 });
 // 自定义全局过滤器
@@ -24,7 +24,7 @@ Vue.use(formatDuration);
 
 Vue.config.productionTip = false
 new Vue({
-  router,
-  store,
+	router,
+	store,
   render: function (h) { return h(App) }
 }).$mount('#app')

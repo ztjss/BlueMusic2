@@ -31,7 +31,7 @@
 					</div>
 					<!--第二栏 歌手身份 -->
 					<div class="singer" v-if="currentUserInfo.identify">
-						<span><img :src="currentUserInfo.identify.imageUrl" alt="" /></span>
+						<span><img :src="currentUserInfo.identify.imageUrl" alt=""/></span>
 						<i>{{ currentUserInfo.identify.imageDesc }}</i>
 					</div>
 					<!-- 第三栏 粉丝动态数据-->
@@ -87,7 +87,7 @@
 				<SongList :songlist="collectSongList" />
 			</div>
 		</div>
-		<div class="nologin" v-if="!$store.state.isLogin">
+		<div class="nologin" v-else>
 			<el-empty description="登录后才能查看" :image-size="200"></el-empty>
 		</div>
 	</div>
