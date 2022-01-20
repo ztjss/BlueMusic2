@@ -5,9 +5,7 @@
 		</div>
 		<div class="bd" v-if="newalbum.length != 0">
 			<Albumlist :albumlist="newalbum" />
-			<div class="page">
-				<el-pagination background @current-change="changAlbumPage" :page-size="50" layout="total, prev, pager, next" :total="albumCount"> </el-pagination>
-			</div>
+			<Pagination :total="albumCount" :page-size="50" :current-page="currentPage" @handleCurrentChange="changAlbumPage" />
 		</div>
 	</div>
 </template>
@@ -30,7 +28,8 @@ export default {
 			],
 			currentArea: "ALL", //当前分类区域
 			newalbum: [],
-			albumCount: null,
+			albumCount: 0,
+			currentPage: 1,
 		};
 	},
 	created() {
@@ -55,13 +54,12 @@ export default {
 		typeItemClick(area) {
 			this.currentArea = area;
 			this.getNewAlbumBy(area);
+			this.currentPage = 1;
 		},
 		// 分页事件
 		changAlbumPage(page) {
+			this.currentPage = page;
 			this.getNewAlbumBy(this.currentArea, page);
-			// 返回顶部
-			let backtop = document.querySelector("#backtop");
-			backtop.click();
 		},
 	},
 };

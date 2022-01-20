@@ -11,9 +11,7 @@
 			<Singerlist :singerlist="singerlist" />
 		</div>
 		<!-- 分页器 -->
-		<div class="page" v-if="singerlist.length !== 0">
-			<el-pagination background @current-change="handleCurrentChange" :current-page="currentPage" :page-size="48" layout="total, prev, pager, next" :total="total"> </el-pagination>
-		</div>
+		<Pagination v-if="singerlist.length!==0" :total="total" :page-size="48" :current-page="currentPage" :scroll-top="false" @handleCurrentChange="handleCurrentChange" />
 	</div>
 </template>
 <script>
@@ -101,7 +99,6 @@ export default {
 			let offset = (page - 1) * 48;
 			getSinger(area, type, initial, offset)
 				.then(res => {
-					// console.log(res);
 					this.singerlist = res.data.artists;
 				})
 				.catch(err => err);

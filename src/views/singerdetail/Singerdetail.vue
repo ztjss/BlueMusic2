@@ -10,9 +10,7 @@
 					<!-- 专辑内容 -->
 					<SingerAlbum :albumlist="albumlist" />
 					<!-- 分页器 -->
-					<div class="page" v-if="singerInfo.albumSize > 30 && singerInfo.albumSize.length !== 0">
-						<el-pagination background @current-change="handleCurrentChange" :page-size="30" layout="total, prev, pager, next" :total="singerInfo.albumSize"> </el-pagination>
-					</div>
+					<Pagination :total="singerInfo.albumSize" :page-size="30" @handleCurrentChange="getSingerAlbumBy" />
 				</el-tab-pane>
 				<!-- 热门50首 -->
 				<el-tab-pane label="热门歌曲">
@@ -20,7 +18,7 @@
 				</el-tab-pane>
 				<!-- MV列表 -->
 				<el-tab-pane label="MV">
-					<SingerMv :mvlist="mvlist" :mvsize="singerInfo.mvSize" @changeMvPage="changeMvPage" v-if="mvlist.length !== 0" />
+					<SingerMv :mvlist="mvlist" :mvsize="singerInfo.mvSize" @changeMvPage="getSingerMvBy" v-if="mvlist.length !== 0" />
 					<div class="no" v-else>
 						<el-empty description="暂无MV" :image-size="200"></el-empty>
 					</div>
@@ -157,21 +155,18 @@ export default {
 				this.getSingerSimilarBy();
 			}
 		},
-		// 专辑分页
-		handleCurrentChange(page) {
-			// 当前页码改变时触发（参数是当前页码）
-			this.getSingerAlbumBy(page);
-			// 返回顶部
-			let backtop = document.querySelector("#backtop");
-			backtop.click();
-		},
-		// Mv分页
-		changeMvPage(page) {
-			this.getSingerMvBy(page);
-			// 返回顶部
-			let backtop = document.querySelector("#backtop");
-			backtop.click();
-		},
+		// // 专辑分页
+		// handleCurrentChange(page) {
+		// 	// 当前页码改变时触发（参数是当前页码）
+		// 	this.getSingerAlbumBy(page);
+		// },
+		// // Mv分页
+		// changeMvPage(page) {
+		// 	this.getSingerMvBy(page);
+		// 	// 返回顶部
+		// 	let backtop = document.querySelector("#backtop");
+		// 	backtop.click();
+		// },
 
 		/* 
 		收藏当前歌手事件

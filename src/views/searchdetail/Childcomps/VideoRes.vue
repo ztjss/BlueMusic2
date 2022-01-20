@@ -7,10 +7,7 @@
 			</h3>
 		</div>
 		<VideoList :videolist="videoRes" />
-		<!-- 分页器 -->
-		<div class="page" v-if="videoRes.length !== 0 && videoResCount > 40">
-			<el-pagination background @current-change="changvideoPage" :page-size="40" layout="total, prev, pager, next" :total="videoResCount"> </el-pagination>
-		</div>
+		<Pagination :total="videoResCount" :page-size="40" @handleCurrentChange="getSearchVideoBy" />
 	</div>
 </template>
 
@@ -24,7 +21,7 @@ export default {
 		return {
 			keywords: "", //关键词
 			videoRes: [],
-			videoResCount: null,
+			videoResCount: 0,
 		};
 	},
 	created() {
@@ -39,12 +36,6 @@ export default {
 				this.videoRes = res.data.result.videos;
 				this.videoResCount = res.data.result.videoCount;
 			});
-		},
-		changvideoPage(page) {
-			this.getSearchVideoBy(page);
-			// 返回顶部
-			let backtop = document.querySelector("#backtop");
-			backtop.click();
 		},
 	},
 };

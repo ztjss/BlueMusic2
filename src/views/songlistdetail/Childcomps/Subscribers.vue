@@ -2,9 +2,7 @@
 	<div class="subscribers">
 		<UserList :userlist="subscribers" v-if="subscribers.length !== 0" />
 		<!-- 分页器 -->
-		<div class="page" v-if="subscribers.length !== 0 && totalcount > 48">
-			<el-pagination background @current-change="handleCurrentChange" :page-size="48" layout="total, prev, pager, next" :total="totalcount"> </el-pagination>
-		</div>
+		<Pagination :total="totalcount" :page-size="48" @handleCurrentChange="handleCurrentChange" />
 		<div class="no" v-if="subscribers.length == 0">
 			<el-empty description="暂无收藏者" :image-size="200"></el-empty>
 		</div>
@@ -25,6 +23,7 @@ export default {
 		},
 		totalcount: {
 			type: Number,
+			default:0
 		},
 	},
 	methods: {

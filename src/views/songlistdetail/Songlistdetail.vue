@@ -16,7 +16,7 @@
 				</el-tab-pane>
 				<!-- 收藏者 -->
 				<el-tab-pane label="收藏者">
-					<Subscribers :subscribers="subscribers" :totalcount="totalcount" @handlePage="handlePage" />
+					<Subscribers :subscribers="subscribers" :totalcount="totalcount" @handlePage="getSongListSubscribersBy" />
 				</el-tab-pane>
 			</el-tabs>
 		</div>
@@ -115,13 +115,6 @@ export default {
 			view.scrollTo({
 				top: 300,
 			});
-		},
-		// 歌单收藏者分页事件
-		handlePage(page) {
-			this.getSongListSubscribersBy(page);
-			// 返回顶部
-			let backtop = document.querySelector("#backtop");
-			backtop.click();
 		},
 		// 播放全部歌曲事件
 		playAllSong() {

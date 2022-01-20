@@ -8,12 +8,12 @@ export function getTopHighqualityTag(){
 }
 
 // 获取顶部精品歌单
-export function getTopHighquality(cat,limit){
+export function getTopHighquality(cat){
     return request({
         url:"/top/playlist/highquality",
         params:{
             cat,
-            limit
+            limit:1
         }
     })
 }
@@ -32,13 +32,13 @@ export function getHotTag(){
 }
 
 // 获取歌单
-export function getSongList(cat,limit,offset){
+export function getSongList(cat,offset){
     return request({
         url:"/top/playlist",
         params:{
             cat,
-            limit,
             offset, //用于分页 （页码 -1）* limit
+            limit:48,
         }
      
     })

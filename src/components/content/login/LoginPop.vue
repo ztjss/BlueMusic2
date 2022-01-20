@@ -14,7 +14,7 @@
 			</div>
 			<!-- 表单 -->
 			<div class="form">
-				<el-form label-position="right" label-width="70px">
+				<el-form label-width="70px">
 					<el-form-item label="手机号">
 						<el-input type="tlephone" v-model="PhoneNum" placeholder="请输入手机号"></el-input>
 					</el-form-item>
@@ -302,7 +302,7 @@ export default {
 		// 点击获取验证码
 		getCaptcha() {
 			// 检测手机号码是否输入
-			if (this.ruleForm.phone === "") {
+			if (this.ruleForm.phone.trim() === "") {
 				this.$message({
 					showClose: true,
 					message: "请先输入手机号",

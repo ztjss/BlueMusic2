@@ -8,9 +8,7 @@
 		</div>
 		<UserList :userlist="fanslist" />
 		<!-- 分页器 -->
-		<div class="page" v-if="fanslist.length !== 0 && fansCount > 48">
-			<el-pagination background @current-change="handleCurrentChange" :page-size="48" layout="total, prev, pager, next" :total="fansCount"> </el-pagination>
-		</div>
+		<Pagination :total="fansCount" :page-size="48" @handleCurrentChange="getUserFollowedsBy" />
 	</div>
 </template>
 
@@ -23,7 +21,7 @@ export default {
 	data() {
 		return {
 			fanslist: [],
-			fansCount: null,
+			fansCount: 0,
 		};
 	},
 	created() {
@@ -38,13 +36,6 @@ export default {
 				this.fanslist = res.data.followeds;
 				this.fansCount = res.data.size;
 			});
-		},
-		// 分页
-		handleCurrentChange(page) {
-			this.getUserFollowedsBy(page);
-			// 返回顶部
-			let backtop = document.querySelector("#backtop");
-			backtop.click();
 		},
 	},
 };

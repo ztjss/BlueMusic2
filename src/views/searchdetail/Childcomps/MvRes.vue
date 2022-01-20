@@ -7,10 +7,7 @@
 			</h3>
 		</div>
 		<VideoList :videolist="mvRes" />
-		<!-- 分页器 -->
-		<div class="page" v-if="mvRes.length !== 0 && mvResCount > 40">
-			<el-pagination background @current-change="changmvPage" :page-size="40" layout="total, prev, pager, next" :total="mvResCount"> </el-pagination>
-		</div>
+		<Pagination :total="mvResCount" :page-size="40" @handleCurrentChange="getSearchMvBy" />
 	</div>
 </template>
 
@@ -24,27 +21,21 @@ export default {
 		return {
 			keywords: "", //关键词
 			mvRes: [],
-			mvResCount: null,
+			mvResCount: 0,
 		};
 	},
 	created() {
 		// 保存搜索的关键词
 		this.keywords = this.$route.params.keywords;
-		this.getSearchMvBy(1);
+		this.getSearchMvBy();
 	},
 	methods: {
-		getSearchMvBy(page) {
+		getSearchMvBy(page = 1) {
 			let offset = (page - 1) * 40;
 			getSearchMv(this.keywords, offset).then(res => {
 				this.mvRes = res.data.result.mvs;
 				this.mvResCount = res.data.result.mvCount;
 			});
-		},
-		changmvPage(page) {
-			this.getSearchMvBy(page);
-			// 返回顶部
-			let backtop = document.querySelector("#backtop");
-			backtop.click();
 		},
 	},
 };

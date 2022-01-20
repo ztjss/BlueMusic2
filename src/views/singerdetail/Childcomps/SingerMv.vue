@@ -3,10 +3,7 @@
 		<div class="mv-list">
 			<VideoList :videolist="mvlist" />
 		</div>
-		<!-- 分页器 -->
-		<div class="page" v-if="mvlist.length !== 0 && mvsize > 40">
-			<el-pagination background @current-change="handleCurrentChange" :page-size="40" layout="total, prev, pager, next" :total="mvsize"> </el-pagination>
-		</div>
+		<Pagination :total="mvsize" :page-size="40" @handleCurrentChange="handleCurrentChange" />
 	</div>
 </template>
 
@@ -22,16 +19,15 @@ export default {
 				return [];
 			},
 		},
-		mvsize: Number,
+		mvsize: {
+			type: Number,
+			default:0
+		},
 	},
 	methods: {
 		/* 分页事件 */
 		handleCurrentChange(page) {
-			// 当前页码改变时触发（参数是当前页码）
 			this.$emit("changeMvPage", page);
-			// 返回顶部
-			let backtop = document.querySelector("#backtop");
-			backtop.click();
 		},
 	},
 };

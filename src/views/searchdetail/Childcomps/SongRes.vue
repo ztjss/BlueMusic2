@@ -30,10 +30,7 @@
 			</div>
 		</div>
 		<SongTable :songs="songRes" />
-		<!-- 分页器 -->
-		<div class="page" v-if="songRes.length !== 0 && songResCount > 50">
-			<el-pagination background @current-change="changSongPage" :page-size="50" layout="total, prev, pager, next" :total="songResCount"> </el-pagination>
-		</div>
+		<Pagination :total="songResCount" :page-size="50" @handleCurrentChange="getSearchSongBy"/>
 	</div>
 </template>
 
@@ -43,12 +40,12 @@ import { getSearchSong, getGoodMatch } from "network/searchdetail/searchdeatil";
 import SongTable from "components/content/SongTable.vue";
 export default {
 	name: "SongRes",
-	components: { SongTable },
+	components: { SongTable},
 	data() {
 		return {
 			keywords: "", //关键词
 			songRes: [], //单曲
-			songResCount: null,
+			songResCount: 0,
 			matchSinger: {}, //最佳匹配歌手
 			matchAlbum: {},
 		};
@@ -89,12 +86,9 @@ export default {
     事件监听
     */
 		// 分页事件
-		changSongPage(page) {
-			this.getSearchSongBy(page);
-			// 返回顶部
-			let backtop = document.querySelector("#backtop");
-			backtop.click();
-		},
+		// changSongPage(page) {
+		// 	this.getSearchSongBy(page);
+		// },
 
 		// 最佳匹配事件
 		goSingerdetail() {
@@ -106,7 +100,6 @@ export default {
 	},
 };
 </script>
-
 <style lang="less" scoped>
 .result {
 	padding: 10px 15px;

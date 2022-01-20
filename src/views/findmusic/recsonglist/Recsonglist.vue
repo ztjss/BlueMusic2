@@ -11,9 +11,7 @@
 			<SongList :songlist="songlist" />
 		</div>
 		<!-- 分页器 -->
-		<div class="page" v-if="songlist.length !== 0">
-			<el-pagination background @current-change="handleCurrentChange" :current-page="currentPage" :page-size="48" layout="total, prev, pager, next" :total="songlistCount"> </el-pagination>
-		</div>
+		<Pagination :total="songlistCount" :page-size="48" :current-page="currentPage" :scroll-top="false" @handleCurrentChange="handleCurrentChange" />
 	</div>
 </template>
 
@@ -36,10 +34,9 @@ export default {
 			allTag: [], //所有歌单标签
 			hotTag: [], //热门标签
 			songlist: [], //歌单列表
-			songlistCount: Number,
+			songlistCount: 0, //歌单数量
 			currentPage: 1, //分页器默认当前页数
 			tagName: "华语",
-			limit: 48, //歌单每页数量
 			page: 1, //默认页码
 		};
 	},
@@ -55,7 +52,7 @@ export default {
 		// 随机获取一个顶部精品歌单
 		this.getTopHighQualityRandom();
 		// 默认获取华语歌单列表
-		this.getSongListBy(this.tagName, this.limit, this.page);
+		this.getSongListBy(this.tagName, this.page);
 	},
 	methods: {
 		/* 
@@ -81,15 +78,15 @@ export default {
 				// 获取一个随机精品歌单标签
 				let randomTag = this.tags[getRandom(0, this.tags.length)].name;
 				// 根据随机精品歌单标签,随机获取顶部精品歌单
-				getTopHighquality(randomTag, 1).then(res => {
+				getTopHighquality(randomTag).then(res => {
 					this.topsonglist = res.data.playlists;
 				});
 			});
 		},
 		// 获取歌单列表
-		getSongListBy(tagName, limit = 48, page) {
-			let offset = (page - 1) * limit;
-			getSongList(tagName, limit, offset).then(res => {
+		getSongListBy(tagName, page) {
+			let offset = (page - 1) * 48;
+			getSongList(tagName, offset).then(res => {
 				this.songlist = res.data.playlists;
 				this.songlistCount = res.data.total;
 			});
@@ -108,15 +105,14 @@ export default {
 				});
 			}
 			// 根据标签名获取歌单列表(默认取第一页数据)，如果当前不在第一页，点击完后应该让分页器调到第一页
-			this.getSongListBy(tagName, this.limit, this.page);
+			this.getSongListBy(tagName, this.page);
 			this.currentPage = 1;
 		},
 
 		/* 分页事件 */
 		handleCurrentChange(page) {
-			// 当前页码改变时触发（参数是当前页码）
 			this.currentPage = page;
-			this.getSongListBy(this.tagName, this.limit, page);
+			this.getSongListBy(this.tagName, page);
 			// 滚动返回指定位置
 			let view = document.querySelector(".view");
 			view.scrollTo({

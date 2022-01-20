@@ -7,10 +7,7 @@
 			</h3>
 		</div>
 		<SingerAlbum :albumlist="albumRes.albums" />
-		<!-- 分页器 -->
-		<div class="page" v-if="albumRes.albumCount > 30 && albumRes.albums.length !== 0">
-			<el-pagination background @current-change="changAlbumPage" :page-size="30" layout="total, prev, pager, next" :total="albumRes.albumCount"> </el-pagination>
-		</div>
+		<Pagination :total="albumCount" :page-size="30" @handleCurrentChange="getSearchAlbumBy" />
 	</div>
 </template>
 
@@ -26,28 +23,22 @@ export default {
 		return {
 			keywords: "", //关键词
 			albumRes: {}, //专辑
+			albumCount:0
 		};
 	},
 	created() {
 		// 保存搜索的关键词
 		this.keywords = this.$route.params.keywords;
-		this.getSearchAlbumBy(1);
+		this.getSearchAlbumBy();
 	},
 	methods: {
 		/* 网络请求事件 */
-		getSearchAlbumBy(page) {
+		getSearchAlbumBy(page=1) {
 			let offset = (page - 1) * 30;
 			getSearchAlbum(this.keywords, offset).then(res => {
 				this.albumRes = res.data.result;
+				this.albumCount=this.albumRes.albumCount;
 			});
-		},
-
-		// 专辑分页
-		changAlbumPage(page) {
-			this.getSearchAlbumBy(page);
-			// 返回顶部
-			let backtop = document.querySelector("#backtop");
-			backtop.click();
 		},
 	},
 };

@@ -21,10 +21,7 @@
 					:commentType="commentType"
 					:commentresId="commentresId"
 				/>
-				<!-- 分页器 -->
-				<div class="page" v-if="commentCount > 60">
-					<el-pagination background @current-change="handleCurrentChange" :page-size="60" :current-page="currentPage" layout="total,prev, pager, next" :total="commentCount"> </el-pagination>
-				</div>
+				<Pagination :total="commentCount" :page-size="60" :current-page="currentPage" :scroll-top="false" @handleCurrentChange="handleCurrentChange" />
 			</div>
 			<div class="nocomment" v-else>
 				<el-empty description="没有更多了" :image-size="200"></el-empty>
@@ -80,7 +77,7 @@ export default {
 			this.getNewCommentBy();
 			this.sortType = 3;
 			this.currentIndex = 0;
-			this.content=""
+			this.content = "";
 		},
 	},
 	methods: {

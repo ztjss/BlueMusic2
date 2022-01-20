@@ -22,26 +22,26 @@ export function getUserSonglist(uid){
 }
 
 // 获取用户关注列表
-export function getUserFollows(uid,offset,limit){
+export function getUserFollows(uid,offset){
     return request({
         url:'/user/follows',
         params:{
             uid,
             offset,
-            limit,
+            limit:48,
             timestamp:Date.parse(new Date()),
             
         }
     })
 }
 //获取用户粉丝列表
-export function getUserFolloweds(uid,offset,limit=48){
+export function getUserFolloweds(uid,offset){
     return request({
         url:'/user/followeds',
         params:{
             uid,
             offset,
-            limit
+            limit:48
         }
     })
 }
