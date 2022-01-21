@@ -96,7 +96,7 @@ export default {
 		text-overflow: ellipsis;
 	}
 	.el-menu-item.is-active {
-		color: #5292fe;
+		color: var(--base-black);
 		font-weight: 700;
 	}
 	span {

@@ -24,7 +24,7 @@
 							v-if="uid != $store.state.userInfo.userId"
 							class="subuser"
 							:icon="isSub ? 'el-icon-check' : 'el-icon-plus'"
-							:type="isSub ? 'primary' : ''"
+							:type="isSub ? 'primary' : 'default'"
 							@click="subUserBy"
 							>{{ isSub ? "已关注" : "关注" }}</el-button
 						>

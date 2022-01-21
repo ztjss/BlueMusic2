@@ -22,8 +22,8 @@
 		</div>
 		<!-- 相关操作 -->
 		<div class="opreation">
-			<el-button class="iconfont icon-dianzan" :type="islike ? 'primary' : ''" @click="likeVideo">{{ islike ? "已赞" : "点赞" }}</el-button>
-			<el-button :icon="isSub ? 'el-icon-folder-checked' : 'el-icon-folder-add'" :type="isSub ? 'primary' : ''" @click="subMv">{{ isSub ? "已收藏" : "收藏" }}</el-button>
+			<el-button class="iconfont icon-dianzan" :type="islike ? 'primary' : 'default'" @click="likeVideo">{{ islike ? "已赞" : "点赞" }}</el-button>
+			<el-button :icon="isSub ? 'el-icon-folder-checked' : 'el-icon-folder-add'" :type="isSub ? 'primary' : 'default'" @click="subMv">{{ isSub ? "已收藏" : "收藏" }}</el-button>
 			<el-button icon="el-icon-share">分享</el-button>
 		</div>
 	</div>

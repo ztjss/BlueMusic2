@@ -15,6 +15,16 @@ import Footer from "./layout/Footer.vue";
 export default {
 	name: "App",
 	components: { Header, Main, Footer },
+	created() {
+		let defaultTheme = {
+			theme: "#409eff",
+			tagRgba: "rgba(100, 149, 237, 0.2)",
+		};
+		let currentTheme = localStorage.getItem("currentTheme") ? JSON.parse(localStorage.getItem("currentTheme")) : defaultTheme;
+		document.documentElement.style.setProperty("--mycomp-color", currentTheme.theme);
+		document.documentElement.style.setProperty("--theme-color", currentTheme.theme);
+		document.documentElement.style.setProperty("--tag-rgba", currentTheme.tagRgba);
+	},
 };
 </script>
 

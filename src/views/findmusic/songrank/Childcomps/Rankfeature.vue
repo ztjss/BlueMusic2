@@ -59,9 +59,6 @@ export default {
 			padding-top: 15px;
 			cursor: pointer;
 		}
-		&:hover {
-			color: #5292fe;
-		}
 	}
 }
 </style>

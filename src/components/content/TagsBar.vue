@@ -43,16 +43,16 @@ ul {
 		padding: 3px 5px;
 		cursor: pointer;
 		&:hover {
-			color: #5292fe;
+			color: var(--mycomp-color);
 		}
 		span {
-			padding: 5px 8px;
+			padding: 3px 5px;
 		}
 	}
 }
 .active {
-	color: #5292fe;
-	background: rgba(100, 149, 237, 0.2);
+	color: var(--mycomp-color);
+	background: var(--tag-rgba);
 	border-radius: 5px;
 }
 </style>

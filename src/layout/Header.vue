@@ -18,6 +18,7 @@
 		</div>
 		<!-- 右侧登录 -->
 		<div class="right-login">
+			<span @click="changeTheme">红色</span>
 			<Login />
 		</div>
 	</div>
@@ -37,6 +38,18 @@ export default {
 		goForward() {
 			this.$router.go(1);
 		},
+		changeTheme() {
+			// let themeRed = "#ec4141";
+			// let tagRgba = "rgba(236,65,65,.1)";
+			let redTheme = {
+				theme: "#ec4141",
+				tagRgba: "rgba(236,65,65,.1)",
+			};
+			document.documentElement.style.setProperty("--mycomp-color", redTheme.theme);
+			document.documentElement.style.setProperty("--theme-color", redTheme.theme);
+			document.documentElement.style.setProperty("--tag-rgba", redTheme.tagRgba);
+			localStorage.setItem("currentTheme",JSON.stringify(redTheme))
+		},
 	},
 };
 </script>
@@ -48,10 +61,9 @@ export default {
 	align-items: center;
 	width: 100%;
 	height: 60px;
-	background: #5292fe;
+	background: var(--mycomp-color);
 	z-index: 99;
 	.title {
-		// border: 1px solid red;
 		flex: 2;
 		display: flex;
 		align-items: center;
@@ -84,7 +96,8 @@ export default {
 			height: 30px;
 			text-align: center;
 			line-height: 30px;
-			background: rgba(100, 149, 237, 1);
+			// background: rgba(100, 149, 237, 1);
+			background: rgba(105, 105, 105, 0.1);
 			border-radius: 50%;
 			cursor: pointer;
 		}

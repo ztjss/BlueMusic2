@@ -14,7 +14,7 @@
 			<!-- 相关操作 -->
 			<div class="operation">
 				<el-button type="primary" icon="el-icon-video-play" @click="playAll">播放全部</el-button>
-				<el-button :icon="isSub ? 'el-icon-folder-checked' : 'el-icon-folder-add'" :type="isSub ? 'primary' : ''" @click="subAlbumBy">{{ isSub ? "已收藏" : "收藏" }}</el-button>
+				<el-button :icon="isSub ? 'el-icon-folder-checked' : 'el-icon-folder-add'" :type="isSub ? 'primary' : 'default'" @click="subAlbumBy">{{ isSub ? "已收藏" : "收藏" }}</el-button>
 				<el-button icon="el-icon-share">分享({{ dynamic.shareCount }})</el-button>
 			</div>
 			<!-- 相关信息 -->

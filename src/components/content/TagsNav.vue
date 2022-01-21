@@ -107,7 +107,7 @@ export default {
 	justify-content: space-between;
 	cursor: pointer;
 	span:hover {
-		color: #5292fe;
+		color: var(--theme-color);
 	}
 	.hot-tag {
 		width: 70%;
@@ -123,8 +123,8 @@ export default {
 	border: 1px solid #dddddd;
 	border-radius: 5px;
 	&:hover {
-		border-color: #5292fe;
-    color: #5292fe;
+		border-color: var(--mycomp-color);
+    color: var(--mycomp-color);
 	}
 }
 .all-tag-list::before {
@@ -165,13 +165,13 @@ export default {
 	}
 }
 .activeHot {
-	color: #5292fe;
-	background: rgba(100, 149, 237, 0.2);
+	color: var(--mycomp-color);
+	background: var(--tag-rgba);
 	border-radius: 5px;
 }
 .activeAll {
-	color: #5292fe;
-	background: rgba(100, 149, 237, 0.2);
+	color: var(--mycomp-color);
+	background: var(--tag-rgba);
 	border-radius: 5px;
 }
 

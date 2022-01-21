@@ -13,7 +13,7 @@
 			</div>
 			<!-- 相关操作 -->
 			<div class="operation">
-				<el-button :icon="isSub ? 'el-icon-folder-checked' : 'el-icon-folder-add'" :type="isSub ? 'primary' : ''" @click="subSinger">{{ isSub ? "已收藏" : "收藏" }}</el-button>
+				<el-button :icon="isSub ? 'el-icon-folder-checked' : 'el-icon-folder-add'" :type="isSub ? 'primary' : 'default'" @click="subSinger">{{ isSub ? "已收藏" : "收藏" }}</el-button>
 				<el-button icon="el-icon-connection" v-if="singerInfo.userId" @click="toUserDetail">个人主页</el-button>
 				<el-button icon="el-icon-share">分享</el-button>
 			</div>
