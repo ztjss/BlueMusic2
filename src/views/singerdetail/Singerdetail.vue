@@ -10,7 +10,7 @@
 					<!-- 专辑内容 -->
 					<SingerAlbum :albumlist="albumlist" />
 					<!-- 分页器 -->
-					<Pagination :total="singerInfo.albumSize" :page-size="30" @handleCurrentChange="getSingerAlbumBy" />
+					<Pagination :total="albumSize" :page-size="30" @handleCurrentChange="getSingerAlbumBy" />
 				</el-tab-pane>
 				<!-- 热门50首 -->
 				<el-tab-pane label="热门歌曲">
@@ -72,6 +72,7 @@ export default {
 		return {
 			id: "", //歌手id
 			singerInfo: {}, //歌手基本信息
+			albumSize: 0, //专辑数量
 			singerHomeId: {},
 			hotsong: [], //歌手热门歌曲
 			albumlist: [], //歌手专辑列表
@@ -107,7 +108,11 @@ export default {
 				if (res.data.data.user) {
 					res.data.data.artist.userId = res.data.data.user.userId;
 					this.singerInfo = res.data.data.artist;
-				} else this.singerInfo = res.data.data.artist;
+					this.albumSize = res.data.data.artist.albumSize;
+				} else {
+					this.singerInfo = res.data.data.artist;
+					this.albumSize = res.data.data.artist.albumSize;
+				}
 			});
 		},
 		// 获取歌手热门歌曲50首

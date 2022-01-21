@@ -27,7 +27,7 @@ export default {
 	},
 	created() {
 		this.uid = this.$route.params.uid;
-		this.followsCount=this.$route.params.follows
+		this.followsCount=Number(this.$route.params.follows)
 		this.getUserFollowsBy();
 	},
 	methods: {

@@ -41,7 +41,8 @@ export function getUserFolloweds(uid,offset){
         params:{
             uid,
             offset,
-            limit:48
+            limit:48,
+            timestamp:Date.parse(new Date()),
         }
     })
 }

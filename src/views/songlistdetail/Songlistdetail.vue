@@ -49,7 +49,7 @@ export default {
 			songids: "", //歌单中所有歌曲id
 			songs: [], //歌单中所有歌曲详细信息
 			subscribers: [], //收藏者
-			totalcount: null, //收藏者数量
+			totalcount: 0, //收藏者数量
 			isSub: false, //是否收藏了当前歌单
 		};
 	},
