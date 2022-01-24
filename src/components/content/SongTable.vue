@@ -22,7 +22,7 @@
 			<el-table-column width="100">
 				<template v-slot="scope">
 					<div class="operation" v-show="isShow && currentIndex === scope.row.index">
-						<span @click="likeSong(scope.row)" :class="islike ? 'iconfont icon-xihuan3' : 'iconfont icon-xihuan'"> </span>
+						<span @click="likeSong(scope.row)" :class="islike ? 'iconfont icon-xihuan2' : 'iconfont icon-xihuan'"> </span>
 						<span class="el-icon-plus" @click="addSong(scope.row)"></span>
 					</div>
 				</template>
@@ -163,6 +163,7 @@ export default {
 					confirmButtonText: "确定",
 					cancelButtonText: "取消",
 					type: "warning",
+					confirmButtonClass:""
 				})
 					.then(() => {
 						// 如果删除的话就调接口
@@ -170,13 +171,7 @@ export default {
 						// 更新歌单
 						this.$emit("updateSonglist");
 					})
-					.catch(() => {
-						this.$message({
-							type: "info",
-							message: "已取消删除",
-							center: true,
-						});
-					});
+					.catch((err) => {err});
 				return;
 			}
 			// 否则不在用户喜欢的歌单 直接调接口
@@ -256,17 +251,22 @@ export default {
 		color: #999;
 		font-weight: 700;
 	}
-	.icon-xihuan3 {
+	.icon-xihuan2 {
 		font-size: 16px;
+		color: var(--theme-color);
 	}
 	span {
 		padding-right: 15px;
 		cursor: pointer;
 	}
 }
+.icon-voice,
+.icon-jingyin_laba {
+	color: var(--theme-color);
+}
 .icon-mv {
 	font-size: 22px;
-	color: #409eff;
+	color: var(--theme-color);
 	cursor: pointer;
 	padding-left: 5px;
 }
@@ -278,7 +278,7 @@ export default {
 }
 .sthover:hover {
 	display: inline-block;
-	color: #409eff;
+	color: var(--theme-color);
 	width: 100%;
 	cursor: pointer;
 }
@@ -287,5 +287,9 @@ export default {
 	text-align: center;
 	font-size: 24px;
 	font-weight: 700;
+}
+.confirmButtonClass{
+	background-color: var(--theme-color) !important;
+	border-color: var(--theme-color) !important;
 }
 </style>

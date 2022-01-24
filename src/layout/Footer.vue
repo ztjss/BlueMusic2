@@ -26,16 +26,17 @@
 					</div>
 					<!-- 喜欢该歌曲 -->
 					<div class="like-song" @click="likeNowSongBy">
-						<span><i :class="islike ? 'iconfont icon-xihuan3' : 'iconfont icon-xihuan'"></i></span>
+						<span><i :class="islike ? 'iconfont icon-xihuan2' : 'iconfont icon-xihuan'"></i></span>
 					</div>
 				</div>
 				<!-- 没有音乐时 -->
-				<div class="cover-content" v-if="Object.keys(nowSongDetail).length == 0" @click="showSongDetail">
-					<div class="cover">
-						<img src="../assets/imgs/music-icon.png" style="width: 130%" />
-					</div>
-					<div class="songname">暂无音乐</div>
-				</div>
+				<!-- <div class="cover-content" v-if="Object.keys(nowSongDetail).length == 0" @click="showSongDetail"> -->
+					<!-- <div class="cover"> -->
+						<!-- <img src="../assets/imgs/music-icon.png" style="width: 130%" /> -->
+						<!-- <span class="iconfont icon-yinleyanzou"></span> -->
+					<!-- </div> -->
+					<!-- <div class="songname">暂无音乐</div> -->
+				<!-- </div> -->
 			</div>
 			<!-- 中间播放控制 -->
 			<div class="cneter-play-song">
@@ -132,9 +133,9 @@ export default {
 	components: { PlayingList },
 	computed: {
 		...mapGetters(["isLogin", "userInfo", "songUrl", "isPlaying", "playingList", "nowSongDetail", "playModel", "likeSongIds", "currentSecond", "currentLyric", "currentRow"]),
-		cover(){
-			return this.nowSongDetail.al.picUrl+"?param=200y200"
-		}
+		cover() {
+			return this.nowSongDetail.al.picUrl + "?param=200y200";
+		},
 	},
 	data() {
 		return {
@@ -456,6 +457,11 @@ export default {
 			align-items: center;
 			.cover {
 				width: 60px;
+				// .icon-yinleyanzou {
+				// 	color: #000;
+				// 	font-size: 36px;
+				// 	font-weight: 700;
+				// }
 				img {
 					width: 100%;
 				}
@@ -474,11 +480,12 @@ export default {
 					font-size: 18px;
 					font-weight: 700;
 					&:hover {
-						color: #409eff;
+						color: var(--theme-color);
 					}
 				}
-				.icon-xihuan3 {
+				.icon-xihuan2 {
 					font-size: 18px;
+					color: var(--theme-color);
 				}
 			}
 		}
@@ -498,10 +505,10 @@ export default {
 				justify-content: center;
 				align-items: center;
 				color: #fff;
-				background: rgba(64, 158, 255, 0.8);
+				background: var(--theme-rgba);
 				border-radius: 50%;
 				&:hover {
-					background: #409eff;
+					background: var(--theme-color);
 				}
 			}
 			.change-box {
@@ -544,7 +551,7 @@ export default {
 				width: 25px;
 				margin: 0 5px;
 				&:hover {
-					color: #409eff;
+					color: var(--theme-color);
 				}
 			}
 			.icon-orderplay,
@@ -568,7 +575,7 @@ export default {
 			padding: 5px 10px;
 			cursor: pointer;
 			&:hover {
-				color: #409eff;
+				color: var(--theme-color);
 			}
 		}
 		.icon-laba,

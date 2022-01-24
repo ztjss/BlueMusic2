@@ -69,7 +69,7 @@ export default {
 		font-size: 22px;
 	}
 	.active {
-		color: #5292fe;
+		color: var(--theme-color);
 	}
 }
 </style>

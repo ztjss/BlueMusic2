@@ -217,13 +217,13 @@ export default {
 
 .icon-mv {
 	font-size: 24px;
-	color: #409eff;
+	color: var(--theme-color);
 	cursor: pointer;
 	padding: 5px 0 0 5px;
 }
 .sthover:hover {
 	display: inline-block;
-	color: #409eff;
+	color: var(--theme-color);
 	width: 100%;
 	cursor: pointer;
 }

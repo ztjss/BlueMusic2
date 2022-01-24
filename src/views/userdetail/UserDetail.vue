@@ -16,7 +16,7 @@
 								<span class="iconfont icon-nan" v-if="currentUserInfo.gender == 1"></span>
 								<span class="iconfont icon-nv" v-else-if="currentUserInfo.gender == 2"></span>
 							</div>
-							<el-tag size="small">Lv:{{ currentUserInfo.level }}</el-tag>
+							<el-tag size="small" effect="light">Lv:{{ currentUserInfo.level }}</el-tag>
 						</div>
 						<!-- 关注按钮 -->
 						<el-button
@@ -340,7 +340,7 @@ export default {
 					font-size: 50px;
 				}
 				&:hover {
-					color: #409eff;
+					color: var(--theme-color);
 				}
 			}
 		}
@@ -349,13 +349,10 @@ export default {
 .mycreat,
 .mycollect {
 	margin-top: 50px;
-	span {
-		color: #409eff;
-	}
 }
 
 .sub {
-	background: #409eff;
+	background: var(--theme-color);
 	color: #fff;
 }
 </style>

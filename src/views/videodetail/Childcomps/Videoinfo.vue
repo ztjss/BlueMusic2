@@ -109,7 +109,7 @@ export default {
 		display: flex;
 		align-items: center;
 		padding-top: 15px;
-		color: #409eff;
+		color: #5091ca;
 		span {
 			padding-left: 10px;
 			cursor: pointer;
@@ -134,7 +134,7 @@ export default {
 	}
 }
 .sub {
-	background: #409eff;
+	background: var(--theme-color);
 	color: #fff;
 }
 </style>

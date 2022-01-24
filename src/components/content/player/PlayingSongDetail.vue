@@ -252,13 +252,6 @@ export default {
 	background: #fff;
 	z-index: 99;
 	overflow-y: scroll;
-	// 返回顶部按钮
-	.backtop {
-		width: 50px;
-		height: 50px;
-		border-radius: 50%;
-		background: rgba(100, 149, 237, 0.5);
-	}
 	// 关闭页面按钮
 	.icon-down-arrow {
 		position: fixed;
@@ -337,7 +330,7 @@ export default {
 						padding-top: 10px;
 						span {
 							cursor: pointer;
-							color: royalblue;
+							color: #5091ca;
 						}
 					}
 				}

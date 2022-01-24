@@ -10,7 +10,7 @@
 			<h2>手机号登录</h2>
 			<!-- logo -->
 			<div class="imgs">
-				<img src="~assets/imgs/music-icon.png" alt="" />
+				<span class="iconfont icon-tel"></span>
 			</div>
 			<!-- 表单 -->
 			<div class="form">
@@ -40,7 +40,7 @@
 				<h2>扫码登录</h2>
 				<img :src="qrurl" alt="" />
 				<p class="failqr" v-if="failqr">二维码已失效，<span @click="qrLogin">点击刷新</span></p>
-				<p class="text">使用<span style="color: #5292fe">网易云音乐APP</span>扫码登录</p>
+				<p class="text">使用<span style="color: #5091ca">网易云音乐APP</span>扫码登录</p>
 				<!-- 其他登录方式 -->
 				<div class="other-way" @click="changeLoginWay(0)" style="margin-top: 30px">
 					<span>
@@ -452,8 +452,10 @@ export default {
 	width: 150px;
 	height: 150px;
 	margin: 0 auto;
-	img {
-		width: 100%;
+	line-height: 150px;
+	.icon-tel{
+		font-size: 82px;
+		color: var(--theme-color);
 	}
 	padding-bottom: 20px;
 }
@@ -484,7 +486,7 @@ export default {
 		.failqr {
 			margin-bottom: 5px;
 			span {
-				color: #5292fe;
+				color: var(--theme-color);
 				cursor: pointer;
 			}
 		}
@@ -492,7 +494,7 @@ export default {
 }
 .other-way {
 	span:hover {
-		color: #5292fe;
+		color: var(--theme-color);
 		cursor: pointer;
 	}
 }
@@ -511,7 +513,7 @@ export default {
 				top: 0;
 				cursor: pointer;
 				font-size: 12px;
-				color: #5292fe;
+				color: var(--theme-color);
 			}
 			.captcha {
 				position: absolute;

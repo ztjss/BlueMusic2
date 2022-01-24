@@ -6,7 +6,7 @@
 				<span class="iconfont icon-guanbi1" @click="closeFloatLyric"></span>
 			</div>
 			<!-- 没有歌词时 -->
-			<div style="font-size: 18px; line-height: 60px; color: #409eff" v-if="currentLyric.length == 0">暂无歌词</div>
+			<div class="nolyric" v-if="currentLyric.length == 0">暂无歌词</div>
 			<!-- 有歌词时 -->
 			<div id="scrollLyric" ref="scrollLyric" v-else>
 				<ul>
@@ -53,7 +53,7 @@ export default {
 				lyric.style.top = e.pageY - y + "px";
 			}
 			// 鼠标松开，就停止拖拽，让鼠标移动事件解除
-			document.addEventListener("mouseup", function () {
+			document.addEventListener("mouseup", function() {
 				document.removeEventListener("mousemove", move);
 			});
 		},
@@ -111,7 +111,7 @@ export default {
 		}
 		.currentActive {
 			font-size: 22px;
-			color: #409eff;
+			color: var(--theme-color);
 			font-weight: 700;
 		}
 	}
@@ -122,5 +122,13 @@ export default {
 	top: 5px;
 	z-index: 99999;
 	cursor: pointer;
+	.icon-guanbi1{
+		color: var(--theme-color);
+	}
+}
+.nolyric {
+	font-size: 18px;
+	line-height: 60px;
+	color: var(--theme-color);
 }
 </style>

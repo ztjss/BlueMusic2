@@ -219,7 +219,7 @@ export default {
 		.sname {
 			cursor: pointer;
 			&:hover {
-				color: #409eff;
+				color: var(--theme-color);
 			}
 		}
 		.icon-guanbi:hover {

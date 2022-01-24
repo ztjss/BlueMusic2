@@ -3,7 +3,8 @@
 		<!-- 标题logo -->
 		<div class="title">
 			<div class="icon">
-				<img src="~assets/imgs/music-icon.png" alt="" />
+				<!-- <img src="~assets/imgs/music-icon.png" alt="" /> -->
+				<span class="iconfont icon-yinleyanzou"></span>
 			</div>
 			<div class="text"><span>BlueMusic</span></div>
 		</div>
@@ -18,8 +19,13 @@
 		</div>
 		<!-- 右侧登录 -->
 		<div class="right-login">
-			<span @click="changeTheme">红色</span>
 			<Login />
+		</div>
+		<div class="pifu">
+			<span class="iconfont icon-pifu" v-popover:popover slot="reference"></span>
+			<el-popover ref="popover" placement="bottom" width="150" trigger="click">
+				<theme-picker></theme-picker>
+			</el-popover>
 		</div>
 	</div>
 </template>
@@ -27,9 +33,10 @@
 <script>
 import Searchinput from "components/common/Searchinput.vue";
 import Login from "components/content/login/Login.vue";
+import ThemePicker from "../components/common/ThemePicker.vue";
 export default {
 	name: "Header",
-	components: { Searchinput, Login },
+	components: { Searchinput, Login, ThemePicker },
 
 	methods: {
 		goBack() {
@@ -37,18 +44,6 @@ export default {
 		},
 		goForward() {
 			this.$router.go(1);
-		},
-		changeTheme() {
-			// let themeRed = "#ec4141";
-			// let tagRgba = "rgba(236,65,65,.1)";
-			let redTheme = {
-				theme: "#ec4141",
-				tagRgba: "rgba(236,65,65,.1)",
-			};
-			document.documentElement.style.setProperty("--mycomp-color", redTheme.theme);
-			document.documentElement.style.setProperty("--theme-color", redTheme.theme);
-			document.documentElement.style.setProperty("--tag-rgba", redTheme.tagRgba);
-			localStorage.setItem("currentTheme",JSON.stringify(redTheme))
 		},
 	},
 };
@@ -72,8 +67,12 @@ export default {
 		.icon {
 			width: 60px;
 			height: 60px;
-			img {
-				height: 110%;
+			text-align: center;
+			line-height: 60px;
+			.icon-yinleyanzou {
+				color: #fff;
+				font-size: 34px;
+				font-weight: 700;
 			}
 		}
 		.text {
@@ -81,7 +80,6 @@ export default {
 			color: #fff;
 			font-family: Arial, Helvetica, sans-serif;
 			line-height: 60px;
-			padding-left: 10px;
 		}
 	}
 	.operation {
@@ -108,7 +106,13 @@ export default {
 	.right-login {
 		display: flex;
 		justify-content: right;
+		align-content: center;
 		flex: 12;
+	}
+	.pifu {
+		flex: 1;
+		color: #fff;
+		cursor: pointer;
 	}
 }
 </style>

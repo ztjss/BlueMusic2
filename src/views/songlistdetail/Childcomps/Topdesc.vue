@@ -156,7 +156,7 @@ export default {
 				font-size: 16px;
 				padding-left: 10px;
 				cursor: pointer;
-				color: #409eff;
+				color: #5091ca;
 			}
 			.creat-time {
 				padding-left: 15px;

@@ -153,7 +153,7 @@ export default {
 				padding-top: 10px;
 				span {
 					cursor: pointer;
-					color: royalblue;
+					color: #5091ca;
 				}
 			}
 			.be-replied {
@@ -162,7 +162,7 @@ export default {
 				background: #eee;
 				span {
 					cursor: pointer;
-					color: royalblue;
+					color: #5091ca;
 				}
 			}
 			.coment-time {
@@ -183,6 +183,6 @@ export default {
 	}
 }
 .isLike {
-	color: #5292fe;
+	color: var(--theme-color);
 }
 </style>

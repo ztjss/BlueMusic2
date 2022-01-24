@@ -98,6 +98,11 @@ export default {
 	.el-menu-item.is-active {
 		color: var(--base-black);
 		font-weight: 700;
+		background: rgb(245, 245, 245, 0.3) !important;
+	}
+	.el-menu-item:hover {
+		background: rgb(245, 245, 245, 0.3);
+		// background:var(--tag-rgba);
 	}
 	span {
 		padding-right: 10px;
