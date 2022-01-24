@@ -103,7 +103,6 @@ td {
 .el-backtop {
 	width: 45px !important;
 	height: 45px !important;
-	/* background-color: #fff !important; */
 	box-shadow: 0 0 6px rgb(0 0 0 / 24%) !important;
 }
 .el-icon-caret-top {

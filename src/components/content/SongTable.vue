@@ -11,11 +11,11 @@
 			<!-- 歌曲名和mv图标 -->
 			<el-table-column prop="name" label="歌曲" width="300" :show-overflow-tooltip="true">
 				<template v-slot="scope">
-					<span
-						>{{ scope.row.name }}
-						<i class="iconfont icon-vip1" v-if="scope.row.fee == 1"></i>
-						<i class="iconfont icon-mv" v-if="scope.row.mv != 0" @click="toMvDetail(scope.row.mv)"></i
-					></span>
+					<div class="songname">
+						{{ scope.row.name }}
+						<i class="iconfont icon-vip" v-if="scope.row.fee == 1"></i>
+						<i class="iconfont icon-mv" v-if="scope.row.mv != 0" @click="toMvDetail(scope.row.mv)"></i>
+					</div>
 				</template>
 			</el-table-column>
 			<!-- 操作按钮 -->
@@ -163,7 +163,7 @@ export default {
 					confirmButtonText: "确定",
 					cancelButtonText: "取消",
 					type: "warning",
-					confirmButtonClass:""
+					confirmButtonClass: "",
 				})
 					.then(() => {
 						// 如果删除的话就调接口
@@ -171,7 +171,9 @@ export default {
 						// 更新歌单
 						this.$emit("updateSonglist");
 					})
-					.catch((err) => {err});
+					.catch(err => {
+						err;
+					});
 				return;
 			}
 			// 否则不在用户喜欢的歌单 直接调接口
@@ -270,9 +272,9 @@ export default {
 	cursor: pointer;
 	padding-left: 5px;
 }
-.icon-vip1 {
-	color: red;
-	font-size: 16px;
+.icon-vip {
+	color: var(--theme-color);
+	font-size: 18px;
 	font-weight: 400;
 	padding-left: 5px;
 }
@@ -288,7 +290,7 @@ export default {
 	font-size: 24px;
 	font-weight: 700;
 }
-.confirmButtonClass{
+.confirmButtonClass {
 	background-color: var(--theme-color) !important;
 	border-color: var(--theme-color) !important;
 }

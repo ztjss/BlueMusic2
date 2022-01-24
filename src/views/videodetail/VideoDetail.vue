@@ -147,13 +147,10 @@ export default {
     事件监听
     */
 		//评论分页事件
-		changePage(page) {
+		changePage() {
 			// 返回指定位置
 			let view = document.querySelector(".view");
-			view.scrollTo({
-				behavior: "smooth",
-				top: this.$refs.comment.offsetTop,
-			});
+			view.scrollTop = this.$refs.comment.offsetTop;
 		},
 
 		/* 收藏视频或MV事件 */

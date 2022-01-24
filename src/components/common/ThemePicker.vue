@@ -1,7 +1,7 @@
 <template>
 	<div class="theme">
-		<div class="theme-item" v-for="(item, index) in themeList" :key="index" @click="changeTheme(item)">
-			<div :style="{ background: item.theme }" class="bg"></div>
+		<div class="theme-item" v-for="(item, index) in themeList" :key="index" @click="changeTheme(item, index)">
+			<div :style="{ background: item.theme }" class="bg" :class="{ active: currentIndex === index }"></div>
 			<div>{{ item.name }}</div>
 		</div>
 	</div>
@@ -56,15 +56,18 @@ export default {
 					tagRgba: "rgba(226,171,18,.1)",
 				},
 			],
+			currentIndex: localStorage.getItem("currentThemeIndex") ? JSON.parse(localStorage.getItem("currentThemeIndex")) : 0,
 		};
 	},
 	methods: {
-		changeTheme(item) {
+		changeTheme(item, index) {
 			document.documentElement.style.setProperty("--mycomp-color", item.mycomp);
 			document.documentElement.style.setProperty("--theme-color", item.theme);
 			document.documentElement.style.setProperty("--theme-rgba", item.themeRgba);
 			document.documentElement.style.setProperty("--tag-rgba", item.tagRgba);
+			this.currentIndex = index;
 			localStorage.setItem("currentTheme", JSON.stringify(item));
+			localStorage.setItem("currentThemeIndex", JSON.stringify(index));
 		},
 	},
 };
@@ -73,7 +76,7 @@ export default {
 <style lang="less" scoped>
 .theme {
 	height: 120px;
-	padding-top: 10px;
+	padding: 10px 0 0 10px;
 	display: flex;
 	justify-content: center;
 	flex-wrap: wrap;
@@ -89,5 +92,8 @@ export default {
 			height: 100%;
 		}
 	}
+}
+.active {
+	border: 3px solid #a9a9a9;
 }
 </style>

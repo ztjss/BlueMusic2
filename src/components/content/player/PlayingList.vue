@@ -6,11 +6,11 @@
 		<!-- 播放列表 -->
 		<div class="play-list" v-if="activeItem == 0">
 			<div class="hd">
-				<h4 style="padding:0px 10px">总{{ playingList.length }}首</h4>
-				<span @click="deleteAll" style="cursor: pointer;"><i class="iconfont icon-delete"></i>清空</span>
+				<h4 style="padding: 0px 10px">总{{ playingList.length }}首</h4>
+				<span @click="deleteAll"><i class="iconfont icon-delete"></i>清空</span>
 			</div>
-			<div class="bd ">
-				<el-table size="mini" :show-header="false" style="width: 100%;" :row-class-name="tableRowClassName" :data="playingList" @row-dblclick="playSongClick" empty-text="暂无歌曲">
+			<div class="bd">
+				<el-table size="mini" :show-header="false" style="width: 100%" :row-class-name="tableRowClassName" :data="playingList" @row-dblclick="playSongClick" empty-text="暂无歌曲">
 					<el-table-column width="50">
 						<template v-slot="scope">
 							<span class="iconfont" :class="isPlaying ? ' icon-voice' : 'icon-jingyin_laba'" v-if="scope.row.id === nowSongDetail.id"></span>
@@ -43,11 +43,11 @@
 		<!-- 历史记录 -->
 		<div class="history-list" v-if="activeItem == 1">
 			<div class="hd">
-				<h4 style="padding:0px 10px">总{{ historyPlay.length }}首</h4>
-				<span @click="deleteAllHistory" style="cursor: pointer;"><i class="iconfont icon-delete"></i>清空</span>
+				<h4 style="padding: 0px 10px">总{{ historyPlay.length }}首</h4>
+				<span @click="deleteAllHistory" style="cursor: pointer"><i class="iconfont icon-delete"></i>清空</span>
 			</div>
-			<div class="bd ">
-				<el-table size="mini" :show-header="false" style="width: 100%;" :row-class-name="tableRowClassName" :data="historyPlay" @row-dblclick="playHistorySong" empty-text="暂无记录">
+			<div class="bd">
+				<el-table size="mini" :show-header="false" style="width: 100%" :row-class-name="tableRowClassName" :data="historyPlay" @row-dblclick="playHistorySong" empty-text="暂无记录">
 					<el-table-column width="50">
 						<template v-slot="scope">
 							<span class="iconfont" :class="isPlaying ? ' icon-voice' : 'icon-jingyin_laba'" v-if="scope.row.id == nowSongDetail.id"></span>
@@ -208,6 +208,10 @@ export default {
 	span {
 		padding-right: 30px;
 		font-size: 14px;
+		cursor: pointer;
+		&:hover {
+			color: var(--theme-color);
+		}
 	}
 }
 .play-list,
@@ -223,8 +227,12 @@ export default {
 			}
 		}
 		.icon-guanbi:hover {
-			color: red;
+			color: var(--theme-color);
 			cursor: pointer;
+		}
+		.icon-voice,
+		.icon-jingyin_laba {
+			color: var(--theme-color);
 		}
 	}
 }

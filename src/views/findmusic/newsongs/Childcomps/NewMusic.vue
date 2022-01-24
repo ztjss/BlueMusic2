@@ -214,9 +214,12 @@ export default {
 		margin: 10px 0;
 	}
 }
-
+.icon-voice,
+.icon-jingyin_laba {
+	color: var(--theme-color);
+}
 .icon-mv {
-	font-size: 24px;
+	font-size: 22px;
 	color: var(--theme-color);
 	cursor: pointer;
 	padding: 5px 0 0 5px;
