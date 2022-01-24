@@ -49,7 +49,7 @@ export default {
 	}
 }
 .active {
-	background: #7c7d85;
+	background: #909399;
 	color: #fff;
 }
 </style>

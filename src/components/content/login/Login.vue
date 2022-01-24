@@ -70,7 +70,7 @@ export default {
 
 <style lang="less" scoped>
 .login {
-	padding-right: 5%;
+	padding-right: 2%;
 }
 .avatar {
 	display: flex;
@@ -79,37 +79,6 @@ export default {
 	cursor: pointer;
 	.uname {
 		padding-left: 5px;
-	}
-}
-.user-pop {
-	position: absolute;
-	top: 65px;
-	box-shadow: 0px 0px 2px 2px #eef;
-	background: #fff;
-	border-radius: 10px;
-	z-index: 99;
-	.data-num {
-		display: flex;
-		justify-content: center;
-		margin: 10px 0;
-		.num-item {
-			padding: 0 15px;
-			text-align: center;
-			cursor: pointer;
-		}
-	}
-	.userinfo-list {
-		margin: 5px 0;
-		li {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			padding: 5px 5px;
-			&:hover {
-				background: #eee;
-				cursor: pointer;
-			}
-		}
 	}
 }
 </style>

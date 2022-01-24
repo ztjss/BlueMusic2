@@ -81,7 +81,7 @@ export default {
 			width: 33%;
 			margin-bottom: 10px;
 			&:hover {
-				background: rgba(236, 245, 255, 0.5);
+				background: rgb(245, 245, 245, 0.3);
 			}
 			.item-img {
 				position: relative;

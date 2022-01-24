@@ -115,13 +115,7 @@ export default {
 						this.$store.dispatch("saveLikeSongIds", res.data.ids);
 					});
 				})
-				.catch(() => {
-					this.$message({
-						type: "info",
-						message: "取消退出登录",
-						center: true,
-					});
-				});
+				.catch((err) => {err});
 		},
 	},
 	mounted() {
@@ -142,7 +136,7 @@ export default {
 .user-pop {
 	position: absolute;
 	top: 65px;
-	right: 20px;
+	right: 60px;
 	box-shadow: 0px 0px 2px 2px #eef;
 	background: #fff;
 	border-radius: 5px;

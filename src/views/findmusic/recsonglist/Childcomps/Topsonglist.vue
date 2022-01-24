@@ -5,7 +5,7 @@
 			<img v-lazy="topsonglist[0].coverImgUrl" class="bgImg" />
 			<transition name="el-fade-in-linear">
 				<div class="mask-playicon" v-show="isShowPlay">
-					<span class="iconfont icon-bofang"></span>
+					<span class="iconfont icon-play"></span>
 				</div>
 			</transition>
 		</div>
@@ -67,9 +67,6 @@ export default {
 		cursor: pointer;
 		img {
 			width: 100%;
-		}
-		.iconfont {
-			font-size: 42px;
 		}
 	}
 	.info {

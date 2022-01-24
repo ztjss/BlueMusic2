@@ -6,7 +6,7 @@
 			<!-- 播放图标遮罩层 -->
 			<transition name="el-fade-in-linear">
 				<div class="mask-playicon" v-show="isShowPlay">
-					<span class="iconfont icon-bofang"></span>
+					<span class="iconfont icon-play"></span>
 				</div>
 			</transition>
 			<!-- 播放量 -->
@@ -143,11 +143,6 @@ export default {
 		img {
 			width: 100%;
 			height: 180px;
-		}
-		.mask-playicon {
-			.iconfont {
-				font-size: 42px;
-			}
 		}
 		.play-icon {
 			position: absolute;

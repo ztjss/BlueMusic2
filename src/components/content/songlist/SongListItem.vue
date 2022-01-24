@@ -6,7 +6,7 @@
 			<!-- 图片上的播放图标 鼠标经过时显示 -->
 			<transition name="el-fade-in-linear">
 				<div class="mask-playicon" v-show="isShowPlay">
-					<span class="iconfont icon-bofang"></span>
+					<span class="iconfont icon-play"></span>
 				</div>
 			</transition>
 			<!-- 图片上方遮罩层1 显示歌单播放量 -->
@@ -100,7 +100,6 @@ export default {
 			line-height: 30px;
 			text-align: right;
 			color: #fff;
-			// background: rgba(100, 100,100, 0.5);
 			font-size: 13px;
 			padding-right: 7px;
 			span {
@@ -115,17 +114,10 @@ export default {
 			line-height: 30px;
 			text-align: left;
 			color: #fff;
-			// background: rgba(100, 100,100, 0.5);
 			font-size: 13px;
 			padding-left: 7px;
 			span {
 				padding-right: 5px;
-			}
-		}
-		.mask-playicon {
-			box-shadow: 0 0 5px 5px #e5e5ff;
-			.iconfont {
-				font-size: 42px;
 			}
 		}
 	}

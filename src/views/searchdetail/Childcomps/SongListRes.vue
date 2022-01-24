@@ -2,7 +2,7 @@
 	<div songlist-res>
 		<div class="result">
 			<h3>
-				搜索<span style="color: #5292fe">{{ this.keywords }}</span
+				搜索<span>{{ this.keywords }}</span
 				>,找到{{ songlistResCount }}个歌单
 			</h3>
 		</div>

@@ -101,7 +101,7 @@ export default {
 	padding-top: 30px;
 }
 .more {
-	color: #5292fe;
+	color: var(--theme-color);
 	cursor: pointer;
 }
 </style>

@@ -77,8 +77,8 @@ export default {
 	font-size: 16px;
 }
 .el-menu--horizontal > .el-menu-item.is-active {
-	border-bottom: 3px solid #5292fe;
+	border-bottom: 3px solid var(--mycomp-color);
 	font-size: 18px;
-	color: #5292fe;
+	color: var(--mycomp-color);
 }
 </style>

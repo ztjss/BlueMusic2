@@ -2,7 +2,7 @@
 	<div class="mv-res">
 		<div class="result">
 			<h3>
-				搜索<span style="color: #5292fe">{{ this.keywords }}</span
+				搜索<span>{{ this.keywords }}</span
 				>,找到{{ mvResCount }}个MV
 			</h3>
 		</div>

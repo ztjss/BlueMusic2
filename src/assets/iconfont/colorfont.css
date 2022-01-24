@@ -1,10 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2766995 */
-  /* Color fonts */
-  src: 
-       url('//at.alicdn.com/t/font_2766995_jylktckjdtl.woff2?t=1634126828848') format('woff2'),
-       url('//at.alicdn.com/t/font_2766995_jylktckjdtl.woff?t=1634126828848') format('woff'),
-       url('//at.alicdn.com/t/font_2766995_jylktckjdtl.ttf?t=1634126828848') format('truetype');
+  src: url('//at.alicdn.com/t/font_2766995_zez3qvcabi.woff2?t=1642994476510') format('woff2'),
+       url('//at.alicdn.com/t/font_2766995_zez3qvcabi.woff?t=1642994476510') format('woff'),
+       url('//at.alicdn.com/t/font_2766995_zez3qvcabi.ttf?t=1642994476510') format('truetype');
 }
 
 .iconfont {
@@ -15,16 +13,16 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-xihuan2:before {
+  content: "\e86f";
+}
+
 .icon-jingyin_laba:before {
   content: "\e68b";
 }
 
 .icon-voice:before {
   content: "\e690";
-}
-
-.icon-xihuan3:before {
-  content: "\e802";
 }
 
 .icon-nv:before {
@@ -38,8 +36,3 @@
 .icon-guanbi1:before {
   content: "\e629";
 }
-
-.icon-bofang:before {
-  content: "\e731";
-}
-

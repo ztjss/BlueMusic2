@@ -2,7 +2,7 @@
 	<div class="album-res">
 		<div class="result">
 			<h3>
-				搜索<span style="color: #5292fe">{{ this.keywords }}</span
+				搜索<span class="key">{{ this.keywords }}</span
 				>,找到{{ albumRes.albumCount }}张专辑
 			</h3>
 		</div>

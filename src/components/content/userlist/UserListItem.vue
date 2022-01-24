@@ -43,7 +43,7 @@ export default {
 	padding: 10px 5px;
 	cursor: pointer;
 	&:hover {
-		background: rgba(236, 245, 255, 0.5);
+		background: rgb(245, 245, 245, 0.3);
 		border-radius: 5px;
 	}
 	.left-avatar {

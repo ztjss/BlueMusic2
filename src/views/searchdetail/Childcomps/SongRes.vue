@@ -2,7 +2,7 @@
 	<div class="song-res">
 		<div class="result">
 			<h3>
-				搜索<span style="color: #5292fe">{{ this.keywords }}</span
+				搜索<span>{{ this.keywords }}</span
 				>,找到{{ songResCount }}首单曲
 			</h3>
 			<div class="match" v-if="Object.keys(matchSinger).length !== 0 || Object.keys(matchAlbum).length !== 0">
