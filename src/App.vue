@@ -17,17 +17,14 @@ export default {
 	components: { Header, Main, Footer },
 	created() {
 		// 设置主题色
-		let defaultTheme = {
-			mycomp:"#5292fe",
-			theme: "#409eff",
-			themeRgba:"rgba(64, 158, 255, 0.8)",
-			tagRgba: "rgba(100, 149, 237, 0.2)",
-		};
-		let currentTheme = localStorage.getItem("currentTheme") ? JSON.parse(localStorage.getItem("currentTheme")) : defaultTheme;
-		document.documentElement.style.setProperty("--mycomp-color", currentTheme.theme);
-		document.documentElement.style.setProperty("--theme-color", currentTheme.theme);
-		document.documentElement.style.setProperty("--theme-rgba", currentTheme.themeRgba);
-		document.documentElement.style.setProperty("--tag-rgba", currentTheme.tagRgba);
+		let currentTheme = this.getItem("currentTheme") ? this.getItem("currentTheme") : null;
+		if (currentTheme != null) {
+			for (let k in currentTheme) {
+				if (k != "title") {
+					document.documentElement.style.setProperty(`--${k}`, currentTheme[k]);
+				}
+			}
+		}
 	},
 };
 </script>

@@ -216,17 +216,17 @@ export default {
 }
 .icon-voice,
 .icon-jingyin_laba {
-	color: var(--theme-color);
+	color: var(--themeColor);
 }
 .icon-mv {
 	font-size: 22px;
-	color: var(--theme-color);
+	color: var(--themeColor);
 	cursor: pointer;
 	padding: 5px 0 0 5px;
 }
 .sthover:hover {
 	display: inline-block;
-	color: var(--theme-color);
+	color: var(--themeColor);
 	width: 100%;
 	cursor: pointer;
 }

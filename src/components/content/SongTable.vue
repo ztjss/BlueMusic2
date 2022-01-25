@@ -255,7 +255,7 @@ export default {
 	}
 	.icon-xihuan2 {
 		font-size: 16px;
-		color: var(--theme-color);
+		color: var(--themeColor);
 	}
 	span {
 		padding-right: 15px;
@@ -264,23 +264,23 @@ export default {
 }
 .icon-voice,
 .icon-jingyin_laba {
-	color: var(--theme-color);
+	color: var(--themeColor);
 }
 .icon-mv {
 	font-size: 22px;
-	color: var(--theme-color);
+	color: var(--themeColor);
 	cursor: pointer;
 	padding-left: 5px;
 }
 .icon-vip {
-	color: var(--theme-color);
+	color: var(--themeColor);
 	font-size: 18px;
 	font-weight: 400;
 	padding-left: 5px;
 }
 .sthover:hover {
 	display: inline-block;
-	color: var(--theme-color);
+	color: var(--themeColor);
 	width: 100%;
 	cursor: pointer;
 }
@@ -291,7 +291,7 @@ export default {
 	font-weight: 700;
 }
 .confirmButtonClass {
-	background-color: var(--theme-color) !important;
-	border-color: var(--theme-color) !important;
+	background-color: var(--themeColor) !important;
+	border-color: var(--themeColor) !important;
 }
 </style>

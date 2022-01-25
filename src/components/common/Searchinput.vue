@@ -84,7 +84,7 @@ export default {
 		cursor: pointer;
 		padding-top: 10px;
 		&:hover {
-			color: var(--theme-color);
+			color: var(--themeColor);
 			font-weight: 700;
 		}
 	}

@@ -59,6 +59,6 @@ export default {
 	padding: 3px 8px;
 	color: #fff;
 	font-size: 12px;
-	background: var(--theme-color);
+	background: var(--themeColor);
 }
 </style>

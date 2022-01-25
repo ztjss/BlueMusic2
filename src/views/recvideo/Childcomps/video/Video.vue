@@ -107,7 +107,7 @@ export default {
 	margin-top: 30px;
 }
 .more {
-	color: var(--theme-color);
+	color: var(--themeColor);
 	cursor: pointer;
 }
 </style>

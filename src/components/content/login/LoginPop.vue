@@ -277,9 +277,9 @@ export default {
 			this.closeLogin();
 			// 更新登录状态
 			this.$store.dispatch("updateLogin", true);
-			localStorage.setItem("isLogin", true);
+			this.setItem("isLogin", true);
 			//缓存用户信息 防止刷新消失
-			localStorage.setItem("userInfo", JSON.stringify(res.data.profile));
+			this.setItem("userInfo", res.data.profile);
 			// 提交vuex 保存用户信息
 			this.$store.dispatch("saveUserInfo", res.data.profile);
 			// 获取用户歌单数据
@@ -289,7 +289,7 @@ export default {
 		// 获取用户歌单和喜欢的音乐数据
 		getUserSonglistBy(uid) {
 			getUserSonglist(uid).then(res => {
-				localStorage.setItem("userSongList", JSON.stringify(res.data.playlist));
+				this.setItem("userSongList", res.data.playlist);
 				this.$store.dispatch("saveUserSongList", res.data.playlist);
 			});
 			getLikSongList(uid).then(res => {
@@ -453,9 +453,9 @@ export default {
 	height: 150px;
 	margin: 0 auto;
 	line-height: 150px;
-	.icon-tel{
+	.icon-tel {
 		font-size: 82px;
-		color: var(--theme-color);
+		color: var(--themeColor);
 	}
 	padding-bottom: 20px;
 }
@@ -486,7 +486,7 @@ export default {
 		.failqr {
 			margin-bottom: 5px;
 			span {
-				color: var(--theme-color);
+				color: var(--themeColor);
 				cursor: pointer;
 			}
 		}
@@ -494,7 +494,7 @@ export default {
 }
 .other-way {
 	span:hover {
-		color: var(--theme-color);
+		color: var(--themeColor);
 		cursor: pointer;
 	}
 }
@@ -513,7 +513,7 @@ export default {
 				top: 0;
 				cursor: pointer;
 				font-size: 12px;
-				color: var(--theme-color);
+				color: var(--themeColor);
 			}
 			.captcha {
 				position: absolute;

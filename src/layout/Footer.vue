@@ -17,7 +17,7 @@
 			<div class="left-cover-content">
 				<!-- 有音乐时 -->
 				<div class="cover-content" v-if="Object.keys(nowSongDetail).length !== 0">
-					<div class="cover" @click="showSongDetail">
+					<div class="cover " @click="showSongDetail">
 						<img :src="cover" alt="" />
 					</div>
 					<div class="songname">
@@ -31,11 +31,11 @@
 				</div>
 				<!-- 没有音乐时 -->
 				<!-- <div class="cover-content" v-if="Object.keys(nowSongDetail).length == 0" @click="showSongDetail"> -->
-					<!-- <div class="cover"> -->
-						<!-- <img src="../assets/imgs/music-icon.png" style="width: 130%" /> -->
-						<!-- <span class="iconfont icon-yinleyanzou"></span> -->
-					<!-- </div> -->
-					<!-- <div class="songname">暂无音乐</div> -->
+				<!-- <div class="cover"> -->
+				<!-- <img src="../assets/imgs/music-icon.png" style="width: 130%" /> -->
+				<!-- <span class="iconfont icon-yinleyanzou"></span> -->
+				<!-- </div> -->
+				<!-- <div class="songname">暂无音乐</div> -->
 				<!-- </div> -->
 			</div>
 			<!-- 中间播放控制 -->
@@ -317,7 +317,7 @@ export default {
 			// 先关闭循环播放
 			this.$refs.audioplay.loop = false;
 			this.$store.commit("changePlayModel", model);
-			localStorage.setItem("playModel", model);
+			this.setItem("playModel", model);
 		},
 		//.1 顺序模式
 		orderPlay(type) {
@@ -456,12 +456,8 @@ export default {
 			display: flex;
 			align-items: center;
 			.cover {
+				position: relative;
 				width: 60px;
-				// .icon-yinleyanzou {
-				// 	color: #000;
-				// 	font-size: 36px;
-				// 	font-weight: 700;
-				// }
 				img {
 					width: 100%;
 				}
@@ -480,12 +476,12 @@ export default {
 					font-size: 18px;
 					font-weight: 700;
 					&:hover {
-						color: var(--theme-color);
+						color: var(--themeColor);
 					}
 				}
 				.icon-xihuan2 {
 					font-size: 18px;
-					color: var(--theme-color);
+					color: var(--themeColor);
 				}
 			}
 		}
@@ -505,10 +501,10 @@ export default {
 				justify-content: center;
 				align-items: center;
 				color: #fff;
-				background: var(--theme-rgba);
+				background: var(--themeRgba);
 				border-radius: 50%;
 				&:hover {
-					background: var(--theme-color);
+					background: var(--themeColor);
 				}
 			}
 			.change-box {
@@ -551,7 +547,7 @@ export default {
 				width: 25px;
 				margin: 0 5px;
 				&:hover {
-					color: var(--theme-color);
+					color: var(--themeColor);
 				}
 			}
 			.icon-orderplay,
@@ -575,7 +571,7 @@ export default {
 			padding: 5px 10px;
 			cursor: pointer;
 			&:hover {
-				color: var(--theme-color);
+				color: var(--themeColor);
 			}
 		}
 		.icon-laba,

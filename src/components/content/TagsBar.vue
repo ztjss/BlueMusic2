@@ -43,7 +43,7 @@ ul {
 		padding: 3px 5px;
 		cursor: pointer;
 		&:hover {
-			color: var(--mycomp-color);
+			color: var(--mycompColor);
 		}
 		span {
 			padding: 3px 5px;
@@ -51,8 +51,8 @@ ul {
 	}
 }
 .active {
-	color: var(--mycomp-color);
-	background: var(--tag-rgba);
+	color: var(--mycompColor);
+	background: var(--tagRgba);
 	border-radius: 5px;
 }
 </style>

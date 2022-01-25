@@ -52,7 +52,7 @@ export default {
 		//获取用户个人信息
 		getUserDetailBy() {
 			getUserDetail(this.userInfo.userId).then(res => {
-				localStorage.setItem("userInfo", JSON.stringify(res.data.profile));
+				this.setItem("userInfo", res.data.profile);
 				// 提交vuex 保存用户信息
 				this.$store.dispatch("saveUserInfo", res.data.profile);
 			});
@@ -101,16 +101,16 @@ export default {
 						});
 						// 更新登录状态
 						this.$store.dispatch("updateLogin", false);
-						localStorage.removeItem("isLogin");
+						this.removeItem("isLogin");
 						// 清空用户信息
 						this.$store.dispatch("saveUserInfo", null);
-						localStorage.removeItem("userInfo");
+						this.removeItem("userInfo");
 						// 清空歌单
 						this.$store.dispatch("saveUserSongList", []);
-						localStorage.removeItem("userSongList");
+						this.removeItem("userSongList");
 						// 清空历史播放记录
 						this.$store.dispatch("deleteAllHistory");
-						localStorage.removeItem("historyPlay");
+						this.removeItem("historyPlay");
 						// 清空用户喜欢的音乐id列表
 						this.$store.dispatch("saveLikeSongIds", res.data.ids);
 					});

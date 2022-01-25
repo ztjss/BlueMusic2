@@ -24,7 +24,7 @@
 		<div class="pifu">
 			<span class="iconfont icon-pifu" v-popover:popover slot="reference"></span>
 			<el-popover ref="popover" placement="bottom" width="150" trigger="click">
-				<theme-picker></theme-picker>
+				<ThemePicker/>
 			</el-popover>
 		</div>
 	</div>
@@ -56,7 +56,7 @@ export default {
 	align-items: center;
 	width: 100%;
 	height: 60px;
-	background: var(--mycomp-color);
+	background: var(--mycompColor);
 	z-index: 99;
 	.title {
 		flex: 2;

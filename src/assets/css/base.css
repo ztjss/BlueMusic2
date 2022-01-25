@@ -3,10 +3,10 @@
 @import "../iconfont/colorfont.css";
 @import "../css/element.css";
 :root {
-	--mycomp-color: #5292fe; /*自定义组件主题色*/
-	--theme-color: #409eff; /*主题色*/
-	--theme-rgba: rgba(64, 158, 255, 0.8);
-	--tag-rgba: rgba(100, 149, 237, 0.2); /*标签导航背景色*/
+	--mycompColor: #5292fe; /*自定义组件主题色*/
+	--themeColor: #409eff; /*主题色*/
+	--themeRgba: rgba(64, 158, 255, 0.8);
+	--tagRgba: rgba(100, 149, 237, 0.2); /*标签导航背景色*/
 	--base-black: #000000;
 	--info-color: #909399;
 }
@@ -121,7 +121,7 @@ h4 {
 	background: rgba(100, 100, 100, 0.4);
 }
 .mask-playicon .icon-play {
-	background-color: var(--theme-color);
+	background-color: var(--themeColor);
 	width: 40px;
 	height: 40px;
 	border-radius: 50%;

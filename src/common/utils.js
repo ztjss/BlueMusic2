@@ -33,6 +33,27 @@ export const getRandom = (min, max) => {
 	return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 /**
+ * 
+ localStorage存取数据
+ */
+export const setItem = (key, value) => {
+	if (typeof value === "object") {
+		value = JSON.stringify(value);
+	}
+	window.localStorage.setItem(key, value);
+};
+export const getItem = key => {
+	const data = window.localStorage.getItem(key);
+	try {
+		return JSON.parse(data);
+	} catch (err) {
+		return data;
+	}
+};
+export const removeItem = key => {
+	window.localStorage.removeItem(key);
+};
+/**
  * 将对象转成 a=1&b=2的形式
  * @param obj 对象
  */

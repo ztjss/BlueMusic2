@@ -1,8 +1,10 @@
 <template>
 	<div class="theme">
 		<div class="theme-item" v-for="(item, index) in themeList" :key="index" @click="changeTheme(item, index)">
-			<div :style="{ background: item.theme }" class="bg" :class="{ active: currentIndex === index }"></div>
-			<div>{{ item.name }}</div>
+			<div :style="{ background: item.themeColor }" class="bg">
+				<span class="iconfont icon-duihao" v-if="currentIndex === index"></span>
+			</div>
+			<div>{{ item.title }}</div>
 		</div>
 	</div>
 </template>
@@ -14,60 +16,61 @@ export default {
 		return {
 			themeList: [
 				{
-					name: "蓝色",
-					mycomp: "#5292fe",
-					theme: "#409eff",
+					title: "蓝色",
+					mycompColor: "#5292fe",
+					themeColor: "#409eff",
 					themeRgba: "rgba(64, 158, 255, 0.8)",
 					tagRgba: "rgba(100, 149, 237, 0.2)",
 				},
 				{
-					name: "红色",
-					mycomp: "#ec4141",
-					theme: "#ec4141",
+					title: "红色",
+					mycompColor: "#ec4141",
+					themeColor: "#ec4141",
 					themeRgba: "rgba(236,65,65,.8)",
 					tagRgba: "rgba(236,65,65,.1)",
 				},
 				{
-					name: "绿色",
-					mycomp: "#2bb669",
-					theme: "#2bb669",
+					title: "绿色",
+					mycompColor: "#2bb669",
+					themeColor: "#2bb669",
 					themeRgba: "rgba(43,182,105,.8)",
 					tagRgba: "rgba(43,182,105,.1)",
 				},
 				{
-					name: "橘色",
-					mycomp: "#ff8f57",
-					theme: "#ff8f57",
+					title: "橘色",
+					mycompColor: "#ff8f57",
+					themeColor: "#ff8f57",
 					themeRgba: "rgba(255,143,87,.8)",
 					tagRgba: "rgba(255,143,87,.1)",
 				},
 				{
-					name: "粉色",
-					mycomp: "#ff5c8a",
-					theme: "#ff5c8a",
+					title: "粉色",
+					mycompColor: "#ff5c8a",
+					themeColor: "#ff5c8a",
 					themeRgba: "rgba(255,92,138,.8)",
 					tagRgba: "rgba(255,92,138,.1)",
 				},
 				{
-					name: "金色",
-					mycomp: "#e2ab12",
-					theme: "#e2ab12",
+					title: "金色",
+					mycompColor: "#e2ab12",
+					themeColor: "#e2ab12",
 					themeRgba: "rgba(226,171,18,.8)",
 					tagRgba: "rgba(226,171,18,.1)",
 				},
 			],
-			currentIndex: localStorage.getItem("currentThemeIndex") ? JSON.parse(localStorage.getItem("currentThemeIndex")) : 0,
+			currentIndex: this.getItem("currentThemeIndex") ? this.getItem("currentThemeIndex") : 0,
 		};
 	},
 	methods: {
 		changeTheme(item, index) {
-			document.documentElement.style.setProperty("--mycomp-color", item.mycomp);
-			document.documentElement.style.setProperty("--theme-color", item.theme);
-			document.documentElement.style.setProperty("--theme-rgba", item.themeRgba);
-			document.documentElement.style.setProperty("--tag-rgba", item.tagRgba);
+			for (let k in item) {
+				if (k !== "title") {
+					document.documentElement.style.setProperty(`--${k}`, item[k]);
+				}
+			}
 			this.currentIndex = index;
-			localStorage.setItem("currentTheme", JSON.stringify(item));
-			localStorage.setItem("currentThemeIndex", JSON.stringify(index));
+			this.setItem("currentTheme", item);
+			this.setItem("currentThemeIndex", index);
 		},
 	},
 };
@@ -88,12 +91,19 @@ export default {
 		text-align: center;
 		cursor: pointer;
 		.bg {
+			position: relative;
 			width: 100%;
 			height: 100%;
 		}
 	}
 }
-.active {
-	border: 3px solid #a9a9a9;
+.icon-duihao {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	color: #fff;
+	font-size: 18px;
+	font-weight: 700;
 }
 </style>

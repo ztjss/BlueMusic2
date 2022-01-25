@@ -111,7 +111,7 @@ export default {
 		}
 		.currentActive {
 			font-size: 22px;
-			color: var(--theme-color);
+			color: var(--themeColor);
 			font-weight: 700;
 		}
 	}
@@ -123,12 +123,12 @@ export default {
 	z-index: 99999;
 	cursor: pointer;
 	.icon-guanbi1{
-		color: var(--theme-color);
+		color: var(--themeColor);
 	}
 }
 .nolyric {
 	font-size: 18px;
 	line-height: 60px;
-	color: var(--theme-color);
+	color: var(--themeColor);
 }
 </style>

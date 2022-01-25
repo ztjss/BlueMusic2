@@ -155,7 +155,7 @@ export default {
 						this.isSub = !this.isSub;
 						// 重新获取用户歌单
 						getUserSonglist(this.userInfo.userId).then(res => {
-							localStorage.setItem("userSongList", JSON.stringify(res.data.playlist));
+							this.setItem("userSongList", res.data.playlist);
 							this.$store.dispatch("saveUserSongList", res.data.playlist);
 							if (t == 1) {
 								this.$message({

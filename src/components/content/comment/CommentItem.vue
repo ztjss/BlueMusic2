@@ -71,7 +71,7 @@ export default {
 	},
 	created() {
 		// 判断是否点赞
-		this.cidList = localStorage.getItem("likeComment") ? JSON.parse(localStorage.getItem("likeComment")) : [];
+		this.cidList = this.getItem("likeComment") ? this.getItem("likeComment") : [];
 		this.isLike = this.cidList.includes(this.item.commentId);
 	},
 	watch: {
@@ -109,11 +109,11 @@ export default {
 			if (t === 1) {
 				// 存储当前点赞评论id
 				this.cidList.push(item.commentId);
-				localStorage.setItem("likeComment", JSON.stringify(this.cidList));
+				this.setItem("likeComment", this.cidList);
 			} else {
 				// 清除当前评论id
 				this.cidList = this.cidList.filter(cid => cid != item.commentId);
-				localStorage.setItem("likeComment", JSON.stringify(this.cidList));
+				this.setItem("likeComment", this.cidList);
 			}
 			// 发送网络请求
 			isLikeComment(this.commentresId, this.commentType, t, item.commentId)
@@ -196,6 +196,6 @@ export default {
 	}
 }
 .isLike {
-	color: var(--theme-color);
+	color: var(--themeColor);
 }
 </style>

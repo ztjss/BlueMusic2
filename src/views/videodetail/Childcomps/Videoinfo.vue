@@ -134,7 +134,7 @@ export default {
 	}
 }
 .sub {
-	background: var(--theme-color);
+	background: var(--themeColor);
 	color: #fff;
 }
 </style>

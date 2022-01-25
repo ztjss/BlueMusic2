@@ -340,7 +340,7 @@ export default {
 					font-size: 50px;
 				}
 				&:hover {
-					color: var(--theme-color);
+					color: var(--themeColor);
 				}
 			}
 		}
@@ -352,7 +352,7 @@ export default {
 }
 
 .sub {
-	background: var(--theme-color);
+	background: var(--themeColor);
 	color: #fff;
 }
 </style>

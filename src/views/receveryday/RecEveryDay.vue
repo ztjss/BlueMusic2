@@ -98,7 +98,7 @@ export default {
 		}
 		.nowday {
 			font-size: 52px;
-			color: var(--theme-color);
+			color: var(--themeColor);
 		}
 	}
 	.right-text {

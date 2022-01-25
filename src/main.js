@@ -32,6 +32,13 @@ Vue.use(formatDuration);
 // 分页组件
 import Pagination from "components/common/Pagination";
 Vue.component("Pagination", Pagination);
+/**
+ * 全局读取loacaStorage
+ */
+import { setItem, getItem, removeItem } from "common/utils.js";
+Vue.prototype.setItem = setItem;
+Vue.prototype.getItem = getItem;
+Vue.prototype.removeItem = removeItem;
 
 Vue.config.productionTip = false;
 new Vue({

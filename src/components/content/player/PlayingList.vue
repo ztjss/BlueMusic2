@@ -210,7 +210,7 @@ export default {
 		font-size: 14px;
 		cursor: pointer;
 		&:hover {
-			color: var(--theme-color);
+			color: var(--themeColor);
 		}
 	}
 }
@@ -223,16 +223,16 @@ export default {
 		.sname {
 			cursor: pointer;
 			&:hover {
-				color: var(--theme-color);
+				color: var(--themeColor);
 			}
 		}
 		.icon-guanbi:hover {
-			color: var(--theme-color);
+			color: var(--themeColor);
 			cursor: pointer;
 		}
 		.icon-voice,
 		.icon-jingyin_laba {
-			color: var(--theme-color);
+			color: var(--themeColor);
 		}
 	}
 }
