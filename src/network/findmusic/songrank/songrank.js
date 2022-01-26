@@ -6,3 +6,8 @@ export function getAllRankInfo(){
         url:"/toplist/detail"
     })
 }
+export function getAllRank(){
+    return request({
+        url:"/toplist"
+    })
+}

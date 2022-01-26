@@ -2,11 +2,11 @@
 	<div class="singer-album">
 		<!-- 切换显示模式按钮 -->
 		<div class="btn">
-			<el-tooltip effect="dark" content="列表模式" placement="left">
-				<span class="iconfont icon-biaogebeifen" @click="showTable" :class="{ active: isShowTable }"></span>
-			</el-tooltip>
-			<el-tooltip effect="dark" content="大图模式" placement="right">
+			<el-tooltip effect="dark" content="大图模式" placement="left">
 				<span class="iconfont icon-card" @click="showList" :class="{ active: isShowList }"></span>
+			</el-tooltip>
+			<el-tooltip effect="dark" content="列表模式" placement="right">
+				<span class="iconfont icon-biaogebeifen" @click="showTable" :class="{ active: isShowTable }"></span>
 			</el-tooltip>
 		</div>
 		<!-- 显示专辑 -->
@@ -31,8 +31,8 @@ export default {
 	},
 	data() {
 		return {
-			isShowTable: true, //专辑表格显示
-			isShowList: false, //专辑列表显示
+			isShowTable: false, //专辑表格显示
+			isShowList: true, //专辑列表显示
 		};
 	},
 
@@ -45,14 +45,6 @@ export default {
 		showList() {
 			this.isShowList = true;
 			this.isShowTable = false;
-		},
-		/* 分页事件 */
-		handleCurrentChange(page) {
-			// 当前页码改变时触发（参数是当前页码）
-			this.$emit("changePage", page);
-			// 返回顶部
-			let backtop = document.querySelector("#backtop");
-			backtop.click();
 		},
 	},
 };

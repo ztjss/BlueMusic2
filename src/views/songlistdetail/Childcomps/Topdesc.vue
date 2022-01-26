@@ -23,7 +23,8 @@
 				</div>
 				<!-- 创建时间 -->
 				<div class="creat-time">
-					<p>创建时间：{{ playlist.createTime | showDate }}</p>
+					<p v-if="playlist.createTime && !playlist.ToplistType">创建时间：{{ playlist.createTime | showDate }}</p>
+					<p v-if="playlist.ToplistType && playlist.trackUpdateTime">最近更新时间：{{ playlist.trackUpdateTime | showDate }}</p>
 				</div>
 			</div>
 			<!-- 相关操作 -->

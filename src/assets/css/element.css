@@ -19,7 +19,7 @@ td {
 	border: none !important;
 }
 .el-table::before {
-	height: 0;
+	height: 0 !important;
 }
 /* 修改鼠标经过时背景色 */
 .el-table tbody tr:hover > td {

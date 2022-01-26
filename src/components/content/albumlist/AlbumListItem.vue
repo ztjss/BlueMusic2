@@ -80,10 +80,14 @@ export default {
 	cursor: pointer;
 	.item-img {
 		position: relative;
+		width: 200px;
+		height: 200px;
 		.album-img {
 			width: 100%;
+			height: 100%;
 			img {
 				width: 100%;
+				height: 100%;
 			}
 		}
 		.album-playicon {
@@ -117,6 +121,10 @@ export default {
 			width: 100%;
 			height: 100%;
 			z-index: -1;
+		}
+		img {
+			width: 100%;
+			height: 100%;
 		}
 	}
 	.item-text {
