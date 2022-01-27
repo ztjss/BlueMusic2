@@ -35,7 +35,7 @@
 					<div class="bd" id="scrollLyric" ref="scrollLyric">
 						<!-- 有歌词时 -->
 						<!-- <div class="plac" style="height: 135px"></div> -->
-						<ul>
+						<ul v-if="formatlyric.length !== 0">
 							<li
 								v-for="(item, index) in formatlyric"
 								:key="index"
@@ -52,7 +52,7 @@
 							</li>
 						</ul>
 						<!-- 没有歌词时 -->
-						<div class="noLyric" v-if="formatlyric.length == 0">
+						<div style="padding-top: 120px;" v-else>
 							<h2>暂无歌词，请您欣赏</h2>
 						</div>
 					</div>
@@ -84,13 +84,12 @@ export default {
 	components: { CommentPage },
 	computed: {
 		...mapGetters(["isPlaying", "nowSongDetail", "currentSecond", "isShowSongDetail", "currentRow"]),
-		cover(){
-			return this.nowSongDetail.al.picUrl+"?param=200y200"
-		}
+		cover() {
+			return this.nowSongDetail.al.picUrl + "?param=200y200";
+		},
 	},
 	data() {
 		return {
-			lyric: "",
 			formatlyric: [], //格式化后的歌词
 			currentIndex: null, //当前鼠标经过的歌词索引
 			isActive: false, //鼠标是否经过歌词
@@ -110,8 +109,8 @@ export default {
 		getNowLyricBy(songId) {
 			getNowLyric(songId).then(res => {
 				if (res.data.nolyric) return; //如果没有歌词就return
-				this.lyric = res.data.lrc.lyric;
-				this.formatLyric(this.lyric);
+				let lyric = res.data.lrc.lyric;
+				this.formatLyric(lyric);
 				this.$store.dispatch("saveCurrentLyric", this.formatlyric);
 			});
 		},
@@ -230,11 +229,8 @@ export default {
 		},
 		// 当打开歌曲详情页时歌词立即滚动到当前播放行
 		isShowSongDetail() {
-			if (this.isShowSongDetail) {
-				this.$refs.scrollLyric.scrollTo({
-					top: 45 * this.currentRow,
-					// behavior: "smooth",
-				});
+			if (this.isShowSongDetail && Object.keys(this.nowSongDetail).length != 0) {
+				this.$refs.scrollLyric.scrollTop = 45 * this.currentRow;
 			}
 		},
 	},

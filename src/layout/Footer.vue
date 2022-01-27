@@ -30,13 +30,12 @@
 					</div>
 				</div>
 				<!-- 没有音乐时 -->
-				<!-- <div class="cover-content" v-if="Object.keys(nowSongDetail).length == 0" @click="showSongDetail"> -->
-				<!-- <div class="cover"> -->
-				<!-- <img src="../assets/imgs/music-icon.png" style="width: 130%" /> -->
-				<!-- <span class="iconfont icon-yinleyanzou"></span> -->
-				<!-- </div> -->
-				<!-- <div class="songname">暂无音乐</div> -->
-				<!-- </div> -->
+				<div class="cover-content" v-if="Object.keys(nowSongDetail).length == 0" @click="showSongDetail">
+					<div class="cover">
+						<span class="iconfont icon-yinleyanzou"></span>
+					</div>
+					<div class="songname">暂无音乐</div>
+				</div>
 			</div>
 			<!-- 中间播放控制 -->
 			<div class="cneter-play-song">
@@ -451,15 +450,18 @@ export default {
 	// 左侧封面
 	.left-cover-content {
 		width: 15%;
-		// border: solid 1px red;
 		.cover-content {
 			display: flex;
 			align-items: center;
 			.cover {
 				position: relative;
 				width: 60px;
-				img {
+				img{
 					width: 100%;
+				}
+				.icon-yinleyanzou{
+					font-size: 34px;
+					color: var(--themeColor);
 				}
 			}
 			.songname {

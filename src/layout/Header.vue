@@ -21,6 +21,7 @@
 		<div class="right-login">
 			<Login />
 		</div>
+		<!-- 主题 -->
 		<div class="pifu">
 			<span class="iconfont icon-pifu" v-popover:popover slot="reference"></span>
 			<el-popover ref="popover" placement="bottom" width="150" trigger="click">

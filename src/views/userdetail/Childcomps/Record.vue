@@ -29,7 +29,7 @@ export default {
 				{ title: "所有时间", type: 0 },
 				{ title: "最近一周", type: 1 },
 			],
-			recordData: [],
+			recordData: [{}],
 			currentIndex: 0,
 		};
 	},
@@ -42,19 +42,29 @@ export default {
 		getUserRecordBy(uid, type = 0) {
 			getUserRecord(uid, type)
 				.then(res => {
-					// console.log(res);
+					console.log(res);
 					this.recordData = [];
-					if (type === 0) {
-						res.data.allData.forEach(item => {
-							this.recordData.push(item.song);
-						});
-					} else if (type === 1) {
-						res.data.weekData.forEach(item => {
-							this.recordData.push(item.song);
-						});
+					if (res.data.code == 200) {
+						if (type === 0) {
+							res.data.allData.forEach(item => {
+								this.recordData.push(item.song);
+							});
+						} else if (type === 1) {
+							res.data.weekData.forEach(item => {
+								this.recordData.push(item.song);
+							});
+						}
 					}
 				})
-				.catch(err => err);
+				.catch(err => {
+					this.recordData = [];
+					this.$message({
+						type: "warning",
+						message: "暂无权限访问",
+						showClose: true,
+						center: true,
+					});
+				});
 		},
 		// 切换记录
 		changeRecoed(type) {

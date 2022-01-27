@@ -16,8 +16,9 @@
 					<div class="bd">
 						<div class="historylist">
 							<div class="historylistitem" v-for="(item, index) in historySearch" :key="index" @mouseover="showClear(index)" @mouseleave="clearIcon = false" @click="addHotWord(item)">
-								<span>{{ item }}</span>
-								<span class="iconfont icon-guanbi" v-if="clearIcon && historySearchIndex == index" @click.stop="deleteHistory(index)"></span>
+								<span class="icon"></span>
+								<span class="txt">{{ item }}</span>
+								<span class="icon"><i class="iconfont icon-guanbi" v-if="clearIcon && historySearchIndex == index" @click.stop="deleteHistory(index)"></i></span>
 							</div>
 						</div>
 					</div>
@@ -157,13 +158,18 @@ export default {
 			.historylistitem {
 				margin-left: 5px;
 				margin-bottom: 5px;
-				padding: 3px 8px;
+				padding: 3px 0;
 				font-size: 13px;
 				border-radius: 15px;
 				border: 1px solid #d3d3d3;
 				cursor: pointer;
+				.icon {
+					display: inline-block;
+					width: 12px;
+					height: 12px;
+					margin-right: 3px;
+				}
 				.icon-guanbi {
-					margin-left: 5px;
 					font-size: 12px;
 					&:hover {
 						color: var(--themeColor);

@@ -4,9 +4,9 @@
 			<!-- 标签导航 -->
 			<TagsNav :all-tag="allTag" :hot-tag="hotTag" @tagClick="tagClick" />
 			<!-- 视频列表 -->
-			<div class="video-list" v-if="hasmore">
+			<div class="video-list" v-if="videoList.length != 0">
 				<VideoList :videolist="videoList" />
-				<div class="page" v-if="videoList.length != 0 && hasmore">
+				<div class="page" v-if="videoList.length > 1 && hasmore">
 					<span @click="handleCurrentChange" class="more">点击加载更多</span>
 				</div>
 			</div>
@@ -77,7 +77,6 @@ export default {
 		getGroupVideoListBy(id) {
 			let offset = this.page - 1;
 			getGroupVideoList(id, offset).then(res => {
-				console.log(this.page);
 				this.hasmore = res.data.hasmore; //是否还有更多
 				this.videoList.push(...res.data.datas);
 				this.page += 1;

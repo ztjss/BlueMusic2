@@ -3,7 +3,7 @@
 		<!-- 作者 -->
 		<div class="auther">
 			<div class="block">
-				<el-avatar :size="50" :src="videoinfo.cover || videoinfo.avatarUrl"></el-avatar>
+				<img :src="showAvatar" />
 			</div>
 			<span v-if="type == 'mv'" @click="toSingerDetail">{{ videoinfo.artistName }}</span>
 			<span v-if="videoinfo.creator" @click="toUserDetail">{{ videoinfo.creator.nickname }}</span>
@@ -31,6 +31,7 @@
 
 <script>
 import { formatDate } from "common/formatDate";
+import { isArray } from "common/utils";
 export default {
 	name: "Videoinfo",
 	props: {
@@ -60,6 +61,12 @@ export default {
 		showDate(value) {
 			const date = new Date(value);
 			return formatDate(date, "yyyy-MM-dd");
+		},
+	},
+	computed: {
+		showAvatar() {
+			let avatar = this.type == "mv" ? isArray(this.videoinfo.artists) && this.videoinfo.artists[0].img1v1Url : this.videoinfo.avatarUrl;
+			return avatar;
 		},
 	},
 
@@ -113,6 +120,15 @@ export default {
 		span {
 			padding-left: 10px;
 			cursor: pointer;
+		}
+		.block {
+			width: 50px;
+			height: 50px;
+			img {
+				width: 100%;
+				height: 100%;
+				border-radius: 50%;
+			}
 		}
 	}
 	.title {

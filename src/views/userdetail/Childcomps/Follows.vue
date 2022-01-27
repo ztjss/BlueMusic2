@@ -3,10 +3,10 @@
 		<el-divider content-position="left"
 			><h2>{{ $route.params.uname }}关注的人</h2></el-divider
 		>
-		<div style="width: 100%; text-align: center" v-if="follows.length === 0">
+		<UserList :userlist="follows" v-if="follows.length !== 0" />
+		<div style="width: 100%; text-align: center" v-else>
 			<el-empty description="还没有关注其他人" :image-size="200"></el-empty>
 		</div>
-		<UserList :userlist="follows" />
 		<!-- 分页器 -->
 		<Pagination :total="followsCount" :page-size="48" @handleCurrentChange="getUserFollowsBy" />
 	</div>
@@ -21,13 +21,13 @@ export default {
 	data() {
 		return {
 			uid: null,
-			follows: [],
-			followsCount:0
+			follows: [{}],
+			followsCount: 0,
 		};
 	},
 	created() {
 		this.uid = this.$route.params.uid;
-		this.followsCount=Number(this.$route.params.follows)
+		this.followsCount = Number(this.$route.params.follows);
 		this.getUserFollowsBy();
 	},
 	methods: {
@@ -35,7 +35,7 @@ export default {
 		getUserFollowsBy(page = 1) {
 			let offset = (page - 1) * 48;
 			getUserFollows(this.uid, offset).then(res => {
-				this.follows = res.data.follow;
+				this.follows = res.data.follow || [];
 				// 提交vuex的关注列表得是当前登录用户的关注,不能每个人的关注列表都提交保存
 				if (this.$store.state.userInfo.userId === this.uid) {
 					this.$store.dispatch("saveUserFollowsList", res.data.follow);

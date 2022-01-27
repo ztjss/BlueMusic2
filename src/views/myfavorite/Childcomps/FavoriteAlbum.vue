@@ -4,7 +4,7 @@
 			><h2>我收藏的专辑({{ albumcount }})</h2></el-divider
 		>
 		<Albumlist :albumlist="favoriteAlbum" v-if="favoriteAlbum.length !== 0" />
-		<div v-if="favoriteAlbum.length == 0">
+		<div v-else>
 			<el-empty description="还没有收藏的专辑" :image-size="200"></el-empty>
 		</div>
 	</div>

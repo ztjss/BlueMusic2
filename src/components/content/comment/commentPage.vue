@@ -11,7 +11,7 @@
 			<div class="sort-category">
 				<span v-for="(item, index) in sortCategory" :key="index" @click="changeSort(item.sortType, index)" :class="{ active: currentIndex === index }">{{ item.title }}</span>
 			</div>
-			<div class="new-comment" v-if="commentsList.length != 0">
+			<div class="new-comment" v-if="commentsList.length !== 0">
 				<CommentItem
 					v-for="(item, index) in commentsList"
 					:key="index"
@@ -87,13 +87,12 @@ export default {
 		getHotCommentBy(page = 1) {
 			let offset = (page - 1) * 60;
 			getHotComment(this.commentType, this.commentresId, offset).then(res => {
-				// console.log(res);
-				this.commentsList = res.data.hotComments;
-				this.commentCount = res.data.total;
-				// 如果没有上个接口没有评论就换下一个接口
-				if (this.commentCount === 0) {
+				if (res.data.total != 0) {
+					this.commentsList = res.data.hotComments;
+					this.commentCount = res.data.total;
+				} else {
 					getComment(this.commentType, this.commentresId, page).then(res => {
-						this.commentsList = res.data.data.comments;
+						this.commentsList = res.data.data.comments || [];
 						this.commentCount = res.data.data.totalCount;
 					});
 				}
@@ -124,7 +123,6 @@ export default {
 			}
 			let offset = (page - 1) * 60;
 			getNewCommentList(type, this.commentresId, offset).then(res => {
-				// console.log(res);
 				this.commentsList = res.data.comments;
 				this.commentCount = res.data.total;
 			});

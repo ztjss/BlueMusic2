@@ -122,7 +122,7 @@ export default {
 	top: 5px;
 	z-index: 99999;
 	cursor: pointer;
-	.icon-guanbi1{
+	.icon-guanbi1 {
 		color: var(--themeColor);
 	}
 }

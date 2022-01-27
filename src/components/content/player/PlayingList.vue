@@ -137,6 +137,7 @@ export default {
 		// 清空播放列表
 		deleteAll() {
 			this.$store.dispatch("deleteAll");
+			this.$store.dispatch("saveCurrentLyric", []);
 		},
 		// 双击播放历史记录歌曲
 		playHistorySong(song) {

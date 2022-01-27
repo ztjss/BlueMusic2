@@ -3,10 +3,10 @@
 		<el-divider content-position="left"
 			><h2>{{ $route.params.uname }}的粉丝</h2></el-divider
 		>
-		<div style="width: 100%; text-align: center" v-if="fanslist.length == 0">
+		<UserList :userlist="fanslist" v-if="fanslist.length !== 0" />
+		<div style="width: 100%; text-align: center" v-else>
 			<el-empty description="还没有粉丝" :image-size="200"></el-empty>
 		</div>
-		<UserList :userlist="fanslist" />
 		<!-- 分页器 -->
 		<Pagination :total="fansCount" :page-size="48" @handleCurrentChange="getUserFollowedsBy" />
 	</div>
@@ -20,7 +20,7 @@ export default {
 	components: { UserList },
 	data() {
 		return {
-			fanslist: [],
+			fanslist: [{}],
 			fansCount: 0,
 		};
 	},
@@ -33,7 +33,7 @@ export default {
 		getUserFollowedsBy(page = 1) {
 			let offset = (page - 1) * 50;
 			getUserFolloweds(this.uid, offset).then(res => {
-				this.fanslist = res.data.followeds;
+				this.fanslist = res.data.followeds || [];
 				this.fansCount = res.data.size;
 			});
 		},
