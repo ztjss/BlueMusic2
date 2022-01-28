@@ -90,6 +90,17 @@ export default {
 			this.getAllMvBy(this.area, this.type, this.order, this.page);
 		},
 	},
+	// mounted() {
+	// 	let view = document.querySelector(".view");
+	// 	view.addEventListener("scroll", e => {
+	// 		var scrollTop = view.scrollTop; //当前页面
+	// 		var clientHeight = view.clientHeight; //当前可视的页面高度
+	// 		if (scrollTop + clientHeight >= view.scrollHeight) {
+	// 			//滚动卷去的高度+当前可视高度 >=总高度 即代表滑动到底部
+	// 			this.getAllMvBy(this.area, this.type, this.order, this.page);
+	// 		}
+	// 	});
+	// },
 };
 </script>
 

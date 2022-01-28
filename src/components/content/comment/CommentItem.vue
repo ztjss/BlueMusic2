@@ -30,7 +30,7 @@
 		</div>
 		<!-- 点赞 回复评论 -->
 		<div class="like">
-			<span class="iconfont icon-dianzan" :class="{ isLike: isLike }" @click="isLikeCommentBy(item)">{{ isLike ? item.likedCount + 1 : item.likedCount | formatNum }}</span>
+			<span class="iconfont icon-dianzan" :class="{ isLike: isLike }" @click="isLikeCommentBy(item)">{{ item.likedCount | formatNum }}</span>
 			<span class="iconfont icon-comment" @click="replyComment(item)"></span>
 		</div>
 	</div>
@@ -126,12 +126,14 @@ export default {
 								message: "已取消点赞",
 								center: true,
 							});
+							this.item.likedCount = this.item.likedCount - 1;
 						} else {
 							this.$message({
 								type: "success",
 								message: "点赞成功",
 								center: true,
 							});
+							this.item.likedCount = this.item.likedCount + 1;
 						}
 					} else {
 						this.$message.error("点赞失败,请稍后重试!");

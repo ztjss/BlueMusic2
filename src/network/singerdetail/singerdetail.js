@@ -55,7 +55,8 @@ export function subSinger(t,id){
         url:"/artist/sub",
         params:{
             t,
-            id
+            id,
+            timestamp:Date.parse(new Date())
         }
      
     })

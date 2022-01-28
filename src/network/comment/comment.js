@@ -47,7 +47,8 @@ export function sendComment(type,id,content){
             t:1,
             type,
             id,
-            content
+            content,
+            timestamp:Date.parse(new Date())
         }
     })
 }
@@ -60,7 +61,8 @@ export function replyComment(type,id,content,commentId){
             type,
             id,
             content,
-            commentId
+            commentId,
+            timestamp:Date.parse(new Date())
         }
     })
 }
@@ -73,6 +75,7 @@ export function isLikeComment(id,type,t,cid){
             type,
             t, //1 为点赞 ,0 为取消点赞
             cid,
+            timestamp:Date.parse(new Date())
         }
     })
 }

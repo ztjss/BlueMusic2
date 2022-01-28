@@ -107,6 +107,7 @@ export const filterText = str => {
 	return str;
 };
 
+
 export function debounce(callback, time) {
 	// 定时器
 	let timer = null;
@@ -142,4 +143,36 @@ export function throttle(callback, wait) {
 			start = now;
 		}
 	};
+}
+// 检测是全屏
+export function isFullscreen() {
+	var fullscreenEle = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
+	return fullscreenEle;
+}
+/**页面最大化 */
+export function requestFullScreen() {
+	const docElm = document.documentElement;
+	if (docElm.requestFullscreen) {
+		docElm.requestFullscreen();
+	} else if (docElm.msRequestFullscreen) {
+		docElm.msRequestFullscreen();
+	} else if (docElm.mozRequestFullScreen) {
+		docElm.mozRequestFullScreen();
+	} else if (docElm.webkitRequestFullScreen) {
+		docElm.webkitRequestFullScreen();
+	}
+}
+/**退出最大化 */
+export function exitFullscreen() {
+	const de = window.parent.document;
+
+	if (de.exitFullscreen) {
+		de.exitFullscreen();
+	} else if (de.mozCancelFullScreen) {
+		de.mozCancelFullScreen();
+	} else if (de.webkitCancelFullScreen) {
+		de.webkitCancelFullScreen();
+	} else if (de.msExitFullscreen) {
+		de.msExitFullscreen();
+	}
 }

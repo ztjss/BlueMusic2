@@ -136,7 +136,7 @@ export default {
 .user-pop {
 	position: absolute;
 	top: 65px;
-	right: 60px;
+	right: 85px;
 	box-shadow: 0px 0px 2px 2px #eef;
 	background: #fff;
 	border-radius: 5px;

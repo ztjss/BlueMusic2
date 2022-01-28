@@ -2,10 +2,7 @@
 	<div id="header">
 		<!-- 标题logo -->
 		<div class="title">
-			<div class="icon">
-				<!-- <img src="~assets/imgs/music-icon.png" alt="" /> -->
-				<span class="iconfont icon-yinleyanzou"></span>
-			</div>
+			<div class="icon"><span class="iconfont icon-yinleyanzou"></span></div>
 			<div class="text"><span>BlueMusic</span></div>
 		</div>
 		<!-- 操作 -->
@@ -25,8 +22,12 @@
 		<div class="pifu">
 			<span class="iconfont icon-pifu" v-popover:popover slot="reference"></span>
 			<el-popover ref="popover" placement="bottom" width="150" trigger="click">
-				<ThemePicker/>
+				<ThemePicker />
 			</el-popover>
+		</div>
+		<div class="full">
+			<span class="iconfont icon-quanping" @click="full" v-if="!isFull" title="全屏"></span>
+			<span class="iconfont icon-cancel-full-screen" @click="exitFull" v-if="isFull" title="退出全屏"></span>
 		</div>
 	</div>
 </template>
@@ -35,10 +36,15 @@
 import Searchinput from "components/common/Searchinput.vue";
 import Login from "components/content/login/Login.vue";
 import ThemePicker from "../components/common/ThemePicker.vue";
+import { requestFullScreen, exitFullscreen, isFullscreen } from "common/utils.js";
 export default {
 	name: "Header",
 	components: { Searchinput, Login, ThemePicker },
-
+	data() {
+		return {
+			isFull: false,
+		};
+	},
 	methods: {
 		goBack() {
 			this.$router.go(-1);
@@ -46,6 +52,29 @@ export default {
 		goForward() {
 			this.$router.go(1);
 		},
+		full() {
+			requestFullScreen();
+			this.isFull = true;
+		},
+		exitFull() {
+			exitFullscreen();
+			this.isFull = false;
+		},
+	},
+	mounted() {
+		window.onresize = () => {
+			setTimeout(() => {
+				if (!isFullscreen()) {
+					this.isFull = false;
+				}
+			});
+		};
+		document.addEventListener("keyup", e => {
+			//f11全屏
+			if (e.keyCode == 122) {
+				this.isFull = !this.isFull;
+			}
+		});
 	},
 };
 </script>
@@ -53,7 +82,6 @@ export default {
 #header {
 	position: relative;
 	display: flex;
-	justify-content: space-around;
 	align-items: center;
 	width: 100%;
 	height: 60px;
@@ -108,9 +136,14 @@ export default {
 		display: flex;
 		justify-content: right;
 		align-content: center;
-		flex: 12;
+		flex: 10;
 	}
 	.pifu {
+		padding-right: 15px;
+		color: #fff;
+		cursor: pointer;
+	}
+	.full {
 		flex: 1;
 		color: #fff;
 		cursor: pointer;

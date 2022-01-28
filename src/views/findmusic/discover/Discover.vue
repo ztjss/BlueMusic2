@@ -22,6 +22,7 @@ import Personalized from "./Childcomps/Personalized.vue";
 import Privatecontent from "./Childcomps/Privatecontent.vue";
 import RecNewSong from "./Childcomps/RecNewSong.vue";
 import NewMv from "./Childcomps/NewMv.vue";
+import { mapGetters } from "vuex";
 export default {
 	name: "Discover",
 	components: { Banner, Personalized, Privatecontent, RecNewSong, NewMv },
@@ -34,8 +35,9 @@ export default {
 			newmv: [],
 		};
 	},
-	methods: {},
-
+	computed: {
+		...mapGetters(["isLogin"]),
+	},
 	created() {
 		// 获取轮播图数据
 		getBanner().then(res => {
@@ -59,6 +61,13 @@ export default {
 		getNewmv().then(res => {
 			this.newmv = res.data.result;
 		});
+	},
+	watch: {
+		isLogin() {
+			getPersonalized(18).then(res => {
+				this.personalized = res.data.result;
+			});
+		},
 	},
 };
 </script>

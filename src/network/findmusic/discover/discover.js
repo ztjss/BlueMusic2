@@ -10,7 +10,8 @@ export function getPersonalized(limit){
     return request({
         url:'/personalized',
         params:{
-            limit
+            limit,
+            timestamp:Date.parse(new Date())
         }
     })
 }

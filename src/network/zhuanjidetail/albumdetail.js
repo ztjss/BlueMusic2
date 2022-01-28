@@ -27,6 +27,7 @@ export function subAlbum(t,id){
         params:{
             t,
             id,
+            timestamp:Date.parse(new Date()),
         }
     })
 }

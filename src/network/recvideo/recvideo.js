@@ -47,6 +47,8 @@ export function subMv(t,mvid){
         params:{
             t,
             mvid,
+            timestamp:Date.parse(new Date())
+            
         } 
     })
 }
@@ -109,7 +111,6 @@ export function getLikeVideo(){
         params:{
             timestamp:Date.parse(new Date()),
             limit:1000
-            
         } 
     })
 }
@@ -120,6 +121,7 @@ export function subVideo(t,id){
         params:{
             t,
             id,
+            timestamp:Date.parse(new Date())
         } 
     })
 }
@@ -130,7 +132,8 @@ export function likeVideo(t,type,id){
         params:{
             t,
             type,
-            id
+            id,
+            timestamp:Date.parse(new Date())
         } 
     })
 }

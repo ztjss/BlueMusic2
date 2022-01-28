@@ -44,7 +44,8 @@ export function likeNowSong(id,like){
         url:'/like',
         params:{
             id,
-            like
+            like,
+            timestamp:Date.parse(new Date())
         }
     })
 }

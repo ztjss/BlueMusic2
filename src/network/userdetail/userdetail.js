@@ -73,7 +73,8 @@ export function subUser(t,id){
         url:'/follow',
         params:{
             t,
-            id
+            id,
+            timestamp:Date.parse(new Date()),
         }
     })
 }
