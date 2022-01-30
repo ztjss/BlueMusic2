@@ -6,9 +6,6 @@
 			<!-- 视频列表 -->
 			<div class="video-list" v-if="videoList.length != 0">
 				<VideoList :videolist="videoList" />
-				<div class="page" v-if="videoList.length > 1 && hasmore">
-					<span @click="handleCurrentChange" class="more">点击加载更多</span>
-				</div>
 			</div>
 			<div class="novideo" v-else>
 				<el-empty description="暂无视频" :image-size="200"></el-empty>
@@ -35,8 +32,7 @@ export default {
 			hotTag: [],
 			videoList: [{}],
 			tagId: "", //标签id
-			page: 1,
-			hasmore: false, //是否还有更多数据
+			offset: 0,
 		};
 	},
 	created() {
@@ -75,28 +71,33 @@ export default {
 		},
 		//  获取分类视频列表
 		getGroupVideoListBy(id) {
-			let offset = this.page - 1;
-			getGroupVideoList(id, offset).then(res => {
-				this.hasmore = res.data.hasmore; //是否还有更多
-				this.videoList.push(...res.data.datas);
-				this.page += 1;
+			getGroupVideoList(id, this.offset).then(res => {
+				if (res.data.hasmore) {
+					this.videoList.push(...res.data.datas);
+					this.offset += 1;
+				}
 			});
 		},
 
 		/*
     事件监听
     */
-		// 点击加载更多
-		handleCurrentChange() {
-			this.getGroupVideoListBy(this.tagId);
-		},
 		// 标签点击事件
 		tagClick(tagName, id) {
-			this.page = 1;
+			this.offset = 0;
 			this.videoList = []; //清空视频列表
 			this.tagId = id; //保存标签id
 			this.getGroupVideoListBy(id);
 		},
+	},
+	mounted() {
+		let view = document.querySelector(".view");
+		view.addEventListener("scroll", e => {
+			if (Math.ceil(view.scrollTop) + view.clientHeight >= view.scrollHeight) {
+				//滚动卷去的高度+当前可视高度 >=总高度 即代表滑动到底部
+				this.getGroupVideoListBy(this.tagId);
+			}
+		});
 	},
 };
 </script>

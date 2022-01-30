@@ -63,11 +63,9 @@ export default {
 	},
 	mounted() {
 		window.onresize = () => {
-			setTimeout(() => {
-				if (!isFullscreen()) {
-					this.isFull = false;
-				}
-			});
+			if (!isFullscreen()) {
+				this.isFull = false;
+			}
 		};
 		document.addEventListener("keyup", e => {
 			//f11全屏

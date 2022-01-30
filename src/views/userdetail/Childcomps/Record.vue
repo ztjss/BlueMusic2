@@ -8,7 +8,9 @@
 			<el-button type="primary" icon="el-icon-video-play" @click="playAll">播放全部</el-button>
 			<el-button icon="el-icon-folder-add">收藏全部</el-button>
 		</div>
-		<SongTable :songs="recordData" v-if="recordData.length !== 0" />
+		<div class="bd" v-if="recordData.length !== 0">
+			<SongTable :songs="recordData" />
+		</div>
 		<div v-else>
 			<el-empty description="暂无记录" :image-size="200"></el-empty>
 		</div>
@@ -29,7 +31,7 @@ export default {
 				{ title: "所有时间", type: 0 },
 				{ title: "最近一周", type: 1 },
 			],
-			recordData: [{}],
+			recordData: [],
 			currentIndex: 0,
 		};
 	},
@@ -43,7 +45,6 @@ export default {
 			getUserRecord(uid, type)
 				.then(res => {
 					console.log(res);
-					this.recordData = [];
 					if (res.data.code == 200) {
 						if (type === 0) {
 							res.data.allData.forEach(item => {
@@ -57,7 +58,6 @@ export default {
 					}
 				})
 				.catch(err => {
-					this.recordData = [];
 					this.$message({
 						type: "warning",
 						message: "暂无权限访问",

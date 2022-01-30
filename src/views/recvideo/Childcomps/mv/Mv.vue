@@ -10,10 +10,6 @@
 		<div class="mv-list">
 			<VideoList :videolist="mvList" />
 		</div>
-		<!-- 分页-->
-		<div class="page" v-if="mvList.length != 0 && hasMore">
-			<span @click="handleCurrentChange" class="more">点击加载更多</span>
-		</div>
 	</div>
 </template>
 
@@ -83,24 +79,19 @@ export default {
 			this.order = item;
 			this.getAllMvBy(this.area, this.type, item, this.page);
 		},
-
-		/* 分页事件 */
-		handleCurrentChange() {
-			this.page += 1;
-			this.getAllMvBy(this.area, this.type, this.order, this.page);
-		},
 	},
-	// mounted() {
-	// 	let view = document.querySelector(".view");
-	// 	view.addEventListener("scroll", e => {
-	// 		var scrollTop = view.scrollTop; //当前页面
-	// 		var clientHeight = view.clientHeight; //当前可视的页面高度
-	// 		if (scrollTop + clientHeight >= view.scrollHeight) {
-	// 			//滚动卷去的高度+当前可视高度 >=总高度 即代表滑动到底部
-	// 			this.getAllMvBy(this.area, this.type, this.order, this.page);
-	// 		}
-	// 	});
-	// },
+	mounted() {
+		let view = document.querySelector(".view");
+		view.addEventListener("scroll", e => {
+			// console.log("滚动卷去的高度", Math.ceil(view.scrollTop));
+			// console.log("当前可视高度", view.clientHeight);
+			// console.log("总高度", view.scrollHeight);
+			if (Math.ceil(view.scrollTop) + view.clientHeight >= view.scrollHeight) {
+				//滚动卷去的高度+当前可视高度 >=总高度 即代表滑动到底部
+				this.getAllMvBy(this.area, this.type, this.order, this.page);
+			}
+		});
+	},
 };
 </script>
 

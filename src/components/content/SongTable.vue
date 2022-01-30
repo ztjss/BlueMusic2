@@ -1,11 +1,25 @@
 <template>
 	<div class="song-table">
-		<el-table style="width: 100%" :data="songs" empty-text="数据加载中~" @row-dblclick="playMusic" :row-class-name="tableRowClassName" @cell-mouse-enter="showOP" @cell-mouse-leave="closeOP">
+		<el-table style="width: 100%" :data="songs" empty-text="数据加载中~" @row-dblclick="playMusic" :row-class-name="tableRowClassName">
 			<!-- 索引或者小喇叭 -->
-			<el-table-column width="80">
+			<el-table-column width="50">
 				<template v-slot="scope">
 					<span class="iconfont" :class="isPlaying ? ' icon-voice' : 'icon-jingyin_laba'" v-if="scope.row.id == nowSongDetail.id"></span>
 					<span v-else>{{ scope.row.index | formatIndex }}</span>
+				</template>
+			</el-table-column>
+			<!-- 操作按钮 -->
+			<el-table-column width="120">
+				<template v-slot="scope">
+					<div class="operation">
+						<span
+							@click="likeSong(scope.row)"
+							:class="likeSongIds.indexOf(scope.row.id) !== -1 ? 'iconfont icon-xihuan2' : 'iconfont icon-xihuan'"
+							:title="likeSongIds.indexOf(scope.row.id) !== -1 ? '取消喜欢' : '喜欢'"
+						>
+						</span>
+						<span class="el-icon-plus" @click="addSong(scope.row)" title="添加到播放列表"></span>
+					</div>
 				</template>
 			</el-table-column>
 			<!-- 歌曲名和mv图标 -->
@@ -15,15 +29,6 @@
 						{{ scope.row.name }}
 						<i class="iconfont icon-vip" v-if="scope.row.fee == 1"></i>
 						<i class="iconfont icon-mv" v-if="scope.row.mv != 0" @click="toMvDetail(scope.row.mv)"></i>
-					</div>
-				</template>
-			</el-table-column>
-			<!-- 操作按钮 -->
-			<el-table-column width="100">
-				<template v-slot="scope">
-					<div class="operation" v-show="isShow && currentIndex === scope.row.index">
-						<span @click="likeSong(scope.row)" :class="islike ? 'iconfont icon-xihuan2' : 'iconfont icon-xihuan'"> </span>
-						<span class="el-icon-plus" @click="addSong(scope.row)"></span>
 					</div>
 				</template>
 			</el-table-column>
@@ -71,7 +76,6 @@ export default {
 	data() {
 		return {
 			islike: false, //是否喜欢当前歌曲
-			isShow: false, //是否显示操作按钮图标
 			currentIndex: null,
 		};
 	},
@@ -92,23 +96,23 @@ export default {
 		}
 	},
 	methods: {
-		/* 鼠标移入事件 */
-		// 每行显示操作按钮
-		// 判断是否喜欢当前歌曲
-		showOP(row) {
-			this.currentIndex = row.index;
-			this.isShow = true;
-			// 判断是否喜欢当前歌曲
-			if (!this.isLogin) {
-				this.islike = false;
-				return;
-			}
-			this.islike = this.likeSongIds.includes(row.id);
-		},
-		// 鼠标移出
-		closeOP() {
-			this.isShow = false;
-		},
+		// /* 鼠标移入事件 */
+		// // 每行显示操作按钮
+		// // 判断是否喜欢当前歌曲
+		// showOP(row) {
+		// 	this.currentIndex = row.index;
+		// 	this.isShow = true;
+		// 	// 判断是否喜欢当前歌曲
+		// 	if (!this.isLogin) {
+		// 		this.islike = false;
+		// 		return;
+		// 	}
+		// 	this.islike = this.likeSongIds.includes(row.id);
+		// },
+		// // 鼠标移出
+		// closeOP() {
+		// 	this.isShow = false;
+		// },
 		//每行歌曲双击播放
 		playMusic(song) {
 			// 先检查歌曲是否可用
@@ -249,7 +253,7 @@ export default {
 .operation {
 	.icon-xihuan,
 	.el-icon-plus {
-		font-size: 16px;
+		font-size: 15px;
 		color: #999;
 		font-weight: 700;
 	}
@@ -260,6 +264,9 @@ export default {
 	span {
 		padding-right: 15px;
 		cursor: pointer;
+		&:hover {
+			color: var(--themeColor);
+		}
 	}
 }
 .icon-voice,
