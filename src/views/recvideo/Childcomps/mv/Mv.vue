@@ -57,6 +57,7 @@ export default {
 				if (res.data.hasMore) {
 					this.mvList.push(...res.data.data);
 					this.hasMore = res.data.hasMore;
+					this.page += 1;
 				}
 			});
 		},

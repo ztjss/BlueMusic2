@@ -119,6 +119,7 @@ h4 {
 	width: 100%;
 	height: 100%;
 	background: rgba(100, 100, 100, 0.3);
+	z-index: 2;
 }
 .mask-playicon .icon-play {
 	background-color: var(--themeColor);

@@ -107,7 +107,6 @@ export const filterText = str => {
 	return str;
 };
 
-
 export function debounce(callback, time) {
 	// 定时器
 	let timer = null;
@@ -144,6 +143,7 @@ export function throttle(callback, wait) {
 		}
 	};
 }
+
 // 检测是全屏
 export function isFullscreen() {
 	var fullscreenEle = document.fullscreenElement || document.mozFullScreenElement || document.webkitFullscreenElement;
