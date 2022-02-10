@@ -6,7 +6,9 @@
 		</div>
 		<!-- 内容 -->
 		<div class="video-content">
-			<router-view></router-view>
+			<keep-alive>
+				<router-view></router-view>
+			</keep-alive>
 		</div>
 	</div>
 </template>

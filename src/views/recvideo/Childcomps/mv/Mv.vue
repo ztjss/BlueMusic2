@@ -80,18 +80,21 @@ export default {
 			this.order = item;
 			this.getAllMvBy(this.area, this.type, item, this.page);
 		},
-	},
-	mounted() {
-		let view = document.querySelector(".view");
-		view.addEventListener("scroll", e => {
-			// console.log("滚动卷去的高度", Math.ceil(view.scrollTop));
-			// console.log("当前可视高度", view.clientHeight);
-			// console.log("总高度", view.scrollHeight);
+
+		more() {
+			let view = document.querySelector(".view");
 			if (Math.ceil(view.scrollTop) + view.clientHeight >= view.scrollHeight) {
 				//滚动卷去的高度+当前可视高度 >=总高度 即代表滑动到底部
 				this.getAllMvBy(this.area, this.type, this.order, this.page);
 			}
-		});
+		},
+	},
+	activated() {
+		document.querySelector(".view").addEventListener("scroll", this.more);
+	},
+	deactivated() {
+		console.log("deactive");
+		document.querySelector(".view").removeEventListener("scroll", this.more);
 	},
 };
 </script>

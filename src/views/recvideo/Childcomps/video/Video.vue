@@ -89,15 +89,21 @@ export default {
 			this.tagId = id; //保存标签id
 			this.getGroupVideoListBy(id);
 		},
-	},
-	mounted() {
-		let view = document.querySelector(".view");
-		view.addEventListener("scroll", e => {
+		more() {
+			let view = document.querySelector(".view");
 			if (Math.ceil(view.scrollTop) + view.clientHeight >= view.scrollHeight) {
 				//滚动卷去的高度+当前可视高度 >=总高度 即代表滑动到底部
 				this.getGroupVideoListBy(this.tagId);
 			}
-		});
+		},
+	},
+
+	activated() {
+		document.querySelector(".view").addEventListener("scroll", this.more);
+	},
+	deactivated() {
+		console.log("deactive");
+		document.querySelector(".view").removeEventListener("scroll", this.more);
 	},
 };
 </script>

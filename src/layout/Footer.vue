@@ -63,7 +63,7 @@
 					<span v-if="playingList.length == 0">00:00</span>
 					<span v-if="Object.keys(nowSongDetail).length !== 0">{{ currentTime }}</span>
 					<!-- 进度条 -->
-					<div class="s-progress">
+					<div class="s-progress" @mousedown="isDrag = true" @mouseup="isDrag = false">
 						<el-slider v-model="songProgress" :format-tooltip="formatTooltip" :disabled="playingList.length == 0" @change="changeSongProgress"></el-slider>
 					</div>
 					<span v-if="playingList.length == 0">00:00</span>
@@ -146,6 +146,7 @@ export default {
 			voiceProgress: 50, //音量进度条
 			nowVolume: "", //静音前的音量
 			islike: false, //是否喜欢当前播放歌曲
+			isDrag: false,//是否在拖拽时间进度条
 		};
 	},
 	methods: {
@@ -205,8 +206,10 @@ export default {
 			this.$store.dispatch("saveCurrentSeconds", res.target.currentTime);
 			// 格式化为分钟
 			this.currentTime = formatDuration(res.target.currentTime);
-			// 歌曲当前时间改变后，时间进度条也要改变
-			this.songProgress = Math.ceil((res.target.currentTime / this.totalSecond) * 100);
+			// 如果没有在拖拽进度条 歌曲当前时间改变后，时间进度条也要改变
+			if (!this.isDrag) {
+				this.songProgress = Math.ceil((res.target.currentTime / this.totalSecond) * 100);
+			}
 		},
 		// 拖动时间进度条，改变当前时间，
 		// len是进度条改变时的回调函数的参数0-100之间，需要换算成实际时间拖动进度条，
@@ -456,10 +459,10 @@ export default {
 			.cover {
 				position: relative;
 				width: 60px;
-				img{
+				img {
 					width: 100%;
 				}
-				.icon-yinleyanzou{
+				.icon-yinleyanzou {
 					font-size: 34px;
 					color: var(--themeColor);
 				}
