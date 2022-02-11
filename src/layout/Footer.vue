@@ -11,7 +11,7 @@
 				@pause="changeState(false)"
 				@loadedmetadata="onLoadedmetadata"
 				@timeupdate="onTimeupdate"
-				@ended="toggleSong(1)"
+				@ended="playModel != 3 && toggleSong(1)"
 			></audio>
 			<!-- 左侧歌曲封面 名字 -->
 			<div class="left-cover-content">
@@ -146,7 +146,7 @@ export default {
 			voiceProgress: 50, //音量进度条
 			nowVolume: "", //静音前的音量
 			islike: false, //是否喜欢当前播放歌曲
-			isDrag: false,//是否在拖拽时间进度条
+			isDrag: false, //是否在拖拽时间进度条
 		};
 	},
 	methods: {
@@ -359,6 +359,7 @@ export default {
 			// 就是把音频标签的loop设为true 歌曲播放完后循环播放
 			this.$refs.audioplay.loop = true;
 			// 如果切换了歌曲 按顺序模式切歌
+			// console.log(type);
 			this.orderPlay(type);
 		},
 
