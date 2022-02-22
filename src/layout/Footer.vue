@@ -11,13 +11,13 @@
 				@pause="changeState(false)"
 				@loadedmetadata="onLoadedmetadata"
 				@timeupdate="onTimeupdate"
-				@ended="playModel != 3 && toggleSong(1)"
+				@ended="playModel == 3 ? loopPlay() : toggleSong(1)"
 			></audio>
 			<!-- 左侧歌曲封面 名字 -->
 			<div class="left-cover-content">
 				<!-- 有音乐时 -->
 				<div class="cover-content" v-if="Object.keys(nowSongDetail).length !== 0">
-					<div class="cover " @click="showSongDetail">
+					<div class="cover" @click="showSongDetail">
 						<img :src="cover" alt="" />
 					</div>
 					<div class="songname">
@@ -356,11 +356,13 @@ export default {
 		},
 		//.3 单曲循环
 		loopPlay(type) {
-			// 就是把音频标签的loop设为true 歌曲播放完后循环播放
+			// 把音频标签的loop设为true 
 			this.$refs.audioplay.loop = true;
+			this.$refs.audioplay.play();
 			// 如果切换了歌曲 按顺序模式切歌
-			// console.log(type);
-			this.orderPlay(type);
+			if (type != undefined) {
+				this.orderPlay(type);
+			}
 		},
 
 		/*

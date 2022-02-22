@@ -52,7 +52,7 @@
 							</li>
 						</ul>
 						<!-- 没有歌词时 -->
-						<div style="padding-top: 120px;" v-else>
+						<div style="padding-top: 120px" v-else>
 							<h2>暂无歌词，请您欣赏</h2>
 						</div>
 					</div>
@@ -368,6 +368,9 @@ export default {
 						}
 					}
 				}
+				::-webkit-scrollbar {
+					width: 5px;
+				}
 			}
 		}
 
@@ -390,7 +393,6 @@ export default {
 		font-weight: 700;
 	}
 }
-
 // 唱片开关旋转动画
 .swichsRotate {
 	animation-play-state: paused;

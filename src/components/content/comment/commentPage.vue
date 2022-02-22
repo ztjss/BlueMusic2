@@ -78,6 +78,7 @@ export default {
 			this.sortType = 3;
 			this.currentIndex = 0;
 			this.content = "";
+			this.currentPage = 1;
 		},
 	},
 	methods: {

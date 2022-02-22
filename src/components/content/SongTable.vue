@@ -159,7 +159,7 @@ export default {
 				return;
 			}
 			// 判断传入参数是喜欢还是不喜欢
-			let like = this.islike ? false : true;
+			let like = this.likeSongIds.indexOf(song.id) !== -1 ? false : true;
 			// 如果是在用户喜欢的歌单点击的取消喜欢
 			// 需要确认并从新获取用户歌单数据
 			if (this.userSongList[0].id == this.$route.params.id) {
@@ -261,8 +261,12 @@ export default {
 		font-size: 16px;
 		color: var(--themeColor);
 	}
+	.icon-xihuan,
+	.icon-xihuan2 {
+		display: inline-block;
+		width: 30px;
+	}
 	span {
-		padding-right: 15px;
 		cursor: pointer;
 		&:hover {
 			color: var(--themeColor);

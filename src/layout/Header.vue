@@ -134,7 +134,7 @@ export default {
 		display: flex;
 		justify-content: right;
 		align-content: center;
-		flex: 10;
+		flex: 12;
 	}
 	.pifu {
 		padding-right: 15px;
@@ -142,7 +142,7 @@ export default {
 		cursor: pointer;
 	}
 	.full {
-		flex: 1;
+		padding-right: 20px;
 		color: #fff;
 		cursor: pointer;
 	}
