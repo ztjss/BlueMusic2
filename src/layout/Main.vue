@@ -5,8 +5,7 @@
 			<Aside />
 		</div>
 		<!-- 主路由视图 -->
-		<div class="view">
-			<keep-alive exclude="Songlistdetail,VideoDetail,Singerdetail,Albumdetail,Searchdetail,UserDetail,Follows,FansList,PlayingSongDetail,MyFavorite,Record">
+		<div class="view">			<keep-alive exclude="Songlistdetail,VideoDetail,Singerdetail,Albumdetail,Searchdetail,UserDetail,Follows,FansList,PlayingSongDetail,MyFavorite,Record">
 				<router-view v-if="isRouterAlive"></router-view>
 			</keep-alive>
 			<!-- 返回顶部按钮 -->
@@ -46,7 +45,7 @@ export default {
 		// 实现页面的局部刷新 使用provide提供 到需要刷新的页面进行引用，使用inject导入引用reload，然后直接调用即可
 		reload() {
 			this.isRouterAlive = false;
-			this.$nextTick(function() {
+			this.$nextTick(function () {
 				this.isRouterAlive = true;
 			});
 		},

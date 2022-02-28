@@ -3,8 +3,9 @@ import { startLoading, endLoading } from "../common/Loading";
 export function request(config) {
 	const instance = axios.create({
 		// baseURL:'/api',
-		// baseURL:'https://autumnfish.cn/',
-		baseURL: "http://localhost:3000",
+		// baseURL: "https://autumnfish.cn/",
+		// baseURL: "http://localhost:3000",
+		baseURL: "https://blue-music-api.vercel.app/",
 		timeout: 30000,
 		withCredentials: true,
 	});

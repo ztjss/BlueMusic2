@@ -115,7 +115,9 @@ export default {
 						this.$store.dispatch("saveLikeSongIds", res.data.ids);
 					});
 				})
-				.catch((err) => {err});
+				.catch(err => {
+					err;
+				});
 		},
 	},
 	mounted() {
@@ -135,8 +137,8 @@ export default {
 <style lang="less" scoped>
 .user-pop {
 	position: absolute;
-	top: 65px;
-	right: 85px;
+	top: 62px;
+	right: 45px;
 	box-shadow: 0px 0px 2px 2px #eef;
 	background: #fff;
 	border-radius: 5px;

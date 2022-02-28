@@ -67,6 +67,7 @@ export default {
 		...mapGetters(["subMvlist"]),
 	},
 	created() {
+		document.querySelector(".view").scrollTop = 0;
 		// 保存路由传过来的id
 		this.id = this.$route.params.id;
 		// 视频类型

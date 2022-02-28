@@ -301,13 +301,13 @@ export default {
 				this.playMusic();
 			} else {
 				// 再根据播放模式判断
-				if (this.playModel === 1) {
+				if (this.playModel === 1 || this.playModel === 3) {
 					// 顺序播放 type等于0上一曲 否则下一曲
 					this.orderPlay(type);
 				} else if (this.playModel === 2) {
 					// 随机播放
 					this.randomPlay();
-				} else this.loopPlay(type); //循环播放
+				}
 			}
 		},
 
@@ -355,14 +355,10 @@ export default {
 			this.getSongUrlBy(randomSong);
 		},
 		//.3 单曲循环
-		loopPlay(type) {
-			// 把音频标签的loop设为true 
+		loopPlay() {
+			// 把音频标签的loop设为true
 			this.$refs.audioplay.loop = true;
 			this.$refs.audioplay.play();
-			// 如果切换了歌曲 按顺序模式切歌
-			if (type != undefined) {
-				this.orderPlay(type);
-			}
 		},
 
 		/*

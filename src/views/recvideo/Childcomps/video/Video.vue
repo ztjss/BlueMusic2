@@ -75,6 +75,9 @@ export default {
 				if (res.data.hasmore) {
 					this.videoList.push(...res.data.datas);
 					this.offset += 1;
+					if (this.offset < 4) {
+						this.getGroupVideoListBy(this.tagId);
+					}
 				}
 			});
 		},
