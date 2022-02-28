@@ -18,7 +18,6 @@
 				<!-- 有音乐时 -->
 				<div class="cover-content" v-if="Object.keys(nowSongDetail).length !== 0">
 					<div class="cover" @click="showSongDetail">
-						<div class="mask-playicon"><span class="iconfont icon-play"></span></div>
 						<img :src="cover" alt="" />
 					</div>
 					<div class="songname">
