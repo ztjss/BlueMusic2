@@ -15,7 +15,7 @@
 						<img src="~assets/imgs/cp1.png" alt="" />
 					</div>
 					<!-- 唱片旋转 -->
-					<div class="record record-rotate" :class="{ startRotate: isPlaying }">
+					<div class="record record-rotate" :class="{ startRotate: isPlaying }" @click="isPlaying ? pausePlay() : startPlay()">
 						<img class="cp2" src="~assets/imgs/cp2.png" alt="" />
 						<img class="cover" :src="cover" alt="" />
 					</div>
@@ -114,7 +114,6 @@ export default {
 				this.$store.dispatch("saveCurrentLyric", this.formatlyric);
 			});
 		},
-
 		// 格式化歌词
 		formatLyric(lyric_str) {
 			// 将歌词字符串 根据换行符 转换为 数组
@@ -192,6 +191,14 @@ export default {
 		//去往用户界面 需要关闭当前歌曲详情页
 		toUserDetail() {
 			this.closeSongDetail();
+		},
+		pausePlay() {
+			this.$store.dispatch("changePlayState", false);
+			document.querySelector("#audio").pause();
+		},
+		startPlay() {
+			this.$store.dispatch("changePlayState", true);
+			document.querySelector("#audio").play();
 		},
 	},
 	watch: {
@@ -290,7 +297,6 @@ export default {
 					}
 				}
 				.record {
-					// border: 1px solid red;
 					position: relative;
 					width: 100%;
 					.cp2 {

@@ -10,7 +10,7 @@
 					<!-- 专辑内容 -->
 					<SingerAlbum :albumlist="albumlist" />
 					<!-- 分页器 -->
-					<Pagination :total="albumSize" :page-size="30" @handleCurrentChange="getSingerAlbumBy" />
+					<Pagination :total="albumSize" :page-size="30" @handleCurrentChange="getSingerAlbumBy" v-show="albumlist.length != 0" />
 				</el-tab-pane>
 				<!-- 热门50首 -->
 				<el-tab-pane label="热门歌曲">

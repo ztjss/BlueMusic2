@@ -6,7 +6,9 @@
 		</div>
 		<!-- 内容 -->
 		<div class="music-content">
-			<router-view></router-view>
+			<keep-alive>
+				<router-view></router-view>
+			</keep-alive>
 		</div>
 	</div>
 </template>
@@ -41,6 +43,9 @@ export default {
 				},
 			],
 		};
+	},
+	activated() {
+		document.querySelector(".view").scrollTop = 0;
 	},
 };
 </script>

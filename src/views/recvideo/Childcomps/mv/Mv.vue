@@ -93,7 +93,6 @@ export default {
 		document.querySelector(".view").addEventListener("scroll", this.more);
 	},
 	deactivated() {
-		console.log("deactive");
 		document.querySelector(".view").removeEventListener("scroll", this.more);
 	},
 };

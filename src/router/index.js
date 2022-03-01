@@ -62,6 +62,7 @@ const routes = [
 	{
 		path: "/findmusic",
 		component: Findmusic,
+		name:"Findmusic",
 		redirect: "/findmusic/discover",
 		children: [
 			{
@@ -115,6 +116,7 @@ const routes = [
 	{
 		path: "/recvideo",
 		component: Recvideo,
+		name:"Recvideo",
 		redirect: "/recvideo/mv",
 		children: [
 			{
@@ -141,6 +143,7 @@ const routes = [
 	{
 		path: "/myfavorite",
 		component: MyFavorite,
+		name:"MyFavorite",
 		redirect: "/myfavorite/album",
 		children: [
 			{

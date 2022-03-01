@@ -81,6 +81,9 @@ export default {
 			this.$store.dispatch("saveSongDetail", this.recsongs[0]);
 		},
 	},
+	activated() {
+		document.querySelector(".view").scrollTop = 0;
+	},
 };
 </script>
 

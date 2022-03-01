@@ -17,7 +17,12 @@
 			<div class="left-cover-content">
 				<!-- 有音乐时 -->
 				<div class="cover-content" v-if="Object.keys(nowSongDetail).length !== 0">
-					<div class="cover" @click="showSongDetail">
+					<div class="cover" @click="showSongDetail" @mouseenter="showMask = true" @mouseleave="showMask = false">
+						<transition name="el-fade-in-linear">
+							<div class="mask-playicon" v-show="showMask" style="cursor: pointer">
+								<span :class="!isShowSongDetail ? 'iconfont icon-xiangshangjiantou' : 'iconfont icon-down-arrow'"></span>
+							</div>
+						</transition>
 						<img :src="cover" alt="" />
 					</div>
 					<div class="songname">
@@ -131,7 +136,7 @@ export default {
 	name: "Footer",
 	components: { PlayingList },
 	computed: {
-		...mapGetters(["isLogin", "userInfo", "songUrl", "isPlaying", "playingList", "nowSongDetail", "playModel", "likeSongIds", "currentSecond", "currentLyric", "currentRow"]),
+		...mapGetters(["isLogin", "userInfo", "songUrl", "isPlaying", "playingList", "nowSongDetail", "playModel", "likeSongIds", "currentSecond", "currentLyric", "isShowSongDetail"]),
 		cover() {
 			return this.nowSongDetail.al.picUrl + "?param=200y200";
 		},
@@ -147,6 +152,7 @@ export default {
 			nowVolume: "", //静音前的音量
 			islike: false, //是否喜欢当前播放歌曲
 			isDrag: false, //是否在拖拽时间进度条
+			showMask: false, //封面遮罩
 		};
 	},
 	methods: {
@@ -460,6 +466,12 @@ export default {
 				width: 60px;
 				img {
 					width: 100%;
+				}
+				.icon-xiangshangjiantou,
+				.icon-down-arrow {
+					font-size: 22px;
+					color: #fff;
+					font-weight: 700;
 				}
 				.icon-yinleyanzou {
 					font-size: 34px;

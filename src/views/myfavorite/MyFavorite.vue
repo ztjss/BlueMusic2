@@ -40,6 +40,9 @@ export default {
 			return;
 		}
 	},
+	activated() {
+		document.querySelector(".view").scrollTop = 0;
+	},
 };
 </script>
 

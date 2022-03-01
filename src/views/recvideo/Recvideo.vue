@@ -27,6 +27,9 @@ export default {
 		};
 	},
 	methods: {},
+	activated() {
+		document.querySelector(".view").scrollTop = 0;
+	},
 };
 </script>
 

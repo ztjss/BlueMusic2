@@ -11,7 +11,9 @@
 		</div>
 		<!-- 内容 -->
 		<div class="search-content">
-			<router-view></router-view>
+			<keep-alive>
+				<router-view></router-view>
+			</keep-alive>
 		</div>
 	</div>
 </template>

@@ -5,7 +5,9 @@
 			<Aside />
 		</div>
 		<!-- 主路由视图 -->
-		<div class="view">			<keep-alive exclude="Songlistdetail,VideoDetail,Singerdetail,Albumdetail,Searchdetail,UserDetail,Follows,FansList,PlayingSongDetail,MyFavorite,Record">
+		<div class="view">
+			<!-- <keep-alive exclude="Songlistdetail,VideoDetail,Singerdetail,Albumdetail,Searchdetail,UserDetail,Follows,FansList,PlayingSongDetail,MyFavorite,Record"> -->
+			<keep-alive include="Findmusic,Recvideo,RecEveryDay,MyFavorite">
 				<router-view v-if="isRouterAlive"></router-view>
 			</keep-alive>
 			<!-- 返回顶部按钮 -->
