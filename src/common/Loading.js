@@ -1,9 +1,9 @@
 import {Loading } from "element-ui";
 let loading;
-export function startLoading() {
+export function startLoading(text="拼命加载中...") {
     loading = Loading.service({
       lock: true,
-      text: "拼命加载中...",
+      text,
       background: "rgba(0,0,0,0)",
     });
   }

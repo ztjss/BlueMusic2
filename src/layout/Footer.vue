@@ -33,6 +33,9 @@
 					<div class="like-song" @click="likeNowSongBy">
 						<span><i :class="islike ? 'iconfont icon-xihuan2' : 'iconfont icon-xihuan'"></i></span>
 					</div>
+					<div class="download" @click="downloadCurrentMusic" title="下载">
+						<span><i class="iconfont icon-xiazai"></i></span>
+					</div>
 				</div>
 				<!-- 没有音乐时 -->
 				<div class="cover-content" v-if="Object.keys(nowSongDetail).length == 0" @click="showSongDetail">
@@ -136,7 +139,7 @@ export default {
 	name: "Footer",
 	components: { PlayingList },
 	computed: {
-		...mapGetters(["isLogin", "userInfo", "songUrl", "isPlaying", "playingList", "nowSongDetail", "playModel", "likeSongIds", "currentSecond", "currentLyric", "isShowSongDetail"]),
+		...mapGetters(["isLogin", "userInfo", "songUrl", "songType", "isPlaying", "playingList", "nowSongDetail", "playModel", "likeSongIds", "currentSecond", "currentLyric", "isShowSongDetail"]),
 		cover() {
 			return this.nowSongDetail.al.picUrl + "?param=200y200";
 		},
@@ -393,7 +396,6 @@ export default {
 				this.getLikSongListBy();
 			}
 		},
-
 		// 点击喜欢按钮的回调
 		likeNowSongBy() {
 			// 先判断登录状态
@@ -424,6 +426,14 @@ export default {
 					});
 				}
 			});
+		},
+		// 点击下载按钮的回调
+		downloadCurrentMusic() {
+			let downloadMusicInfo = {
+				url: this.songUrl,
+				name: this.nowSongDetail.name + " - " + this.nowSongDetail.ar[0].name,
+			};
+			this.$store.commit("updateDownloadMusicInfo", downloadMusicInfo);
 		},
 	},
 	watch: {
@@ -498,6 +508,16 @@ export default {
 				.icon-xihuan2 {
 					font-size: 18px;
 					color: var(--themeColor);
+				}
+			}
+			.download {
+				padding-left: 10px;
+				.icon-xiazai {
+					font-size: 18px;
+					font-weight: 700;
+					&:hover {
+						color: var(--themeColor);
+					}
 				}
 			}
 		}

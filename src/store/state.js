@@ -21,6 +21,8 @@ const state = {
 	playModel: localStorage.getItem("playModel") ? JSON.parse(localStorage.getItem("playModel")) : 1,
 	//当前歌曲url
 	songUrl: " ",
+	// 当前下载音乐信息
+	downloadMusicInfo: {},
 	// 当前歌曲详情
 	nowSongDetail: {},
 	//正在播放列表

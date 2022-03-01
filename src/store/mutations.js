@@ -50,6 +50,10 @@ const mutations = {
 	saveSongUrl(state, payload) {
 		state.songUrl = payload;
 	},
+	// 更新当前下载的音乐信息
+	updateDownloadMusicInfo(state, payload) {
+		state.downloadMusicInfo = payload;
+	},
 
 	// 保存当前播放歌曲详情
 	// 并且添加当前播放歌曲到播放历史记录

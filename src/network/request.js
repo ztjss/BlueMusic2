@@ -22,7 +22,6 @@ export function request(config) {
 			return Promise.reject(error);
 		}
 	);
-
 	// 响应拦截
 	instance.interceptors.response.use(
 		response => {
@@ -35,5 +34,36 @@ export function request(config) {
 		}
 	);
 	instance.defaults.withCredentials = true;
+	return instance(config);
+}
+// 下载音乐
+export function downloadMusic(config) {
+	const instance = axios.create({
+		timeout: 30000,
+		responseType: "blob",
+	});
+
+	// 请求拦截
+	instance.interceptors.request.use(
+		config => {
+			startLoading("准备下载...");
+			return config;
+		},
+		error => {
+			return Promise.reject(error);
+		}
+	);
+
+	// 响应拦截
+	instance.interceptors.response.use(
+		response => {
+			endLoading();
+			return response;
+		},
+		error => {
+			endLoading();
+			return Promise.reject(error);
+		}
+	);
 	return instance(config);
 }

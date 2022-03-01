@@ -19,6 +19,8 @@ export const isPlaying = state => state.isPlaying;
 export const playModel = state => state.playModel;
 // 当前歌曲url
 export const songUrl = state => state.songUrl;
+// 当前下载音乐信息
+export const downloadMusicInfo = state => state.downloadMusicInfo;
 // 当前歌曲详情
 export const nowSongDetail = state => state.nowSongDetail;
 // 正在播放列表

@@ -119,11 +119,11 @@ export default {
 		// 播放全部歌曲事件
 		playAllSong() {
 			this.$store.dispatch("addAllSong", this.songs);
-			// 更新播放状态
-			this.$store.dispatch("changePlayState", true);
 			//默认播放第一首歌
 			getSongUrl(this.songs[0].id).then(res => {
 				this.$store.dispatch("saveSongUrl", res.data.data[0].url);
+				// 更新播放状态
+				this.$store.dispatch("changePlayState", true);
 			});
 			//提交vuex保存当前歌曲详情
 			this.$store.dispatch("saveSongDetail", this.songs[0]);

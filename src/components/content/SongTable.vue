@@ -2,7 +2,7 @@
 	<div class="song-table">
 		<el-table style="width: 100%" :data="songs" empty-text="数据加载中~" @row-dblclick="playMusic" :row-class-name="tableRowClassName">
 			<!-- 索引或者小喇叭 -->
-			<el-table-column width="50">
+			<el-table-column width="40">
 				<template v-slot="scope">
 					<span class="iconfont" :class="isPlaying ? ' icon-voice' : 'icon-jingyin_laba'" v-if="scope.row.id == nowSongDetail.id"></span>
 					<span v-else>{{ scope.row.index | formatIndex }}</span>
@@ -18,6 +18,7 @@
 							:title="likeSongIds.indexOf(scope.row.id) !== -1 ? '取消喜欢' : '喜欢'"
 						>
 						</span>
+						<span class="iconfont icon-xiazai" @click="downloadCurrentMusic(scope.row)" title="下载"></span>
 						<span class="el-icon-plus" @click="addSong(scope.row)" title="添加到播放列表"></span>
 					</div>
 				</template>
@@ -213,6 +214,29 @@ export default {
 				});
 		},
 
+		// 点击下载按钮的回调
+		downloadCurrentMusic(song) {
+			checkMusic(song.id)
+				.then(res => {
+					// 获取歌曲url
+					getSongUrl(song.id).then(res => {
+						// 下载的歌曲信息
+						let downloadMusicInfo = {
+							url: res.data.data[0].url,
+							name: song.name + " - " + song.ar[0].name,
+						};
+						this.$store.commit("updateDownloadMusicInfo", downloadMusicInfo);
+					});
+				})
+				.catch(err => {
+					this.$message({
+						message: "暂无版权，无法下载",
+						type: "warning",
+						center: true,
+					});
+				});
+		},
+
 		// 点击添加按钮
 		addSong(song) {
 			// 提交vuex添加到播放列表
@@ -261,11 +285,17 @@ export default {
 		font-size: 16px;
 		color: var(--themeColor);
 	}
+	.icon-xiazai {
+		font-weight: 700;
+		color: #999;
+	}
 	.icon-xihuan,
-	.icon-xihuan2 {
+	.icon-xihuan2,
+	.icon-xiazai {
 		display: inline-block;
 		width: 30px;
 	}
+
 	span {
 		cursor: pointer;
 		&:hover {
