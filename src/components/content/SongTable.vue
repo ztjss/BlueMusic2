@@ -220,9 +220,21 @@ export default {
 				.then(res => {
 					// 获取歌曲url
 					getSongUrl(song.id).then(res => {
+						let songUrl = res.data.data[0].url;
+						// 匹配资源的域名
+						let url = songUrl.match(/\http.*?\.net/);
+						// 匹配域名名称，并匹配对应的代理
+						let serve = url[0].match(/http:\/(\S*).music/)[1];
+						if (serve != "/m7" && serve != "/m701" && serve != "/m8" && serve != "/m801") {
+							// 没有对应的代理
+							this.$message.error("匹配不到对应的代理,下载失败!");
+							return;
+						}
+						// 截取后面的参数
+						let params = songUrl.slice(url[0].length);
 						// 下载的歌曲信息
 						let downloadMusicInfo = {
-							url: res.data.data[0].url,
+							url: serve + params,
 							name: song.name + " - " + song.ar[0].name,
 						};
 						this.$store.commit("updateDownloadMusicInfo", downloadMusicInfo);
