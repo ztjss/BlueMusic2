@@ -62,7 +62,7 @@ const routes = [
 	{
 		path: "/findmusic",
 		component: Findmusic,
-		name:"Findmusic",
+		name: "Findmusic",
 		redirect: "/findmusic/discover",
 		children: [
 			{
@@ -116,7 +116,7 @@ const routes = [
 	{
 		path: "/recvideo",
 		component: Recvideo,
-		name:"Recvideo",
+		name: "Recvideo",
 		redirect: "/recvideo/mv",
 		children: [
 			{
@@ -143,7 +143,7 @@ const routes = [
 	{
 		path: "/myfavorite",
 		component: MyFavorite,
-		name:"MyFavorite",
+		name: "MyFavorite",
 		redirect: "/myfavorite/album",
 		children: [
 			{
@@ -242,7 +242,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
-	mode: "history",
+	mode: "hash",
 	routes,
 });
 

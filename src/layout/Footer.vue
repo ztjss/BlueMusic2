@@ -429,19 +429,8 @@ export default {
 		},
 		// 点击下载按钮的回调
 		downloadCurrentMusic() {
-			// 匹配资源的域名
-			let url = this.songUrl.match(/\http.*?\.net/);
-			// 匹配域名名称，并匹配对应的代理
-			let serve = url[0].match(/http:\/(\S*).music/)[1];
-			if (serve != "/m7" && serve != "/m701" && serve != "/m8" && serve != "/m801") {
-				// 没有对应的代理
-				this.$message.error("匹配不到对应的代理,下载失败!");
-				return;
-			}
-			// 截取后面的参数
-			let params = this.songUrl.slice(url[0].length);
 			let downloadMusicInfo = {
-				url: serve + params,
+				url: this.songUrl,
 				name: this.nowSongDetail.name + " - " + this.nowSongDetail.ar[0].name,
 			};
 			this.$store.commit("updateDownloadMusicInfo", downloadMusicInfo);

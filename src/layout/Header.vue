@@ -132,7 +132,7 @@ export default {
 	}
 	.right-login {
 		display: flex;
-		justify-content: right;
+		justify-content: flex-end;
 		align-content: center;
 		flex: 12;
 	}
