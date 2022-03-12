@@ -19,11 +19,11 @@
 				<div class="cover-content" v-if="Object.keys(nowSongDetail).length !== 0">
 					<div class="cover" @click="showSongDetail" @mouseenter="showMask = true" @mouseleave="showMask = false">
 						<transition name="el-fade-in-linear">
-							<div class="mask-playicon" v-show="showMask" style="cursor: pointer">
+							<div class="mask-playicon" v-show="showMask" style="cursor: pointer; background: transparent">
 								<span :class="!isShowSongDetail ? 'iconfont icon-xiangshangjiantou' : 'iconfont icon-down-arrow'"></span>
 							</div>
 						</transition>
-						<img :src="cover" alt="" />
+						<img :src="cover" alt="" :class="{ blur: showMask }" />
 					</div>
 					<div class="songname">
 						<p style="padding-bottom: 5px">{{ nowSongDetail.name }}</p>
@@ -474,8 +474,12 @@ export default {
 			.cover {
 				position: relative;
 				width: 60px;
+
 				img {
 					width: 100%;
+				}
+				.blur {
+					filter: blur(3px) brightness(80%);
 				}
 				.icon-xiangshangjiantou,
 				.icon-down-arrow {

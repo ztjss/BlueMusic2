@@ -114,8 +114,4 @@ export default {
 .video-list {
 	margin-top: 30px;
 }
-.more {
-	color: var(--themeColor);
-	cursor: pointer;
-}
 </style>

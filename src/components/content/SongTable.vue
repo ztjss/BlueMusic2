@@ -2,7 +2,7 @@
 	<div class="song-table">
 		<el-table style="width: 100%" :data="songs" empty-text="数据加载中~" @row-dblclick="playMusic" :row-class-name="tableRowClassName">
 			<!-- 索引或者小喇叭 -->
-			<el-table-column width="40">
+			<el-table-column width="50">
 				<template v-slot="scope">
 					<span class="iconfont" :class="isPlaying ? ' icon-voice' : 'icon-jingyin_laba'" v-if="scope.row.id == nowSongDetail.id"></span>
 					<span v-else>{{ scope.row.index | formatIndex }}</span>

@@ -105,8 +105,4 @@ export default {
 .mv-list {
 	padding-top: 30px;
 }
-.more {
-	color: var(--themeColor);
-	cursor: pointer;
-}
 </style>
