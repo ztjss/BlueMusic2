@@ -10,21 +10,18 @@
 			<div class="right-info">
 				<!-- 评论 -->
 				<div class="content">
-					<p>
-						<span @click="toUserDetail(item.user.userId)">{{ item.user.nickname }}:</span>{{ item.content }}
-					</p>
+					<span @click="toUserDetail(item.user.userId)">{{ item.user.nickname }}:</span>
+					{{ item.content }}
 				</div>
 				<!-- 被回复的评论 -->
 				<div class="be-replied" v-if="item.beReplied != null && item.beReplied.length != 0">
 					<div v-for="(item2, index2) in item.beReplied" :key="index2">
-						<p>
-							<span @click="toUserDetail(item2.user.userId)">{{ item2.user.nickname }}:</span>{{ item2.content }}
-						</p>
+						<span @click="toUserDetail(item2.user.userId)">@{{ item2.user.nickname }}:</span>{{ item2.content }}
 					</div>
 				</div>
 				<!-- 评论时间 -->
 				<div class="coment-time">
-					<p>{{ item.time | showDate }}</p>
+					{{ item.time | showDate }}
 				</div>
 			</div>
 		</div>

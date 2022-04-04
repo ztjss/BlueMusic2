@@ -76,7 +76,6 @@ export default {
 					});
 				})
 				.catch(err => {
-					console.log(err);
 					this.$message.error("下载失败,请稍后重试!");
 				});
 		},

@@ -31,10 +31,10 @@
 					</div>
 					<!-- 喜欢该歌曲 -->
 					<div class="like-song" @click="likeNowSongBy">
-						<span><i :class="islike ? 'iconfont icon-xihuan2' : 'iconfont icon-xihuan'"></i></span>
+						<span :class="islike ? 'iconfont icon-xihuan2' : 'iconfont icon-xihuan'"></span>
 					</div>
 					<div class="download" @click="downloadCurrentMusic" title="下载">
-						<span><i class="iconfont icon-xiazai"></i></span>
+						<span class="iconfont icon-xiazai"></span>
 					</div>
 				</div>
 				<!-- 没有音乐时 -->
@@ -80,23 +80,15 @@
 				<!-- 切换播放模式 -->
 				<div class="playmodel">
 					<el-tooltip effect="dark" content="顺序播放" placement="top" v-if="playModel == 1">
-						<span v-if="playModel == 1" @click="changePlayModel(2)">
-							<i class="iconfont icon-orderplay"></i>
-						</span>
+						<span class="iconfont icon-orderplay" v-if="playModel == 1" @click="changePlayModel(2)"></span>
 					</el-tooltip>
 					<el-tooltip effect="dark" content="随机播放" placement="top" v-if="playModel == 2">
-						<span v-if="playModel == 2" @click="changePlayModel(3)">
-							<i class="iconfont icon-random"></i>
-						</span>
+						<span class="iconfont icon-random" v-if="playModel == 2" @click="changePlayModel(3)"></span>
 					</el-tooltip>
 					<el-tooltip effect="dark" content="单曲循环" placement="top" v-if="playModel == 3">
-						<span v-if="playModel == 3" @click="changePlayModel(1)">
-							<i class="iconfont icon-danqu"></i>
-						</span>
+						<span class="iconfont icon-danqu" v-if="playModel == 3" @click="changePlayModel(1)"></span>
 					</el-tooltip>
-					<span>
-						<i class="iconfont icon-cibiaoquanyi" @click="showFloatLyric"></i>
-					</span>
+					<span class="iconfont icon-cibiaoquanyi" @click="showFloatLyric"></span>
 				</div>
 			</div>
 			<!-- 右侧声音控制 -->
@@ -112,9 +104,7 @@
 				</div>
 				<!-- 播放列表按钮 -->
 				<el-tooltip effect="dark" content="播放列表" placement="top">
-					<span @click="showPlayingList" id="showPlayingList">
-						<i class="iconfont icon-songplaylist"></i>
-					</span>
+					<span class="iconfont icon-songplaylist" @click="showPlayingList" id="showPlayingList"></span>
 				</el-tooltip>
 			</div>
 			<!-- 当前播放列表 -->
@@ -281,11 +271,6 @@ export default {
 					});
 				})
 				.catch(err => {
-					// this.$message({
-					//   message: "暂无版权,将播放下一首",
-					//   type: "warning",
-					//   center: true,
-					// });
 					// 删除播放列表不能播放的当前歌曲
 					this.$store.dispatch("deleteSong", song.id);
 					this.orderPlay(1);
