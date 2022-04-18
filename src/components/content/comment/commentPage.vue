@@ -45,7 +45,7 @@ export default {
 		},
 		// id:评论的资源id
 		commentresId: {
-			type: null,
+			type: [Number, String],
 		},
 	},
 	data() {

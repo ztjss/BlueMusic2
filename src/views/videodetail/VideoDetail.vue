@@ -8,7 +8,7 @@
 				<video :src="mvUrl || videoUrl" controls="controls" autoplay="autoplay" loop="loop"></video>
 			</div>
 			<!-- 视频信息 -->
-			<Videoinfo :videoinfo="videoinfo" :type="$route.params.type" :is-sub="isSub" :islike="islike" @subMvBy="subMvBy" @likeVideoBy="likeVideoBy" />
+			<Videoinfo :videoinfo="videoinfo" :type="$route.params.type" :is-sub="isSub" :islike="isLikeInfo.liked" @subMvBy="subMvBy" @likeVideoBy="likeVideoBy" />
 			<!-- 视频评论 -->
 			<div class="video-comment" ref="comment">
 				<h3 style="padding-bottom: 5px">评论</h3>
@@ -30,13 +30,14 @@ import {
 	getSimiMv,
 	getMvUrl,
 	subMv,
+	getMvLikeInfo,
 	/* 视频 */
 	getVideoDetail,
 	getSimiVideo,
 	getVideoUrl,
 	subVideo,
-	getLikeVideo,
 	likeVideo,
+	getVideoLikeInfo,
 } from "network/recvideo/recvideo";
 import { getSubMv } from "network/myfavorite/myfavorite";
 /* vuex */
@@ -57,10 +58,9 @@ export default {
 			similarvideo: [], //相似视频
 			mvUrl: "",
 			videoUrl: "",
-			commentType: Number, //评论类型
 			isSub: false, //是否收藏了该视频
-			likeVideoList: [], //点赞了的视频列表
-			islike: false, //是否点赞了视频
+			isLikeInfo: {}, //是否点赞的信息
+			commentType: Number, //评论类型
 		};
 	},
 	computed: {
@@ -81,6 +81,8 @@ export default {
 			this.getSimiMvBy();
 			// 获取mv播放地址
 			this.getMvUrlBy();
+			// 获取mv点赞数据
+			this.getMvLikeInfoBy();
 		} else if (this.type == "video") {
 			this.commentType = 5; //评论类型是视频
 			//.* 视频数据 */
@@ -90,6 +92,8 @@ export default {
 			this.getSimiVideoBy();
 			//  获取视频播放地址
 			this.getVideoUrlBy();
+			// 获取视频点赞数据
+			this.getVideoLikeInfoBy();
 		}
 		// 获取收藏的视频MV列表
 		if (this.subMvlist.length == 0) {
@@ -97,7 +101,6 @@ export default {
 		}
 		// 判断是否收藏了当前MV或视频
 		this.isSubMv();
-		this.getLikeVideoBy();
 	},
 
 	methods: {
@@ -123,6 +126,12 @@ export default {
 				this.mvUrl = res.data.data.url;
 			});
 		},
+		// 获取mv点赞数据
+		getMvLikeInfoBy() {
+			getMvLikeInfo(this.id).then(res => {
+				this.isLikeInfo = res.data;
+			});
+		},
 
 		//.* 视频数据 */
 		// 获取视频详情数据
@@ -141,6 +150,13 @@ export default {
 		getVideoUrlBy() {
 			getVideoUrl(this.id).then(res => {
 				this.videoUrl = res.data.urls[0].url;
+			});
+		},
+		// 获取视频点赞数据
+		getVideoLikeInfoBy() {
+			getVideoLikeInfo(this.id).then(res => {
+				this.isLikeInfo = res.data;
+				console.log(res);
 			});
 		},
 
@@ -193,38 +209,18 @@ export default {
 			}
 		},
 
-		/* 点赞视频 */
-		// 获取点赞的视频
-		getLikeVideoBy() {
-			let timestamp = Date.parse(new Date());
-			getLikeVideo(timestamp).then(res => {
-				this.likeVideoList = res.data.data.feeds;
-				// console.log(this.likeVideoList);
-				// 判断当前视频是否在点赞的视频里
-				// (视频id和获取到的喜欢的视频的id不太一样，暂且用发布时间和播放量来判断一下吧)
-				let index = this.likeVideoList.findIndex(item => {
-					return item.mlogBaseData.id == this.id || (item.mlogBaseData.pubTime == this.videoinfo.publishTime && item.mlogExtVO.playCount == this.videoinfo.playTime);
-				});
-				if (index == -1) {
-					this.islike = false;
-				} else {
-					this.islike = true;
-				}
-			});
-		},
-
 		// 点击点赞按钮的回调
 		likeVideoBy() {
-			let t = !this.islike ? 1 : 2; // 1 为点赞,其他为取消点赞
+			let t = !this.isLikeInfo.liked ? 1 : 2; // 1 为点赞,其他为取消点赞
 			if (this.type == "mv") {
 				let type = 1; // 1: mv 5: 视频
 				likeVideo(t, type, this.id).then(res => {
-					this.getLikeVideoBy();
+					this.isLikeInfo.liked = !this.isLikeInfo.liked;
 				});
 			} else {
 				let type = 5; // 1: mv 5: 视频
 				likeVideo(t, type, this.id).then(res => {
-					this.getLikeVideoBy();
+					this.isLikeInfo.liked = !this.isLikeInfo.liked;
 				});
 			}
 		},

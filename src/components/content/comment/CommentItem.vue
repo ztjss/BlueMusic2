@@ -27,7 +27,7 @@
 		</div>
 		<!-- 点赞 回复评论 -->
 		<div class="like">
-			<span class="iconfont icon-dianzan" :class="{ isLike: isLike }" @click="isLikeCommentBy(item)">{{ item.likedCount | formatNum }}</span>
+			<span class="iconfont icon-dianzan" :class="{ isLike: item.liked }" @click="isLikeCommentBy(item)">{{ item.likedCount | formatNum }}</span>
 			<span class="iconfont icon-comment" @click="replyComment(item)"></span>
 		</div>
 	</div>
@@ -51,7 +51,7 @@ export default {
 		},
 		// id:评论的资源id
 		commentresId: {
-			type: null,
+			type: [Number, String],
 		},
 	},
 	filters: {
@@ -61,20 +61,7 @@ export default {
 		},
 	},
 	data() {
-		return {
-			cidList: [],
-			isLike: false,
-		};
-	},
-	created() {
-		// 判断是否点赞
-		this.cidList = this.getItem("likeComment") ? this.getItem("likeComment") : [];
-		this.isLike = this.cidList.includes(this.item.commentId);
-	},
-	watch: {
-		item() {
-			this.isLike = this.cidList.includes(this.item.commentId);
-		},
+		return {};
 	},
 	methods: {
 		// 点击用户头像
@@ -102,28 +89,20 @@ export default {
 				});
 				return;
 			}
-			let t = this.isLike ? 0 : 1;
-			if (t === 1) {
-				// 存储当前点赞评论id
-				this.cidList.push(item.commentId);
-				this.setItem("likeComment", this.cidList);
-			} else {
-				// 清除当前评论id
-				this.cidList = this.cidList.filter(cid => cid != item.commentId);
-				this.setItem("likeComment", this.cidList);
-			}
+			let t = this.item.liked ? 0 : 1;
 			// 发送网络请求
 			isLikeComment(this.commentresId, this.commentType, t, item.commentId)
 				.then(res => {
 					if (res.data.code === 200) {
-						this.isLike = !this.isLike;
-						if (!this.isLike) {
+						// this.isLike = !this.isLike;
+						if (t == 0) {
 							this.$message({
 								type: "success",
 								message: "已取消点赞",
 								center: true,
 							});
 							this.item.likedCount = this.item.likedCount - 1;
+							this.item.liked = !this.item.liked;
 						} else {
 							this.$message({
 								type: "success",
@@ -131,6 +110,7 @@ export default {
 								center: true,
 							});
 							this.item.likedCount = this.item.likedCount + 1;
+							this.item.liked = !this.item.liked;
 						}
 					} else {
 						this.$message.error("点赞失败,请稍后重试!");

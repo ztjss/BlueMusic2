@@ -207,7 +207,7 @@ export default {
 			// 遍历格式化后的歌词数组
 			this.formatlyric.forEach((item, index) => {
 				// 如果歌曲当前秒数和歌词数组中的秒数相等
-				//这里写==可以在使用原生scroll实现歌词滚动的时候不抖动，如果写>=会抖动
+				// 这里写==可以在使用原生scroll实现歌词滚动的时候不抖动，如果写>=会抖动
 				if (Math.ceil(this.currentSecond) == item.time) {
 					//  设置的每行歌词高度为45px，所以每次移动索引号乘以45
 					//.1 使用位移来实现歌词滚动

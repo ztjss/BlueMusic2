@@ -15,7 +15,7 @@
 
 <script>
 // 网络请求
-import { getBanner, getPersonalized, getPrivatecontent, getNewsong, getNewmv } from "network/findmusic/discover/discover";
+import { getBanner, getPersonalized, getPrivatecontent, getRecommend, getNewsong, getNewmv } from "network/findmusic/discover/discover";
 // 子组件
 import Banner from "./Childcomps/Banner.vue";
 import Personalized from "./Childcomps/Personalized.vue";
@@ -43,9 +43,28 @@ export default {
 		getBanner().then(res => {
 			this.banner = res.data.banners;
 		});
-		// 获取推荐歌单数据
-		getPersonalized(18).then(res => {
-			this.personalized = res.data.result;
+		this.getRecommendBy();
+	},
+	methods: {
+		// 获取推荐歌单
+		getRecommendBy() {
+			if (this.isLogin) {
+				getRecommend().then(res => {
+					let recommend = res.data.recommend;
+					let limit = 18 - recommend.length;
+					getPersonalized(limit).then(res => {
+						this.personalized = [...recommend, ...res.data.result];
+						this.getRecOther();
+					});
+				});
+			} else {
+				getPersonalized(18).then(res => {
+					this.personalized = res.data.result;
+					this.getRecOther();
+				});
+			}
+		},
+		getRecOther() {
 			// 获取每日推荐新音乐
 			getNewsong(15)
 				.then(res => {
@@ -60,13 +79,11 @@ export default {
 			getNewmv().then(res => {
 				this.newmv = res.data.result;
 			});
-		});
+		},
 	},
 	watch: {
 		isLogin() {
-			getPersonalized(18).then(res => {
-				this.personalized = res.data.result;
-			});
+			this.getRecommendBy();
 		},
 	},
 };

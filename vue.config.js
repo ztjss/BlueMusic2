@@ -11,16 +11,16 @@ module.exports = {
 			},
 		},
 	},
-	devServer: {
-		proxy: {
-			"/api": {
-				target: "http://124.221.63.19:3000/",
-				changeOrigin: true,
-				ws: true,
-				pathRewrite: {
-					"^/api": "",
-				},
-			},
-		},
-	},
+	// devServer: {
+	// 	proxy: {
+	// 		"/api": {
+	// 			target: "http://124.221.63.19:3000/",
+	// 			changeOrigin: true,
+	// 			ws: true,
+	// 			pathRewrite: {
+	// 				"^/api": "",
+	// 			},
+	// 		},
+	// 	},
+	// },
 };

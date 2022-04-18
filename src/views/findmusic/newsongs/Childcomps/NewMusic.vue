@@ -20,7 +20,7 @@
 				<el-table-column prop="album.picUrl" label="封面" width="80">
 					<template v-slot="scope">
 						<div class="cover" @click="playMusic(scope.row)">
-							<img v-lazy="scope.row.album.picUrl" />
+							<img v-lazy="scope.row.album.picUrl + '?param=80y80'" />
 							<div class="mask"><span class="iconfont icon-play1"></span></div>
 						</div>
 					</template>
