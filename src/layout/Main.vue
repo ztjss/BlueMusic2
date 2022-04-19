@@ -108,7 +108,7 @@ export default {
 }
 .songdetail-enter-active,
 .songdetail-leave-active {
-	transition: all 0.5s;
+	transition: all 0.6s;
 }
 .songdetail-enter-to {
 	transform: translateY(0);

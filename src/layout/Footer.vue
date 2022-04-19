@@ -131,7 +131,7 @@ export default {
 	computed: {
 		...mapGetters(["isLogin", "userInfo", "songUrl", "songType", "isPlaying", "playingList", "nowSongDetail", "playModel", "likeSongIds", "currentSecond", "currentLyric", "isShowSongDetail"]),
 		cover() {
-			return this.nowSongDetail.al.picUrl + "?param=200y200";
+			return this.nowSongDetail.al.picUrl + "?param=60y60";
 		},
 	},
 	data() {

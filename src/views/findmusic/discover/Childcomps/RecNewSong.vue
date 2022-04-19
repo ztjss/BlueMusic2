@@ -6,7 +6,7 @@
 		<div class="bd">
 			<div class="item" v-for="(item, index) in newsong" :key="index" @dblclick="playMusic(item)">
 				<div class="item-img" @click="playMusic(item)">
-					<img v-lazy="item.picUrl" alt="" />
+					<img v-lazy="item.picUrl+'?param=80y80'" alt="" />
 					<div class="icon">
 						<span class="iconfont icon-play1"></span>
 					</div>

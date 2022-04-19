@@ -19,7 +19,7 @@
 						<img class="cp2" src="~assets/imgs/cp2.png" alt="" />
 						<img class="cover" :src="cover" alt="" />
 					</div>
-					<img :src="nowSongDetail.al.picUrl" alt="" class="song-bgImg" />
+					<img :src="cover" alt="" class="song-bgImg" />
 				</div>
 				<!-- 右侧歌词 -->
 				<div class="right-lyrics">
@@ -133,7 +133,7 @@ export default {
 					// 将每行歌词时间转换为秒
 					let seconds_row = time_arr[0] * 60 + Math.ceil(time_arr[1]);
 					// 将每行歌词时间和文本添加到每行歌词对象中
-					if (lryic_row_text.length != 0) {
+					if (lryic_row_text.trim().length !== 0) {
 						LyricRowObj.time = seconds_row;
 						LyricRowObj.text = lryic_row_text;
 						//再将每行歌词对象添加到数组中
@@ -369,7 +369,6 @@ export default {
 						}
 						.currentLyric {
 							font-size: 18px;
-							// color: #5292fe;
 							font-weight: 700;
 						}
 					}
@@ -406,7 +405,7 @@ export default {
 .swichsPlay,
 .switchsPause {
 	animation-timing-function: linear;
-	animation-duration: 0.5s;
+	animation-duration: 0.35s;
 	animation-fill-mode: forwards;
 	animation-play-state: running;
 }
