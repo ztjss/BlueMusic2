@@ -108,9 +108,6 @@ export default {
 						// 清空歌单
 						this.$store.dispatch("saveUserSongList", []);
 						this.removeItem("userSongList");
-						// 清空历史播放记录
-						this.$store.dispatch("deleteAllHistory");
-						this.removeItem("historyPlay");
 						// 清空用户喜欢的音乐id列表
 						this.$store.dispatch("saveLikeSongIds", []);
 					});

@@ -14,30 +14,31 @@ const state = {
 	// 用户喜欢的音乐id列表
 	likeSongIds: [],
 
-	/* 音乐播放 */
+	/* 
+	音乐播放
+	 */
 	// 音乐播放状态
 	isPlaying: false,
+	// 当前下载音乐信息
+	downloadMusicInfo: {},
+	// 是否显示当前歌曲详情页
+	isShowSongDetail: false,
+	// 当前播放歌曲歌词
+	currentLyric: [],
 	//播放模式
 	playModel: localStorage.getItem("playModel") ? JSON.parse(localStorage.getItem("playModel")) : 1,
 	//当前歌曲url
-	songUrl: " ",
-	// 当前下载音乐信息
-	downloadMusicInfo: {},
+	songUrl: localStorage.getItem("songUrl") ? JSON.parse(localStorage.getItem("songUrl")) : " ",
 	// 当前歌曲详情
-	nowSongDetail: {},
+	nowSongDetail: localStorage.getItem("nowSongDetail") ? JSON.parse(localStorage.getItem("nowSongDetail")) : {},
 	//正在播放列表
-	playingList: [],
+	playingList: localStorage.getItem("playingList") ? JSON.parse(localStorage.getItem("playingList")) : [],
 	// 历史播放列表
 	historyPlay: localStorage.getItem("historyPlay") ? JSON.parse(localStorage.getItem("historyPlay")) : [],
-	// 是否显示当前歌曲详情页
-	isShowSongDetail: false,
 	// 当前歌曲播放的实时秒数
-	currentSecond: 0,
+	currentSecond: localStorage.getItem("currentSecond") ? JSON.parse(localStorage.getItem("currentSecond")) : 0,
 	//当前歌曲播放的歌词行
-	currentRow: 0,
-	/* 浮动歌词显示 */
-	// 当前播放歌曲歌词
-	currentLyric: [],
+	currentRow: localStorage.getItem("currentRow") ? JSON.parse(localStorage.getItem("currentRow")) : 0,
 	// 是否显示悬浮歌词
 	showFloatLyric: false,
 };

@@ -204,25 +204,27 @@ export default {
 	watch: {
 		// 监听当前时间的变化，实现滚动
 		currentSecond() {
-			// 遍历格式化后的歌词数组
-			this.formatlyric.forEach((item, index) => {
-				// 如果歌曲当前秒数和歌词数组中的秒数相等
-				// 这里写==可以在使用原生scroll实现歌词滚动的时候不抖动，如果写>=会抖动
-				if (Math.ceil(this.currentSecond) == item.time) {
-					//  设置的每行歌词高度为45px，所以每次移动索引号乘以45
-					//.1 使用位移来实现歌词滚动
-					// this.$refs.scrollLyric.style.transform = `translateY(${-45 * index}px)`;
-					//.2 使用原生scroll实现歌词滚动
-					this.$store.commit("saveCurrentRow", index); //用于判断当前歌词高亮显示(使用vuex是因为在footer中使用到了currentRow)
-					// 当鼠标经过时停止滚动
-					if (!this.isActive) {
-						this.$refs.scrollLyric.scrollTo({
-							top: 45 * index,
-							behavior: "smooth",
-						});
+			if (this.currentSecond != 0) {
+				// 遍历格式化后的歌词数组
+				this.formatlyric.forEach((item, index) => {
+					// 如果歌曲当前秒数和歌词数组中的秒数相等
+					// 这里写==可以在使用原生scroll实现歌词滚动的时候不抖动，如果写>=会抖动
+					if (Math.ceil(this.currentSecond) == item.time) {
+						//  设置的每行歌词高度为45px，所以每次移动索引号乘以45
+						//.1 使用位移来实现歌词滚动
+						// this.$refs.scrollLyric.style.transform = `translateY(${-45 * index}px)`;
+						//.2 使用原生scroll实现歌词滚动
+						this.$store.commit("saveCurrentRow", index); //用于判断当前歌词高亮显示(使用vuex是因为在footer中使用到了currentRow)
+						// 当鼠标经过时停止滚动
+						if (!this.isActive) {
+							this.$refs.scrollLyric.scrollTo({
+								top: 45 * index,
+								behavior: "smooth",
+							});
+						}
 					}
-				}
-			});
+				});
+			}
 		},
 		// 监听当前歌曲变化
 		nowSongDetail() {

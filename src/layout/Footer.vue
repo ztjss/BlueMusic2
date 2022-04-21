@@ -139,14 +139,19 @@ export default {
 			isShowDrawer: false, //是否显示播放列表
 			totalSecond: "", // 歌曲总秒数
 			totalTime: "", //歌曲总时长(分钟)
-			currentTime: "", //歌曲当前处于的时间(分钟)
-			songProgress: 0, //歌曲时间进度条
-			voiceProgress: 50, //音量进度条
+			currentTime: this.getItem("currentTime") ? this.getItem("currentTime") : "00:00", //歌曲当前处于的时间(分钟)
+			songProgress: this.getItem("songProgress") ? this.getItem("songProgress") : 0, //歌曲时间进度条
+			voiceProgress: this.getItem("voiceProgress") ? this.getItem("voiceProgress") : 50, //音量进度条
 			nowVolume: "", //静音前的音量
 			islike: false, //是否喜欢当前播放歌曲
 			isDrag: false, //是否在拖拽时间进度条
 			showMask: false, //封面遮罩
 		};
+	},
+	mounted() {
+		this.$refs.audioplay.volume = this.voiceProgress / 100;
+		this.$refs.audioplay.currentTime = this.currentSecond;
+		this.$refs.audioplay.pause();
 	},
 	methods: {
 		// 显示播放列表
@@ -205,9 +210,11 @@ export default {
 			this.$store.dispatch("saveCurrentSeconds", res.target.currentTime);
 			// 格式化为分钟
 			this.currentTime = formatDuration(res.target.currentTime);
+			this.setItem("currentTime", this.currentTime);
 			// 如果没有在拖拽进度条 歌曲当前时间改变后，时间进度条也要改变
 			if (!this.isDrag) {
 				this.songProgress = Math.ceil((res.target.currentTime / this.totalSecond) * 100);
+				this.setItem("songProgress", this.songProgress);
 			}
 		},
 		// 拖动时间进度条，改变当前时间，
@@ -251,6 +258,7 @@ export default {
 		// 拖动音量进度条
 		changeVoiceProgress(len) {
 			this.voiceProgress = len;
+			this.setItem("voiceProgress", this.voiceProgress);
 			this.$refs.audioplay.volume = this.voiceProgress / 100; //修改音量
 		},
 

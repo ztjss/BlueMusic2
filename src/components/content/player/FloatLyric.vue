@@ -120,7 +120,7 @@ export default {
 }
 .nolyric {
 	font-size: 18px;
-	line-height: 60px;
+	line-height: 35px;
 	color: var(--themeColor);
 }
 </style>
