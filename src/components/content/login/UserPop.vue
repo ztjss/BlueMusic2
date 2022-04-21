@@ -112,7 +112,7 @@ export default {
 						this.$store.dispatch("deleteAllHistory");
 						this.removeItem("historyPlay");
 						// 清空用户喜欢的音乐id列表
-						this.$store.dispatch("saveLikeSongIds", res.data.ids);
+						this.$store.dispatch("saveLikeSongIds", []);
 					});
 				})
 				.catch(err => {

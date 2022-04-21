@@ -66,12 +66,12 @@
 					</span>
 				</div>
 				<!-- 歌曲进度条 -->
-				<div class="song-progress">
+				<div class="song-progress" @mousedown="isDrag = true" @mouseup="isDrag = false">
 					<!-- 当前歌曲时间 -->
 					<span v-if="playingList.length == 0">00:00</span>
 					<span v-if="Object.keys(nowSongDetail).length !== 0">{{ currentTime }}</span>
 					<!-- 进度条 -->
-					<div class="s-progress" @mousedown="isDrag = true" @mouseup="isDrag = false">
+					<div class="s-progress">
 						<el-slider v-model="songProgress" :format-tooltip="formatTooltip" :disabled="playingList.length == 0" @change="changeSongProgress"></el-slider>
 					</div>
 					<span v-if="playingList.length == 0">00:00</span>
@@ -515,6 +515,7 @@ export default {
 	.cneter-play-song {
 		flex: 1;
 		display: flex;
+		margin-left: 20px;
 		.change-play {
 			display: flex;
 			align-items: center;
@@ -556,6 +557,7 @@ export default {
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			height: 70px;
 			span {
 				padding: 0 10px;
 			}
@@ -590,25 +592,26 @@ export default {
 	.right-voice {
 		display: flex;
 		align-items: center;
-		justify-content: center;
+		justify-content: flex-end;
 		width: 15%;
-		span {
-			padding: 5px 10px;
-			cursor: pointer;
-			&:hover {
-				color: var(--themeColor);
-			}
-		}
 		.icon-laba,
 		.icon-jingyin {
 			font-size: 20px;
 			font-weight: 700;
+			padding-right: 10px;
 		}
 		.icon-songplaylist {
 			font-size: 18px;
+			padding-left: 10px;
 		}
 		.v-progress {
-			width: 50%;
+			width: 60%;
+		}
+		span {
+			cursor: pointer;
+			&:hover {
+				color: var(--themeColor);
+			}
 		}
 	}
 	span {

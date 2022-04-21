@@ -1,5 +1,5 @@
 <template>
-	<div class="float-lyric" :class="{ bg: isShowBg }" ref="lyric" @mousedown="dragLyric" @mouseover="showBg" @mouseleave="closeBg">
+	<div class="float-lyric" :class="{ bg: isShowBg }" ref="lyric" @mousedown="dragLyric" @mouseover="isShowBg = true" @mouseleave="isShowBg = false">
 		<div class="lyric">
 			<!-- 关闭按钮 -->
 			<div class="close" v-show="isShowBg">
@@ -8,12 +8,10 @@
 			<!-- 没有歌词时 -->
 			<div class="nolyric" v-if="currentLyric.length == 0">暂无歌词</div>
 			<!-- 有歌词时 -->
-			<div id="scrollLyric" ref="scrollLyric" v-else>
-				<ul>
-					<li v-for="(item, index) in currentLyric" :key="index" :class="{ currentActive: currentRow == index }">
-						{{ item.text.trim() }}
-					</li>
-				</ul>
+			<div id="floatLyric" ref="floatLyric" v-else>
+				<div class="lyricRow" v-for="(item, index) in currentLyric" :key="index" :class="{ currentActive: currentRow == index }">
+					<span>{{ item.text.trim() }}</span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -53,16 +51,9 @@ export default {
 				lyric.style.top = e.pageY - y + "px";
 			}
 			// 鼠标松开，就停止拖拽，让鼠标移动事件解除
-			document.addEventListener("mouseup", function() {
+			document.addEventListener("mouseup", function () {
 				document.removeEventListener("mousemove", move);
 			});
-		},
-		// 是否显示背景色
-		showBg() {
-			this.isShowBg = true;
-		},
-		closeBg() {
-			this.isShowBg = false;
 		},
 	},
 	watch: {
@@ -70,7 +61,7 @@ export default {
 		currentSecond() {
 			this.currentLyric.forEach((item, index) => {
 				if (Math.ceil(this.currentSecond) >= item.time) {
-					this.$refs.scrollLyric.style.top = -index * 60 + "px";
+					this.$refs.floatLyric.style.top = -index * 35 + "px";
 					this.currentRow = index; //用于判断当前歌词高亮显示
 				}
 			});
@@ -86,7 +77,7 @@ export default {
 	top: 82%;
 	transform: translateX(-50%);
 	cursor: move;
-	z-index: 9999;
+	z-index: 1100;
 }
 .bg {
 	background: rgba(100, 100, 100, 0.3);
@@ -94,17 +85,17 @@ export default {
 .lyric {
 	position: relative;
 	width: 500px;
-	height: 60px;
+	height: 35px;
 	text-align: center;
 	color: #eee;
 	overflow-y: hidden;
-	#scrollLyric {
+	#floatLyric {
 		position: absolute;
 		top: 0px;
 		width: 100%;
-		li {
-			height: 60px;
-			line-height: 60px;
+		.lyricRow {
+			height: 35px;
+			line-height: 35px;
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;
@@ -118,12 +109,13 @@ export default {
 }
 .close {
 	position: absolute;
-	right: 5px;
-	top: 5px;
+	right: 2px;
+	top: 2px;
 	z-index: 99999;
 	cursor: pointer;
 	.icon-guanbi1 {
 		color: var(--themeColor);
+		font-size: 12px;
 	}
 }
 .nolyric {
