@@ -6,10 +6,11 @@
 		</div>
 		<!-- 主路由视图 -->
 		<div class="view">
-			<!-- <keep-alive exclude="Songlistdetail,VideoDetail,Singerdetail,Albumdetail,Searchdetail,UserDetail,Follows,FansList,PlayingSongDetail,MyFavorite,Record"> -->
-			<keep-alive include="Findmusic,Recvideo,RecEveryDay,MyFavorite">
-				<router-view v-if="isRouterAlive"></router-view>
-			</keep-alive>
+			<transition name="el-fade-in-linear">
+				<keep-alive include="Findmusic,Recvideo,RecEveryDay,MyFavorite">
+					<router-view v-if="isRouterAlive"></router-view>
+				</keep-alive>
+			</transition>
 			<!-- 返回顶部按钮 -->
 			<el-backtop target=".view" :right="10" :bottom="75" id="backtop"></el-backtop>
 		</div>

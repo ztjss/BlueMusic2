@@ -4,7 +4,7 @@
 			<el-table-column type="index" label="序号"></el-table-column>
 			<el-table-column prop="picUrl" width="85">
 				<template v-slot="scope">
-					<img v-lazy="scope.row.picUrl" alt="" width="50" height="50" />
+					<img v-lazy="scope.row.picUrl + '?param=80y80'" alt="" width="50" height="50" />
 				</template>
 			</el-table-column>
 			<el-table-column prop="name" label="专辑名称"></el-table-column>

@@ -1,7 +1,7 @@
 <template>
 	<div class="user-list-item" @click="toUserDetail">
 		<div class="left-avatar">
-			<img v-lazy="userlistitem.avatarUrl" alt="" />
+			<img v-lazy="userlistitem.avatarUrl + '?param=80y80'" alt="" />
 		</div>
 		<div class="right-uname">
 			<p class="uname">{{ userlistitem.nickname }}</p>

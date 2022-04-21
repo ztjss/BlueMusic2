@@ -6,9 +6,11 @@
 		</div>
 		<!-- 内容 -->
 		<div class="video-content">
-			<keep-alive>
-				<router-view></router-view>
-			</keep-alive>
+			<transition name="el-fade-in-linear">
+				<keep-alive>
+					<router-view></router-view>
+				</keep-alive>
+			</transition>
 		</div>
 	</div>
 </template>

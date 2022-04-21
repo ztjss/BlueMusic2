@@ -47,7 +47,7 @@
 								<span class="playIcon" v-show="isActive && currentIndex == index">
 									<i class="iconfont icon-play"></i>
 								</span>
-								<span>{{ item.text.trim() }}</span>
+								<span class="lyric-item">{{ item.text.trim() }}</span>
 								<span class="time" v-show="isActive && currentIndex == index">{{ item.time | formatDuration }}</span>
 							</li>
 						</ul>
@@ -348,23 +348,25 @@ export default {
 						// transform: translateY(0);
 						// transition: all 0.5s;
 						li {
-							position: relative;
+							display: flex;
 							height: 45px;
-							line-height: 45px;
-							white-space: nowrap;
-							overflow: hidden;
-							text-overflow: ellipsis;
+							// line-height: 45px;
+							// white-space: nowrap;
+							// overflow: hidden;
+							// text-overflow: ellipsis;
+							// border: 1px solid red;
 							&:hover {
 								cursor: pointer;
 								font-weight: 700;
 							}
-							.time {
-								position: absolute;
-								right: 30px;
+							.lyric-item {
+								flex: 1;
 							}
+							.time,
 							.playIcon {
-								position: absolute;
-								left: 30px;
+								display: inline-block;
+								width: 50px;
+								height: 50px;
 							}
 						}
 						.currentLyric {

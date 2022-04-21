@@ -2,7 +2,7 @@
 	<div class="top-desc" v-if="Object.keys(playlist).length !== 0">
 		<!-- 左侧图片 -->
 		<div class="left-img">
-			<img :src="cover" alt="" />
+			<img v-lazy="cover" alt="" />
 		</div>
 		<!-- 右侧描述 -->
 		<div class="right-desc">
@@ -15,7 +15,7 @@
 			<div class="creator-info">
 				<!-- 头像 -->
 				<div class="avatar" @click="toUserDetail">
-					<img :src="playlist.creator.avatarUrl" alt="" />
+					<img v-lazy="playlist.creator.avatarUrl + '?param=80y80'" alt="" />
 				</div>
 				<!-- 名字 -->
 				<div class="uname" @click="toUserDetail">

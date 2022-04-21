@@ -3,7 +3,7 @@
 		<!-- 顶部歌单描述 -->
 		<Topdesc :playlist="playlist" :is-sub="isSub" @playAllSong="playAllSong" @subSongListBy="subSongListBy" />
 		<!-- 底部歌曲 -->
-		<div class="bot-song-list">
+		<div class="bot-song-list" v-if="Object.keys(playlist).length !== 0">
 			<el-tabs>
 				<!-- 歌曲列表 -->
 				<el-tab-pane label="歌曲列表">

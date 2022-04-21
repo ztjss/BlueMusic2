@@ -3,7 +3,7 @@
 		<!-- 顶部专辑基本信息 -->
 		<AlbumTopInfo :dynamic="dynamic" :albuminfo="albuminfo" :is-sub="isSub" @playAllSong="playAllSong" @subAlbumBy="subAlbumBy" />
 		<!-- 底部专辑内容 -->
-		<div class="singer-works">
+		<div class="singer-works" v-if="Object.keys(dynamic).length !== 0">
 			<el-tabs>
 				<!-- 专辑歌曲列表 -->
 				<el-tab-pane label="歌曲列表">

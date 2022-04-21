@@ -10,21 +10,26 @@
 			<img :src="item.coverImgUrl" alt="" />
 		</div>
 		<!-- 右侧歌曲列表 -->
-		<div class="right-songlist" v-show="songs.length != 0">
-			<el-table size="small" :data="songs" stripe style="width: 100%" :show-header="false" @row-dblclick="playMusic" :row-class-name="tableRowClassName">
-				<el-table-column label="序号" width="20">
-					<template v-slot="scope">
-						<span :class="{ hot: scope.row.index < 3 }">{{ scope.row.index | formatIndex }}</span>
-					</template>
-				</el-table-column>
-				<el-table-column prop="name" label="歌曲" :show-overflow-tooltip="true"></el-table-column>
-				<el-table-column prop="ar[0].name" align="right" label="歌手" :show-overflow-tooltip="true">
-					<template v-slot="scope">
-						<span class="by">{{ scope.row.ar[0].name }}</span>
-					</template>
-				</el-table-column>
-			</el-table>
-			<div class="more by" @click="rankClick(item.id)">查看全部<span class="iconfont icon-xiayiye"></span></div>
+		<div class="right-songlist">
+			<div v-if="songs.length != 0">
+				<el-table size="small" :data="songs" stripe style="width: 100%" :show-header="false" @row-dblclick="playMusic" :row-class-name="tableRowClassName">
+					<el-table-column label="序号" width="20">
+						<template v-slot="scope">
+							<span :class="{ hot: scope.row.index < 3 }">{{ scope.row.index | formatIndex }}</span>
+						</template>
+					</el-table-column>
+					<el-table-column prop="name" label="歌曲" :show-overflow-tooltip="true"></el-table-column>
+					<el-table-column prop="ar[0].name" align="right" label="歌手" :show-overflow-tooltip="true">
+						<template v-slot="scope">
+							<span class="by">{{ scope.row.ar[0].name }}</span>
+						</template>
+					</el-table-column>
+				</el-table>
+				<div class="more by" @click="rankClick(item.id)">查看全部<span class="iconfont icon-xiayiye"></span></div>
+			</div>
+			<div v-else>
+				<el-skeleton :rows="6" animated />
+			</div>
 		</div>
 	</div>
 </template>
