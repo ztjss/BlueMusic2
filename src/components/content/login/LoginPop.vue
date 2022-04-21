@@ -16,18 +16,10 @@
 			<div class="form">
 				<el-form label-width="70px">
 					<el-form-item label="手机号">
-						<el-input
-							type="tlephone"
-							v-model="PhoneNum"
-							placeholder="请输入手机号"
-						></el-input>
+						<el-input type="tlephone" v-model="PhoneNum" placeholder="请输入手机号"></el-input>
 					</el-form-item>
 					<el-form-item label="密码">
-						<el-input
-							type="password"
-							v-model="Password"
-							placeholder="请输入密码"
-						></el-input>
+						<el-input type="password" v-model="Password" placeholder="请输入密码"></el-input>
 					</el-form-item>
 					<el-form-item>
 						<el-button type="primary" @click="phoneLogin">登录</el-button>
@@ -37,11 +29,7 @@
 					</el-form-item>
 				</el-form>
 			</div>
-			<div
-				class="other-way"
-				@click="changeLoginWay(1)"
-				style="margin-top: 50px; padding-left: 25px"
-			>
+			<div class="other-way" @click="changeLoginWay(1)" style="margin-top: 50px; padding-left: 25px">
 				<span><i class="iconfont icon-erweima1"></i> <i class="text">扫码登录</i> </span>
 			</div>
 		</div>
@@ -51,10 +39,9 @@
 			<div class="qr">
 				<h2>扫码登录</h2>
 				<img :src="qrurl" alt="" />
-				<p class="failqr" v-if="failqr">
-					二维码已失效，<span @click="qrLogin">点击刷新</span>
-				</p>
-				<p class="text">使用<span style="color: #5091ca">网易云音乐APP</span>扫码登录</p>
+				<p class="failqr" v-if="failqr">二维码已失效，<span @click="qrLogin">点击刷新</span></p>
+				<p class="text" v-if="!scanQr">使用<span style="color: #5091ca">网易云音乐APP</span>扫码登录</p>
+				<p class="text" v-if="scanQr">扫描成功，请在手机上确认登录</p>
 				<!-- 其他登录方式 -->
 				<div class="other-way" @click="changeLoginWay(0)" style="margin-top: 30px">
 					<span>
@@ -72,46 +59,22 @@
 		<div class="register" v-show="loginWay === 2">
 			<h2>注册新用户</h2>
 			<div class="reg-form">
-				<el-form
-					label-position="right"
-					label-width="80px"
-					:model="ruleForm"
-					:rules="rules"
-					ref="ruleForm"
-				>
+				<el-form label-position="right" label-width="80px" :model="ruleForm" :rules="rules" ref="ruleForm">
 					<el-form-item label="手机号" prop="phone">
-						<el-input
-							type="telphone"
-							v-model="ruleForm.phone"
-							placeholder="请输入手机号"
-						></el-input>
+						<el-input type="telphone" v-model="ruleForm.phone" placeholder="请输入手机号"></el-input>
 					</el-form-item>
 					<el-form-item label="密码" prop="pass">
-						<el-input
-							type="password"
-							v-model="ruleForm.pass"
-							placeholder="密码为8~20位，必须包含字母数字"
-						></el-input>
+						<el-input type="password" v-model="ruleForm.pass" placeholder="密码为8~20位，必须包含字母数字"></el-input>
 					</el-form-item>
 					<el-form-item label="确认密码" prop="checkPass">
-						<el-input
-							type="password"
-							v-model="ruleForm.checkPass"
-							placeholder="请确认密码"
-						></el-input>
+						<el-input type="password" v-model="ruleForm.checkPass" placeholder="请确认密码"></el-input>
 					</el-form-item>
 					<el-form-item label="昵称" prop="nickname">
-						<el-input
-							type="text"
-							v-model="ruleForm.nickname"
-							placeholder="请输入昵称"
-						></el-input>
+						<el-input type="text" v-model="ruleForm.nickname" placeholder="请输入昵称"></el-input>
 					</el-form-item>
 					<el-form-item label="验证码" prop="captcha" class="captcha-input">
 						<el-input v-model="ruleForm.captcha" placeholder="请输入验证码"></el-input>
-						<div class="captcha-btn" @click="getCaptcha" v-if="!isGetCaptcha">
-							获取验证码
-						</div>
+						<div class="captcha-btn" @click="getCaptcha" v-if="!isGetCaptcha">获取验证码</div>
 						<div class="captcha" v-else>{{ tip }}</div>
 					</el-form-item>
 				</el-form>
@@ -128,20 +91,10 @@
 	</div>
 </template>
 <script>
-import {
-	login,
-	getQrKey,
-	getLoginQr,
-	checkLoginQr,
-	getUserAccount,
-	getAuthcode,
-	checkAuthcode,
-	register,
-	checkPhoneNum,
-} from "network/login/login";
+import { login, getQrKey, getLoginQr, checkLoginQr, getUserAccount, getAuthcode, checkAuthcode, register, checkPhoneNum } from "network/login/login";
 import { getUserSonglist, getUserDetail } from "network/userdetail/userdetail";
 import { getLikSongList } from "network/playmusic/playmusic.js";
-import { isPhone } from "common/utils.js";
+import { isPhone, throttle } from "common/utils.js";
 export default {
 	name: "LoginPop",
 	data() {
@@ -194,6 +147,7 @@ export default {
 			qrurl: "", //二维码路径
 			timer: "", //轮询二维码的定时器
 			failqr: false, //控制二维码失效显示文本
+			scanQr: false,
 			isGetCaptcha: false, //是否获取验证码
 			tip: "", //获取验证码后的文字提示
 			ruleForm: {
@@ -238,6 +192,7 @@ export default {
 		// 二维码登录
 		async qrLogin() {
 			this.failqr = false; // 用于隐藏二维码失效后的文本提示
+			this.scanQr = false;
 			// 获取二维码key
 			let res = await getQrKey();
 			let key = res.data.data.unikey;
@@ -247,6 +202,7 @@ export default {
 			// 检查二维码状态（利用定时器不断轮询）
 			this.timer = setInterval(async () => {
 				let statusRes = await checkLoginQr(key);
+				console.log(statusRes.data);
 				if (statusRes.data.code === 800) {
 					this.$message({
 						showClose: true,
@@ -257,6 +213,9 @@ export default {
 					clearInterval(this.timer);
 					// 用于显示二维码失效后的文本提示，
 					this.failqr = true;
+				}
+				if (statusRes.data.code === 802) {
+					this.scanQr = true;
 				}
 				if (statusRes.data.code === 803) {
 					clearInterval(this.timer);
@@ -438,12 +397,7 @@ export default {
 						.then(res => {
 							// 注册
 							if (res.data.code == 200) {
-								register(
-									this.ruleForm.phone,
-									this.ruleForm.captcha,
-									this.ruleForm.pass,
-									this.ruleForm.nickname
-								)
+								register(this.ruleForm.phone, this.ruleForm.captcha, this.ruleForm.pass, this.ruleForm.nickname)
 									.then(res => {
 										// console.log(res);
 										if (res.data.code == 200) {

@@ -30,7 +30,11 @@
 			<!-- 相关操作 -->
 			<div class="operation">
 				<el-button type="primary" icon="el-icon-video-play" @click="playAll">播放全部</el-button>
-				<el-button :icon="isSub ? 'el-icon-folder-checked' : 'el-icon-folder-add'" :type="isSub ? 'primary' : 'default'" @click="subSongList"
+				<el-button
+					v-if="$store.state.userInfo == null || ($store.state.userInfo.userId && playlist.creator.userId != $store.state.userInfo.userId)"
+					:icon="isSub ? 'el-icon-folder-checked' : 'el-icon-folder-add'"
+					:type="isSub ? 'primary' : 'default'"
+					@click="subSongList"
 					><span>{{ isSub ? "已收藏" : "收藏" }}</span>
 				</el-button>
 				<el-button icon="el-icon-share">分享({{ playlist.shareCount | formatNum }})</el-button>
