@@ -15,8 +15,6 @@ export const likeSongIds = state => state.likeSongIds;
 /* 音乐播放 */
 // 音乐播放状态
 export const isPlaying = state => state.isPlaying;
-// 播放模式
-export const playModel = state => state.playModel;
 // 当前歌曲url
 export const songUrl = state => state.songUrl;
 // 当前下载音乐信息

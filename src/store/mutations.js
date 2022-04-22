@@ -33,31 +33,23 @@ const mutations = {
 	// 用户喜欢的音乐id列表
 	saveLikeSongIds(state, payload) {
 		state.likeSongIds = payload;
+		localStorage.setItem("likeSongIds", JSON.stringify(state.likeSongIds));
 	},
 
-	/* 音乐播放 */
+	/* 
+	音乐播放
+	 */
 	// 改变音乐播放状态
 	changePlayState(state, payload) {
 		state.isPlaying = payload;
 	},
 
-	// 切换播放模式
-	changePlayModel(state, payload) {
-		state.playModel = payload;
-	},
-
 	// 保存歌曲url
 	saveSongUrl(state, payload) {
 		state.songUrl = payload;
-		localStorage.setItem("songUrl", JSON.stringify(state.songUrl));
-	},
-	// 更新当前下载的音乐信息
-	updateDownloadMusicInfo(state, payload) {
-		state.downloadMusicInfo = payload;
 	},
 
-	// 保存当前播放歌曲详情
-	// 并且添加当前播放歌曲到播放历史记录
+	// 保存当前播放歌曲详情,并且添加当前播放歌曲到播放历史记录
 	saveSongDetail(state, payload) {
 		state.nowSongDetail = payload;
 		localStorage.setItem("nowSongDetail", JSON.stringify(state.nowSongDetail));
@@ -71,6 +63,7 @@ const mutations = {
 			localStorage.setItem("historyPlay", JSON.stringify(state.historyPlay));
 		}
 	},
+
 	//添加单曲到当前播放列表
 	addPlayinglist(state, song) {
 		// 列表查找相同的歌曲
@@ -83,11 +76,13 @@ const mutations = {
 			localStorage.setItem("playingList", JSON.stringify(state.playingList));
 		}
 	},
+
 	// 点击播放全部，添加当前歌单所有歌曲到播放列表
 	addAllSong(state, payload) {
 		state.playingList = payload;
 		localStorage.setItem("playingList", JSON.stringify(state.playingList));
 	},
+
 	// 删除播放列表单曲
 	deleteSong(state, songId) {
 		let index = state.playingList.findIndex(item => {
@@ -96,6 +91,7 @@ const mutations = {
 		state.playingList.splice(index, 1);
 		localStorage.setItem("playingList", JSON.stringify(state.playingList));
 	},
+
 	// 清空播放列表
 	deleteAll(state) {
 		state.playingList = [];
@@ -103,16 +99,16 @@ const mutations = {
 		state.nowSongDetail = {};
 		state.isPlaying = false;
 		localStorage.removeItem("playingList");
-		localStorage.removeItem("songUrl");
 		localStorage.removeItem("nowSongDetail");
-		localStorage.removeItem("currentSecond");
 		localStorage.removeItem("currentRow");
 	},
+
 	// 清空历史记录
 	deleteAllHistory(state) {
 		state.historyPlay = [];
 		localStorage.setItem("historyPlay", JSON.stringify(state.historyPlay));
 	},
+
 	// 删除历史记录单曲
 	deleteHistory(state, songId) {
 		let index = state.historyPlay.findIndex(item => {
@@ -126,16 +122,22 @@ const mutations = {
 	showSongDetail(state) {
 		state.isShowSongDetail = !state.isShowSongDetail;
 	},
+
 	// 保存当前歌曲播放的实时秒数
 	saveCurrentSeconds(state, payload) {
 		state.currentSecond = payload;
 		localStorage.setItem("currentSecond", JSON.stringify(state.currentSecond));
 	},
+
+	//保存当前播放歌词行数
 	saveCurrentRow(state, payload) {
 		state.currentRow = payload;
 		localStorage.setItem("currentRow", JSON.stringify(state.currentRow));
 	},
-	/* 浮动歌词 */
+
+	/* 
+	浮动歌词
+	 */
 	//当前播放歌曲歌词 用于浮动歌词显示
 	saveCurrentLyric(state, payload) {
 		state.currentLyric = payload;
@@ -143,6 +145,10 @@ const mutations = {
 	// 是否显示浮动歌词
 	showFloatLyric(state) {
 		state.showFloatLyric = !state.showFloatLyric;
+	},
+	// 更新当前下载的音乐信息
+	updateDownloadMusicInfo(state, payload) {
+		state.downloadMusicInfo = payload;
 	},
 };
 export default mutations;

@@ -157,20 +157,6 @@ export default {
 			this.currentIndex = index;
 			this.isActive = true;
 		},
-		// 手动滚动歌词后
-		//如果三秒钟内不再滚动，则自动返回顶部
-		// scrollTop(e) {
-		// 	let startTop = e.target.scrollTop;
-		// 	setTimeout(() => {
-		// 		let endTop = e.target.scrollTop;
-		// 		if (endTop == startTop) {
-		// 			e.target.scrollTo({
-		// 				top: 0,
-		// 				behavior: "smooth",
-		// 			});
-		// 		}
-		// 	}, 3000);
-		// },
 		/* 评论分页事件 */
 		changePage() {
 			// 返回指定位置

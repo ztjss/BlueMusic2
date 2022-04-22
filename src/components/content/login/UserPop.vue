@@ -110,6 +110,7 @@ export default {
 						this.removeItem("userSongList");
 						// 清空用户喜欢的音乐id列表
 						this.$store.dispatch("saveLikeSongIds", []);
+						this.removeItem("likeSongIds");
 					});
 				})
 				.catch(err => {

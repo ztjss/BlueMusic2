@@ -5,14 +5,14 @@ const state = {
 	userInfo: localStorage.getItem("userInfo") ? JSON.parse(localStorage.getItem("userInfo")) : null,
 	// 用户私人歌单
 	userSongList: localStorage.getItem("userSongList") ? JSON.parse(localStorage.getItem("userSongList")) : [],
+	// 用户喜欢的音乐id列表
+	likeSongIds: localStorage.getItem("likeSongIds") ? JSON.parse(localStorage.getItem("likeSongIds")) : [],
 	// 用户的关注列表
 	userFollowsList: [],
 	// 用户收藏的专辑 歌手 MV视频
 	subAlbumlist: [],
 	subSingerlist: [],
 	subMvlist: [],
-	// 用户喜欢的音乐id列表
-	likeSongIds: [],
 
 	/* 
 	音乐播放
@@ -23,12 +23,12 @@ const state = {
 	downloadMusicInfo: {},
 	// 是否显示当前歌曲详情页
 	isShowSongDetail: false,
+	// 是否显示悬浮歌词
+	showFloatLyric: false,
 	// 当前播放歌曲歌词
 	currentLyric: [],
-	//播放模式
-	playModel: localStorage.getItem("playModel") ? JSON.parse(localStorage.getItem("playModel")) : 1,
 	//当前歌曲url
-	songUrl: localStorage.getItem("songUrl") ? JSON.parse(localStorage.getItem("songUrl")) : " ",
+	songUrl: " ",
 	// 当前歌曲详情
 	nowSongDetail: localStorage.getItem("nowSongDetail") ? JSON.parse(localStorage.getItem("nowSongDetail")) : {},
 	//正在播放列表
@@ -39,7 +39,5 @@ const state = {
 	currentSecond: localStorage.getItem("currentSecond") ? JSON.parse(localStorage.getItem("currentSecond")) : 0,
 	//当前歌曲播放的歌词行
 	currentRow: localStorage.getItem("currentRow") ? JSON.parse(localStorage.getItem("currentRow")) : 0,
-	// 是否显示悬浮歌词
-	showFloatLyric: false,
 };
 export default state;
