@@ -25,10 +25,10 @@
 		</div>
 		<!-- 视频介绍 -->
 		<div class="item-text">
-			<p>
+			<div class="twoLine">
 				{{ videolistitem.name || videolistitem.title || videolistitem.data.title || videolistitem.data.name }}
-			</p>
-			<p class="by">by{{ showAuthor }}</p>
+			</div>
+			<div class="by">by{{ showAuthor }}</div>
 		</div>
 	</div>
 </template>
@@ -170,8 +170,8 @@ export default {
 
 	.item-text {
 		padding: 10px 10px;
-		p {
-			padding-bottom: 5px;
+		.by {
+			padding-top: 5px;
 		}
 	}
 }

@@ -40,29 +40,29 @@
 							<div class="data-num">
 								<div class="num-item" style="padding-left: 0">
 									<h2>{{ currentUserInfo.eventCount }}</h2>
-									<p>动态</p>
+									<div>动态</div>
 								</div>
 								<div class="num-item" style="border-right: solid 1px #dddddd; border-left: solid 1px #dddddd" @click="toFollows">
 									<h2>{{ currentUserInfo.follows }}</h2>
-									<p>关注</p>
+									<div>关注</div>
 								</div>
 								<div class="num-item" @click="toFansList">
 									<h2>{{ currentUserInfo.followeds | formatNum }}</h2>
-									<p>粉丝</p>
+									<div>粉丝</div>
 								</div>
 							</div>
 							<div class="base-info">
-								<p>
+								<div>
 									用户ID：<span>{{ uid }}</span>
-								</p>
-								<p>
+								</div>
+								<div>
 									个人介绍：<span>{{ currentUserInfo.signature == "" ? "暂无介绍" : currentUserInfo.signature }}</span>
-								</p>
+								</div>
 							</div>
 						</div>
 						<div class="my-record" @click="toRecord">
 							<div class="iconfont icon-paixingbang"></div>
-							<p>听歌排行</p>
+							<div>听歌排行</div>
 						</div>
 					</div>
 				</div>

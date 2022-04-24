@@ -28,7 +28,7 @@
 		</div>
 		<!-- 歌单下的文字描述 -->
 		<div class="item-text">
-			<p>{{ songlistitem.name }}</p>
+			<div>{{ songlistitem.name }}</div>
 		</div>
 	</div>
 </template>

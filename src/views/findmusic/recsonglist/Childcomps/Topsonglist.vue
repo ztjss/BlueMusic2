@@ -14,10 +14,10 @@
 				<el-divider content-position="left"><h2>精品歌单</h2></el-divider>
 			</div>
 			<div class="title">
-				<p>{{ topsonglist[0].name }}</p>
+				{{ topsonglist[0].name }}
 			</div>
 			<div class="desc">
-				<p>{{ topsonglist[0].description }}</p>
+				{{ topsonglist[0].description }}
 			</div>
 		</div>
 	</div>

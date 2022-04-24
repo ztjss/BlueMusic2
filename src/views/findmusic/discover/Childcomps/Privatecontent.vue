@@ -12,7 +12,7 @@
 					</div>
 				</div>
 				<div class="item-text">
-					<p>{{ item.name }}</p>
+					{{ item.name }}
 				</div>
 			</div>
 		</div>

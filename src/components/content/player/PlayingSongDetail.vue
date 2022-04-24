@@ -25,12 +25,12 @@
 				<div class="right-lyrics">
 					<div class="hd">
 						<h2>{{ nowSongDetail.name }}</h2>
-						<p v-if="nowSongDetail.al.name">
+						<div v-if="nowSongDetail.al.name">
 							专辑：<span @click="toAlbum">{{ nowSongDetail.al.name }}</span>
-						</p>
-						<p>
+						</div>
+						<div>
 							歌手：<span @click="toSinger">{{ nowSongDetail.ar[0].name }}</span>
-						</p>
+						</div>
 					</div>
 					<div class="bd" id="scrollLyric" ref="scrollLyric">
 						<!-- 有歌词时 -->
@@ -67,7 +67,7 @@
 			</div>
 		</div>
 		<div class="nosongdetail" v-if="Object.keys(nowSongDetail).length == 0">
-			<p>暂无音乐</p>
+			<div>暂无音乐</div>
 		</div>
 	</div>
 </template>
@@ -316,7 +316,7 @@ export default {
 				width: 55%;
 				.hd {
 					text-align: center;
-					p {
+					div {
 						padding-top: 10px;
 						span {
 							cursor: pointer;

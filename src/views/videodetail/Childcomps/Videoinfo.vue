@@ -13,7 +13,7 @@
 			<h2>{{ videoinfo.name || videoinfo.title }}</h2>
 		</div>
 		<div class="desc" v-if="videoinfo.description">
-			<p>{{ videoinfo.description }}</p>
+			{{ videoinfo.description }}
 		</div>
 		<!-- 时间 -->
 		<div class="time">

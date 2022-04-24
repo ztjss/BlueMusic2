@@ -4,15 +4,15 @@
 			<div class="data-num">
 				<div class="num-item">
 					<h2>{{ userInfo.eventCount }}</h2>
-					<p>动态</p>
+					<div>动态</div>
 				</div>
 				<div class="num-item" @click="toFollows">
 					<h2>{{ userInfo.follows }}</h2>
-					<p>关注</p>
+					<div>关注</div>
 				</div>
 				<div class="num-item" @click="toFansList">
 					<h2>{{ userInfo.followeds | formatNum }}</h2>
-					<p>粉丝</p>
+					<div>粉丝</div>
 				</div>
 			</div>
 			<div style="text-align: center">

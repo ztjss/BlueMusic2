@@ -19,10 +19,10 @@
 			</div>
 			<!-- 相关信息 -->
 			<div class="base-info">
-				<p>歌手：{{ albuminfo.artist.name }}</p>
-				<p>歌曲数：{{ albuminfo.size }}</p>
-				<p v-if="albuminfo.company">出品公司：{{ albuminfo.company }}</p>
-				<p>发行时间：{{ albuminfo.publishTime | showDate }}</p>
+				<div>歌手：{{ albuminfo.artist.name }}</div>
+				<div>歌曲数：{{ albuminfo.size }}</div>
+				<div v-if="albuminfo.company">出品公司：{{ albuminfo.company }}</div>
+				<div>发行时间：{{ albuminfo.publishTime | showDate }}</div>
 			</div>
 		</div>
 	</div>
@@ -121,7 +121,7 @@ export default {
 		.base-info {
 			margin-top: 15px;
 			font-size: 16px;
-			p {
+			div {
 				padding: 5px 0;
 			}
 		}

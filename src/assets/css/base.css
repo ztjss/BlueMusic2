@@ -114,6 +114,21 @@ h4 {
 	margin: 20px auto;
 }
 
+.oneLine {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.twoLine {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+}
+
 /* 播放图标遮罩层 */
 .mask-playicon {
 	position: absolute;
