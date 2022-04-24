@@ -24,9 +24,9 @@ const Albumdetail = () => import("../views/zhuanjidetail/Albumdetail.vue");
 /* 2 推荐视频 */
 const Recvideo = () => import("../views/recvideo/Recvideo.vue");
 // MV
-const Mv = () => import("../views/recvideo/Childcomps/mv/Mv.vue");
+const Mv = () => import("../views/recvideo/Childcomps/Mv.vue");
 // 视频
-const Video = () => import("../views/recvideo/Childcomps/video/Video.vue");
+const Video = () => import("../views/recvideo/Childcomps/Video.vue");
 // MV,视频详情页
 const VideoDetail = () => import("../views/videodetail/VideoDetail.vue");
 

@@ -61,7 +61,7 @@ export default {
 		currentSecond() {
 			this.currentLyric.forEach((item, index) => {
 				if (Math.ceil(this.currentSecond) >= item.time) {
-					this.$refs.floatLyric.style.top = -index * 35 + "px";
+					this.$refs.floatLyric.style.top = -index * 40 + "px";
 					this.currentRow = index; //用于判断当前歌词高亮显示
 				}
 			});
@@ -74,7 +74,7 @@ export default {
 .float-lyric {
 	position: absolute;
 	left: 50%;
-	top: 82%;
+	top: 88%;
 	transform: translateX(-50%);
 	cursor: move;
 	z-index: 1100;
@@ -85,7 +85,7 @@ export default {
 .lyric {
 	position: relative;
 	width: 500px;
-	height: 35px;
+	height: 40px;
 	text-align: center;
 	color: #eee;
 	overflow-y: hidden;
@@ -94,8 +94,8 @@ export default {
 		top: 0px;
 		width: 100%;
 		.lyricRow {
-			height: 35px;
-			line-height: 35px;
+			height: 40px;
+			line-height: 40px;
 			white-space: nowrap;
 			overflow: hidden;
 			text-overflow: ellipsis;

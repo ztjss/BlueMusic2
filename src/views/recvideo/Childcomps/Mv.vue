@@ -1,5 +1,5 @@
 <template>
-	<div class="mv w">
+	<div class="mv">
 		<!-- 顶部分类标签 -->
 		<div class="tags" ref="tagsnav">
 			<TagsBar :taglist="areaList" @tagBarClick="areaClick" />

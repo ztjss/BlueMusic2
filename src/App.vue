@@ -15,17 +15,6 @@ import Footer from "./layout/Footer.vue";
 export default {
 	name: "App",
 	components: { Header, Main, Footer },
-	created() {
-		// 设置主题色
-		let currentTheme = this.getItem("currentTheme") ? this.getItem("currentTheme") : null;
-		if (currentTheme != null) {
-			for (let k in currentTheme) {
-				if (k != "title") {
-					document.documentElement.style.setProperty(`--${k}`, currentTheme[k]);
-				}
-			}
-		}
-	},
 };
 </script>
 

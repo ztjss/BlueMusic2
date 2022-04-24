@@ -1,5 +1,5 @@
 <template>
-	<div id="song-rank" class="w">
+	<div id="song-rank">
 		<Rankfeature :rankfeature="rankfeature" v-if="rankfeature.length != 0" />
 		<Rankglobal :rankglobal="rankglobal" v-if="rankglobal.length != 0" />
 	</div>

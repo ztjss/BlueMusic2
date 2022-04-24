@@ -1,5 +1,5 @@
 <template>
-	<div id="recsong-list" class="w">
+	<div id="recsong-list">
 		<!-- 顶部精品歌单 -->
 		<Topsonglist :topsonglist="topsonglist" />
 		<!-- 标签导航 -->

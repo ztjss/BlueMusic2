@@ -1,5 +1,5 @@
 <template>
-	<div id="singer" class="w">
+	<div id="singer">
 		<!-- 顶部分类标签 -->
 		<div class="top-tags">
 			<TagsBar :taglist="areaTags" @tagBarClick="areaClick" />
@@ -11,7 +11,7 @@
 			<Singerlist :singerlist="singerlist" />
 		</div>
 		<!-- 分页器 -->
-		<Pagination v-if="singerlist.length!==0" :total="total" :page-size="48" :current-page="currentPage" :scroll-top="false" @handleCurrentChange="handleCurrentChange" />
+		<Pagination v-if="singerlist.length !== 0" :total="total" :page-size="48" :current-page="currentPage" :scroll-top="false" @handleCurrentChange="handleCurrentChange" />
 	</div>
 </template>
 <script>

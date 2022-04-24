@@ -1,7 +1,7 @@
 <template>
 	<div class="playing-song-detail" ref="playingSongDetail">
 		<!-- 返回顶部按钮 -->
-		<el-backtop target=".playing-song-detail" :right="20" :bottom="75" class="backtop" id="playBackTop"></el-backtop>
+		<el-backtop target=".playing-song-detail" :right="20" :bottom="75" id="playBackTop"></el-backtop>
 		<!-- 关闭按钮 -->
 		<span class="iconfont icon-down-arrow" @click="closeSongDetail"></span>
 		<!-- 主要内容 -->
@@ -196,7 +196,6 @@ export default {
 					// 如果歌曲当前秒数和歌词数组中的秒数相等
 					// 这里写==可以在使用原生scroll实现歌词滚动的时候不抖动，如果写>=会抖动
 					if (Math.ceil(this.currentSecond) == item.time) {
-						//  设置的每行歌词高度为45px，所以每次移动索引号乘以45
 						//.1 使用位移来实现歌词滚动
 						// this.$refs.scrollLyric.style.transform = `translateY(${-45 * index}px)`;
 						//.2 使用原生scroll实现歌词滚动
@@ -226,6 +225,7 @@ export default {
 		isShowSongDetail() {
 			if (this.isShowSongDetail && Object.keys(this.nowSongDetail).length != 0) {
 				this.$refs.scrollLyric.scrollTop = 45 * this.currentRow;
+				this.$refs.playingSongDetail.scrollTop = 0;
 			}
 		},
 	},
@@ -332,17 +332,17 @@ export default {
 					// 有歌词
 					ul {
 						padding: 135px 0;
-						overflow: auto;
+						// overflow: auto;
 						// transform: translateY(0);
 						// transition: all 0.5s;
 						li {
 							display: flex;
 							height: 45px;
+							transition: all 0.3s ease-in;
 							// line-height: 45px;
 							// white-space: nowrap;
 							// overflow: hidden;
 							// text-overflow: ellipsis;
-							// border: 1px solid red;
 							&:hover {
 								cursor: pointer;
 								font-weight: 700;
@@ -368,9 +368,7 @@ export default {
 				}
 			}
 		}
-
 		.bot-content {
-			// border: 1px solid red;
 			margin: 15px auto;
 			width: 70%;
 			.song-comment {

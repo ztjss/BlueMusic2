@@ -1,11 +1,9 @@
 <template>
 	<div id="find-music">
 		<!-- 顶部导航 -->
-		<div class="top-nav">
-			<TopNav :tabitem="topnav" />
-		</div>
+		<TopNav :tabitem="topnav" />
 		<!-- 内容 -->
-		<div class="music-content">
+		<div class="music-content w">
 			<transition name="el-fade-in-linear">
 				<keep-alive>
 					<router-view></router-view>
@@ -53,9 +51,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.top-nav {
-	display: flex;
-	width: 100%;
-	justify-content: center;
+// .top-nav {
+// 	display: flex;
+// 	width: 100%;
+// 	justify-content: center;
+// }
+.music-content {
+	overflow-y: scroll;
 }
 </style>

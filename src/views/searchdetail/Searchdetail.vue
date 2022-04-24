@@ -69,6 +69,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.w {
+	margin: 0 auto;
+}
 .el-menu {
 	border: 0;
 }

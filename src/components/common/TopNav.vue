@@ -24,6 +24,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.top-nav {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+}
 .el-menu {
 	border: 0;
 }

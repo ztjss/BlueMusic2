@@ -1,12 +1,9 @@
 <template>
-	<div class="my-favorite w">
+	<div class="my-favorite">
 		<div class="logined" v-if="$store.state.isLogin">
-			<!-- 顶部tab栏 -->
-			<div class="top-nav">
-				<TopNav :tabitem="topnav" />
-			</div>
+			<TopNav :tabitem="topnav" />
 			<!-- 内容 -->
-			<div class="favorite-content">
+			<div class="favorite-content w">
 				<router-view></router-view>
 			</div>
 		</div>
@@ -46,10 +43,4 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
-.top-nav {
-	display: flex;
-	width: 100%;
-	justify-content: center;
-}
-</style>
+<style lang="less" scoped></style>

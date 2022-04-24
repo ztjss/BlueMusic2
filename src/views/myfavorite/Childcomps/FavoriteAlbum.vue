@@ -1,5 +1,5 @@
 <template>
-	<div class="favorite-album w">
+	<div class="favorite-album">
 		<el-divider content-position="left"
 			><h2>我收藏的专辑({{ albumcount }})</h2></el-divider
 		>

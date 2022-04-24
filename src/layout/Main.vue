@@ -19,7 +19,9 @@
 			<PlayingSongDetail v-show="isShowSongDetail" />
 		</transition>
 		<!-- 浮动歌词 -->
-		<FloatLyric v-show="showFloatLyric" />
+		<transition name="el-fade-in-linear">
+			<FloatLyric v-show="showFloatLyric" />
+		</transition>
 		<!-- 用于下载的a标签 -->
 		<a :href="downloadMusicInfo.url" :download="downloadMusicInfo.name" target="_blank" id="downloadCurrentMusic"></a>
 	</div>
@@ -88,18 +90,17 @@ export default {
 #main {
 	height: calc(100% - 130px);
 	display: flex;
-}
-.aside {
-	::-webkit-scrollbar {
-		width: 5px;
-		height: 12px;
+	.aside {
+		::-webkit-scrollbar {
+			width: 5px;
+			height: 12px;
+		}
 	}
-}
-.view {
-	width: 100%;
-	height: 100%;
-	overflow-y: scroll;
-	overflow-x: hidden;
+	.view {
+		flex: 1;
+		height: 100%;
+		overflow-y: scroll;
+	}
 }
 
 // 歌曲详情页动画

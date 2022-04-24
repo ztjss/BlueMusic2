@@ -1,5 +1,5 @@
 <template>
-	<div class="video w">
+	<div class="video">
 		<div class="logined" v-if="$store.state.isLogin">
 			<!-- 标签导航 -->
 			<TagsNav :all-tag="allTag" :hot-tag="hotTag" @tagClick="tagClick" />

@@ -1,5 +1,5 @@
 <template>
-	<div class="favorite-mv w">
+	<div class="favorite-mv">
 		<el-divider content-position="left"
 			><h2>我收藏的视频和MV({{ mvcount }})</h2></el-divider
 		>

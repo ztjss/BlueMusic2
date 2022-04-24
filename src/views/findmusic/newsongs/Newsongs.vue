@@ -1,5 +1,5 @@
 <template>
-	<div class="newsongs w">
+	<div class="newsongs">
 		<div class="top-nav">
 			<TabBar :tabitems="tabitems" @tabItemClick="tabItemClick" />
 		</div>

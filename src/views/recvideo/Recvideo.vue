@@ -1,11 +1,8 @@
 <template>
 	<div id="rec-video">
-		<!-- 顶部tab栏 -->
-		<div class="top-nav">
-			<TopNav :tabitem="topnav" />
-		</div>
+		<TopNav :tabitem="topnav" />
 		<!-- 内容 -->
-		<div class="video-content">
+		<div class="video-content w">
 			<transition name="el-fade-in-linear">
 				<keep-alive>
 					<router-view></router-view>

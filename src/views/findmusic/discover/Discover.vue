@@ -1,5 +1,5 @@
 <template>
-	<div id="discover" class="w">
+	<div class="discover">
 		<!-- 轮播图 -->
 		<Banner :banner="banner" />
 		<!-- 推荐歌单 -->

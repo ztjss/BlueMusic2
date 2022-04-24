@@ -2,11 +2,15 @@
 @import "../iconfont/iconfont.css";
 @import "../iconfont/colorfont.css";
 @import "../css/element.css";
+
 :root {
-	--mycompColor: #5292fe; /*自定义组件主题色*/
-	--themeColor: #409eff; /*主题色*/
+	--mycompColor: #5292fe;
+	/*自定义组件主题色*/
+	--themeColor: #409eff;
+	/*主题色*/
 	--themeRgba: rgba(64, 158, 255, 0.8);
-	--tagRgba: rgba(100, 149, 237, 0.2); /*标签导航背景色*/
+	--tagRgba: rgba(100, 149, 237, 0.2);
+	/*标签导航背景色*/
 	--base-black: #000000;
 	--info-color: #909399;
 }
@@ -58,12 +62,12 @@ input {
 	outline: none;
 }
 
-body {
+body,
+html {
 	/* CSS3 抗锯齿形 让文字显示的更加清晰 */
 	-webkit-font-smoothing: antialiased;
 	background-color: #fff;
 	font: 14px Microsoft YaHei, Heiti SC, tahoma, arial, Hiragino Sans GB, "\5B8B\4F53", sans-serif;
-
 	/* Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, 微软雅黑, Arial, sans-serif */
 	color: #303133;
 	/* 禁止选中文字 */
@@ -90,6 +94,7 @@ body {
 .clearfix {
 	*zoom: 1;
 }
+
 h1,
 h2,
 h3,
@@ -121,6 +126,7 @@ h4 {
 	background: rgba(100, 100, 100, 0.3);
 	z-index: 2;
 }
+
 .mask-playicon .icon-play {
 	background-color: var(--themeColor);
 	width: 40px;
@@ -140,6 +146,7 @@ h4 {
 	padding-top: 20px;
 	justify-content: center;
 }
+
 /* 图片模糊效果 */
 .bgImg {
 	position: absolute;
@@ -150,9 +157,11 @@ h4 {
 	transform: translate(15px, 15px);
 	filter: blur(25px) brightness(70%);
 }
+
 .search-input .el-input__inner {
 	border: 0 !important;
 }
+
 /*
 滚动条 
  */

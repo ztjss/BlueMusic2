@@ -61,6 +61,17 @@ export default {
 			currentIndex: this.getItem("currentThemeIndex") ? this.getItem("currentThemeIndex") : 0,
 		};
 	},
+	created() {
+		// 设置主题色
+		let currentTheme = this.getItem("currentTheme") ? this.getItem("currentTheme") : null;
+		if (currentTheme != null) {
+			for (let k in currentTheme) {
+				if (k != "title") {
+					document.documentElement.style.setProperty(`--${k}`, currentTheme[k]);
+				}
+			}
+		}
+	},
 	methods: {
 		changeTheme(item, index) {
 			for (let k in item) {
