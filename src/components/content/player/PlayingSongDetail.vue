@@ -345,7 +345,7 @@ export default {
 							// text-overflow: ellipsis;
 							&:hover {
 								cursor: pointer;
-								font-weight: 700;
+								// font-weight: 700;
 							}
 							.lyric-item {
 								flex: 1;

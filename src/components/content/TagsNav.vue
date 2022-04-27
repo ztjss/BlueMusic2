@@ -124,7 +124,7 @@ export default {
 	border-radius: 5px;
 	&:hover {
 		border-color: var(--mycompColor);
-    color: var(--mycompColor);
+		color: var(--mycompColor);
 	}
 }
 .all-tag-list::before {
@@ -143,21 +143,24 @@ export default {
 .all-tag-list {
 	position: absolute;
 	top: 40px;
-	z-index: 9;
+	left: 35px;
+	z-index: 99;
 }
 .all-tag {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-evenly;
+	display: grid;
+	justify-content: space-around;
+	align-content: space-between;
+	grid-template-columns: repeat(4, 24%);
 	width: 400px;
 	height: 300px;
 	overflow-y: scroll;
+	overflow-x: hidden;
 	background: #fff;
-	box-shadow: 0px 0px 10px 5px #eee;
-	padding: 10px 0px;
+	box-shadow: 0px 0px 8px 3px #eee;
+	// padding: 10px 0px;
 	.all-tag-item {
 		padding: 8px 0;
-		width: 80px;
+		width: 90px;
 		text-align: center;
 		span {
 			padding: 3px 5px;

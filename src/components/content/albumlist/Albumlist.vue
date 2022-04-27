@@ -22,9 +22,9 @@ export default {
 <style lang="less" scoped>
 .album-list {
 	display: grid;
-	justify-content: space-around;
+	justify-content: space-evenly;
 	align-content: space-between;
 	grid-template-rows: repeat(8, auto-fill);
-	grid-template-columns: repeat(5, 15%);
+	grid-template-columns: repeat(5, 20%);
 }
 </style>
