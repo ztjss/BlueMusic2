@@ -130,7 +130,7 @@ export default {
 .all-tag-list::before {
 	position: absolute;
 	top: -30px;
-	left: 30px;
+	left: 15px;
 	content: "";
 	width: 0;
 	height: 0;
@@ -143,7 +143,7 @@ export default {
 .all-tag-list {
 	position: absolute;
 	top: 40px;
-	left: 35px;
+	left: 25px;
 	z-index: 99;
 }
 .all-tag {

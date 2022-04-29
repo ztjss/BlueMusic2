@@ -68,13 +68,28 @@
 				<!-- 歌曲进度条 -->
 				<div class="song-progress" @mousedown="isDrag = true" @mouseup="isDrag = false">
 					<!-- 当前歌曲时间 -->
-					<span>{{ currentTime }}</span>
+					<span style="cursor: auto">{{ currentTime }}</span>
 					<!-- 进度条 -->
 					<div class="s-progress">
-						<el-slider v-model="songProgress" :format-tooltip="formatTooltip" :disabled="playingList.length == 0" @change="changeSongProgress"></el-slider>
+						<!-- <el-slider
+							v-model="songProgress"
+							:format-tooltip="formatTooltip"
+							:disabled="playingList.length == 0"
+							@change="changeSongProgress"
+							:is-format-tooltip="true"
+							@onMove="formatTooltip"
+							:tooltip-txt="tooltipTime"
+						></el-slider> -->
+						<Progress
+							@onChange="changeSongProgress"
+							:percent="songProgress"
+							:disabled="playingList.length == 0"
+							@onMove="formatTooltip"
+							:format-tooltip="{ isFormatTooltip: true, tooltipTxt: tooltipTime }"
+						/>
 					</div>
 					<!-- 总时长 -->
-					<span>{{ totalTime }}</span>
+					<span style="cursor: auto">{{ totalTime }}</span>
 				</div>
 				<!-- 切换播放模式 -->
 				<div class="playmodel">
@@ -99,7 +114,8 @@
 				</span>
 				<!-- 声音进度条 -->
 				<div class="v-progress">
-					<el-slider v-model="voiceProgress" @change="changeVoiceProgress"></el-slider>
+					<!-- <el-slider v-model="voiceProgress" @change="changeVoiceProgress"></el-slider> -->
+					<Progress @onChange="changeVoiceProgress" :percent="voiceProgress" />
 				</div>
 				<!-- 播放列表按钮 -->
 				<el-tooltip effect="dark" content="播放列表" placement="top">
@@ -124,9 +140,10 @@ import { formatDuration } from "../common/formatDuration";
 import { getRandom } from "common/getRandom";
 /* 子组件 */
 import PlayingList from "components/content/player/PlayingList.vue";
+import Progress from "components/common/Progress.vue";
 export default {
 	name: "Footer",
-	components: { PlayingList },
+	components: { PlayingList, Progress },
 	computed: {
 		...mapGetters(["isLogin", "userInfo", "songUrl", "isPlaying", "playingList", "nowSongDetail", "likeSongIds", "currentSecond", "currentLyric", "isShowSongDetail"]),
 		cover() {
@@ -135,17 +152,18 @@ export default {
 	},
 	data() {
 		return {
+			totalSecond: this.getItem("totalSecond") ? this.getItem("totalSecond") : 0, // 歌曲总秒数
 			totalTime: this.getItem("totalTime") ? this.getItem("totalTime") : "00:00", //歌曲总时长(分钟)，从缓存中取，用于刷新后显示
 			currentTime: this.getItem("currentTime") ? this.getItem("currentTime") : "00:00", //歌曲当前处于的时间(分钟)，从缓存中取，用于刷新后显示
 			songProgress: this.getItem("songProgress") ? this.getItem("songProgress") : 0, //歌曲时间进度条，从缓存中取，用于刷新后显示
 			voiceProgress: this.getItem("voiceProgress") ? this.getItem("voiceProgress") : 50, //音量进度条，从缓存中取，用于刷新后显示
 			playModel: this.getItem("playModel") ? this.getItem("playModel") : 1, //播放模式
-			totalSecond: "", // 歌曲总秒数
 			nowVolume: "", //静音前的音量
 			islike: false, //是否喜欢当前播放歌曲
 			isDrag: false, //是否在拖拽时间进度条
 			showMask: false, //封面遮罩
 			isShowDrawer: false, //是否显示播放列表
+			tooltipTime: "", //悬浮时间显示
 		};
 	},
 	mounted() {
@@ -201,6 +219,7 @@ export default {
 			this.totalSecond = res.target.duration; //获取总秒数
 			this.totalTime = formatDuration(this.totalSecond); //格式化为分钟
 			this.setItem("totalTime", this.totalTime); //缓存总时长分钟，用于刷新后显示
+			this.setItem("totalSecond", this.totalSecond);
 		},
 		// 监听时间的改变
 		onTimeupdate(res) {
@@ -240,7 +259,8 @@ export default {
 		},
 		// 进度条拖动时，显示当前值,格式化formatTooltip
 		formatTooltip(val) {
-			return formatDuration((val / 100) * this.totalSecond);
+			// return formatDuration((val / 100) * this.totalSecond);
+			this.tooltipTime = formatDuration((val / 100) * this.totalSecond);
 		},
 
 		/*
@@ -285,7 +305,7 @@ export default {
 					this.orderPlay(1);
 				});
 		},
-		
+
 		// 切歌
 		toggleSong(type) {
 			// 判断播放列表不为空和只有一首歌时
