@@ -71,21 +71,14 @@
 					<span style="cursor: auto">{{ currentTime }}</span>
 					<!-- 进度条 -->
 					<div class="s-progress">
-						<!-- <el-slider
-							v-model="songProgress"
-							:format-tooltip="formatTooltip"
-							:disabled="playingList.length == 0"
-							@change="changeSongProgress"
-							:is-format-tooltip="true"
-							@onMove="formatTooltip"
-							:tooltip-txt="tooltipTime"
-						></el-slider> -->
+						<!-- <el-slider v-model="songProgress" :format-tooltip="formatTooltip" :disabled="playingList.length == 0" @change="changeSongProgress" :is-format-tooltip="true"></el-slider> -->
 						<Progress
+							v-model="songProgress"
 							@onChange="changeSongProgress"
-							:percent="songProgress"
+							:is-format-tooltip="true"
+							:format-tooltip="formatTooltip"
+							:showRadiusBtn="false"
 							:disabled="playingList.length == 0"
-							@onMove="formatTooltip"
-							:format-tooltip="{ isFormatTooltip: true, tooltipTxt: tooltipTime }"
 						/>
 					</div>
 					<!-- 总时长 -->
@@ -115,7 +108,7 @@
 				<!-- 声音进度条 -->
 				<div class="v-progress">
 					<!-- <el-slider v-model="voiceProgress" @change="changeVoiceProgress"></el-slider> -->
-					<Progress @onChange="changeVoiceProgress" :percent="voiceProgress" />
+					<Progress v-model="voiceProgress" @onChange="changeVoiceProgress" :showRadiusBtn="false" :isActiveBar="false" />
 				</div>
 				<!-- 播放列表按钮 -->
 				<el-tooltip effect="dark" content="播放列表" placement="top">
@@ -169,11 +162,10 @@ export default {
 			songProgress: this.getItem("songProgress") ? this.getItem("songProgress") : 0, //歌曲时间进度条，从缓存中取，用于刷新后显示
 			voiceProgress: this.getItem("voiceProgress") ? this.getItem("voiceProgress") : 50, //音量进度条，从缓存中取，用于刷新后显示
 			playModel: this.getItem("playModel") ? this.getItem("playModel") : 1, //播放模式
-			nowVolume: "", //静音前的音量
+			nowVolume: 50, //静音前的音量
 			islike: false, //是否喜欢当前播放歌曲
 			showMask: false, //封面遮罩
 			isShowDrawer: false, //是否显示播放列表
-			tooltipTime: "", //悬浮时间显示
 		};
 	},
 	mounted() {
@@ -267,8 +259,7 @@ export default {
 		},
 		// 进度条拖动时，显示当前值,格式化formatTooltip
 		formatTooltip(val) {
-			// return formatDuration((val / 100) * this.totalSecond);
-			this.tooltipTime = formatDuration((val / 100) * this.totalSecond);
+			return formatDuration((val / 100) * this.totalSecond);
 		},
 
 		/*
@@ -287,6 +278,7 @@ export default {
 		},
 		// 拖动音量进度条
 		changeVoiceProgress(len) {
+			// this.voiceProgress = len;
 			this.setItem("voiceProgress", len);
 			this.$refs.audioplay.volume = len / 100; //修改音量
 		},
@@ -467,9 +459,9 @@ export default {
 		likeSongIds() {
 			this.isLikeNowSong();
 		},
-		playingList(playingList) {
+		playingList(newPlayingList) {
 			// 清空播放列表时重置歌曲进度条和总时长
-			if (playingList.length == 0) {
+			if (newPlayingList.length == 0) {
 				this.removeItem("songProgress");
 				this.songProgress = 0;
 				this.removeItem("totalTime");
