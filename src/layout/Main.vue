@@ -58,7 +58,7 @@ export default {
 		// 实现页面的局部刷新 使用provide提供 到需要刷新的页面进行引用，使用inject导入引用reload，然后直接调用即可
 		reload() {
 			this.isRouterAlive = false;
-			this.$nextTick(function() {
+			this.$nextTick(function () {
 				this.isRouterAlive = true;
 			});
 		},
@@ -100,7 +100,6 @@ export default {
 		flex: 1;
 		height: 100%;
 		overflow-y: scroll;
-		
 	}
 }
 

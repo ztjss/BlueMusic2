@@ -189,13 +189,13 @@ export default {
 	},
 	watch: {
 		// 监听当前时间的变化，实现滚动
-		currentSecond() {
-			if (this.currentSecond != 0) {
+		currentSecond(currentSecond) {
+			if (currentSecond != 0) {
 				// 遍历格式化后的歌词数组
 				this.formatlyric.forEach((item, index) => {
 					// 如果歌曲当前秒数和歌词数组中的秒数相等
 					// 这里写==可以在使用原生scroll实现歌词滚动的时候不抖动，如果写>=会抖动
-					if (Math.ceil(this.currentSecond) == item.time) {
+					if (Math.ceil(currentSecond) == item.time) {
 						//.1 使用位移来实现歌词滚动
 						// this.$refs.scrollLyric.style.transform = `translateY(${-45 * index}px)`;
 						//.2 使用原生scroll实现歌词滚动

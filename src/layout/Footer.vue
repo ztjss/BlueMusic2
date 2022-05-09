@@ -66,7 +66,7 @@
 					</span>
 				</div>
 				<!-- 歌曲进度条 -->
-				<div class="song-progress" @mousedown="isDrag = true" @mouseup="isDrag = false">
+				<div class="song-progress">
 					<!-- 当前歌曲时间 -->
 					<span style="cursor: auto">{{ currentTime }}</span>
 					<!-- 进度条 -->
@@ -145,7 +145,18 @@ export default {
 	name: "Footer",
 	components: { PlayingList, Progress },
 	computed: {
-		...mapGetters(["isLogin", "userInfo", "songUrl", "isPlaying", "playingList", "nowSongDetail", "likeSongIds", "currentSecond", "currentLyric", "isShowSongDetail"]),
+		...mapGetters([
+			"isLogin",
+			"userInfo",
+			"songUrl",
+			"isPlaying",
+			"playingList",
+			"nowSongDetail",
+			"likeSongIds",
+			"currentSecond",
+			"currentLyric",
+			"isShowSongDetail",
+		]),
 		cover() {
 			return this.nowSongDetail.al.picUrl + "?param=60y60";
 		},
@@ -160,7 +171,6 @@ export default {
 			playModel: this.getItem("playModel") ? this.getItem("playModel") : 1, //播放模式
 			nowVolume: "", //静音前的音量
 			islike: false, //是否喜欢当前播放歌曲
-			isDrag: false, //是否在拖拽时间进度条
 			showMask: false, //封面遮罩
 			isShowDrawer: false, //是否显示播放列表
 			tooltipTime: "", //悬浮时间显示
@@ -230,18 +240,16 @@ export default {
 			// 缓存当前播放时间（分钟）,用于刷新后显示
 			this.setItem("currentTime", this.currentTime);
 			// 如果没有在拖拽进度条 歌曲当前时间改变后，时间进度条也要改变
-			if (!this.isDrag) {
-				let songProgress = Math.ceil((res.target.currentTime / this.totalSecond) * 100);
-				if (songProgress != Infinity && !isNaN(songProgress)) {
-					// 缓存进度条,用于刷新后恢复
-					this.setItem("songProgress", songProgress);
-					this.songProgress = this.getItem("songProgress");
-				}
+			let songProgress = Math.ceil((res.target.currentTime / this.totalSecond) * 100);
+			if (songProgress != Infinity && !isNaN(songProgress)) {
+				// 缓存进度条,用于刷新后恢复
+				this.setItem("songProgress", songProgress);
+				this.songProgress = this.getItem("songProgress");
 			}
 		},
 		// 拖动时间进度条，改变当前时间，len是进度条改变时的回调函数的参数在0-100之间，需要换算成实际时间拖动进度条，
 		changeSongProgress(len) {
-			this.songProgress = len; //赋值给时间进度条
+			// this.songProgress = len; //赋值给时间进度条
 			// 直接赋值当前播放秒数，在播放详情页监听时间变化的回调，不能使歌词立即滚动到对应位置，需要在这里直接手动让歌词滚动到对应位置
 			let currentSecond = Math.ceil((len / 100) * this.totalSecond); //当前播放秒数
 			this.$refs.audioplay.currentTime = currentSecond; // 赋值给音频标签当前播放秒数
@@ -279,9 +287,8 @@ export default {
 		},
 		// 拖动音量进度条
 		changeVoiceProgress(len) {
-			this.voiceProgress = len;
-			this.setItem("voiceProgress", this.voiceProgress);
-			this.$refs.audioplay.volume = this.voiceProgress / 100; //修改音量
+			this.setItem("voiceProgress", len);
+			this.$refs.audioplay.volume = len / 100; //修改音量
 		},
 
 		/*
@@ -460,9 +467,9 @@ export default {
 		likeSongIds() {
 			this.isLikeNowSong();
 		},
-		playingList() {
+		playingList(playingList) {
 			// 清空播放列表时重置歌曲进度条和总时长
-			if (this.playingList.length == 0) {
+			if (playingList.length == 0) {
 				this.removeItem("songProgress");
 				this.songProgress = 0;
 				this.removeItem("totalTime");
