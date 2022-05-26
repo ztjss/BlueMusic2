@@ -46,6 +46,11 @@ export default {
 			type: [Number, String],
 			default: 6,
 		},
+		// 进度条颜色
+		progressColor: {
+			type: [String, Array],
+			default: "",
+		},
 		// 是否一直显示圆形按钮
 		showRadiusBtn: {
 			type: Boolean,
@@ -107,6 +112,10 @@ export default {
 			let style = {
 				// width: `${this.percent}%`,
 				borderRadius: `${this.progressSize}px`,
+				background:
+					typeof this.progressColor == "string"
+						? `${this.progressColor}`
+						: `linear-gradient(to right,${this.progressColor[0]} 0%,${this.progressColor[1]} 100%)`,
 				transition: this.isDrag ? "none" : "all 0.3s ease-out",
 				cursor: this.disabled ? "not-allowed" : "pointer",
 			};
@@ -116,8 +125,8 @@ export default {
 		radiusBtnStyle() {
 			let style = {
 				// left: `${this.percent}%`,
-				width: this.radiusBtnActive ? `${this.radiusBtnSize + 2}px` : `${this.radiusBtnSize}px`,
-				height: this.radiusBtnActive ? `${this.radiusBtnSize + 2}px` : `${this.radiusBtnSize}px`,
+				width: this.radiusBtnActive ? `${this.radiusBtnSize + 3}px` : `${this.radiusBtnSize}px`,
+				height: this.radiusBtnActive ? `${this.radiusBtnSize + 3}px` : `${this.radiusBtnSize}px`,
 				transform: `translate(${-this.radiusBtnSize + 5}px,-50%)`,
 				transition: this.isDrag ? "none" : "all 0.3s ease-out",
 				cursor: this.disabled ? "not-allowed" : "pointer",
@@ -189,6 +198,7 @@ export default {
 				this.isDrag = true;
 				let percentLength = this.getMousePositon(e);
 				this.setProgressBar(percentLength);
+				// this.$emit("update:percent", percentLength);
 				this.setTooltip(e);
 			};
 			// 鼠标松开，就停止拖拽，让鼠标移动事件解除,并且改变进度条

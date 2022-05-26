@@ -2,7 +2,7 @@
 	<div class="topsonglist" v-if="topsonglist.length !== 0" @mouseover="showPlay" @mouseleave="closePlay" @click="topSongClick">
 		<div class="image">
 			<img v-lazy="topsonglist[0].coverImgUrl + '?param=200y200'" />
-			<img v-lazy="topsonglist[0].coverImgUrl + '?param=200y200'" class="bgImg" />
+			<!-- <img v-lazy="topsonglist[0].coverImgUrl + '?param=200y200'" class="bgImg" /> -->
 			<transition name="el-fade-in-linear">
 				<div class="mask-playicon" v-show="isShowPlay">
 					<span class="iconfont icon-play"></span>
