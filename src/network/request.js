@@ -4,8 +4,8 @@ export function request(config) {
 	const instance = axios.create({
 		// baseURL: "/api",
 		// baseURL: "https://autumnfish.cn/",
-		baseURL: "http://localhost:3000",
-		// baseURL: "https://blue-music-api.vercel.app/",
+		//baseURL: "http://localhost:3000",
+		baseURL: "https://blue-music-api.vercel.app/",
 		// baseURL: "http://124.221.63.19:3000/",
 		timeout: 30000,
 		withCredentials: true,
